@@ -20,13 +20,15 @@ var scenes;
             return _this;
         }
         // Private Mathods
+        //when player shoots
         PlayScene.prototype._Shoot = function () {
-            //console.log("piu")
             if (this._planeBulletsCount == 50) {
                 this._planeBulletsCount = 0;
             }
             this._planeBullets[this._planeBulletsCount].SetXY(this._plane.x, this._plane.y - 30);
             this._planeBulletsCount++;
+            this._planeShotSound = createjs.Sound.play("planeShot");
+            this._planeShotSound.volume = 0.1;
         };
         // Public Methods
         // Initialize Game Variables and objects
@@ -35,24 +37,16 @@ var scenes;
             this._engineSound = createjs.Sound.play("engine");
             this._engineSound.loop = -1;
             this._engineSound.volume = 0.3;
-            //this._dragonNum = 2;
             this._planeBulletsNum = 50;
             this._planeBulletsCount = 0;
             this._fireBackground = new objects.FireBackground(this.assetManager);
             this._plane = new objects.Plane(this.assetManager);
-            this._island = new objects.Island(this.assetManager);
-            //create dragons array
-            //this._dragons = new Array<objects.Dragon>();
+            //this._island = new objects.Island(this.assetManager);
+            this._dragon = new objects.Dragon(this.assetManager);
             this._planeBullets = new Array();
             for (var i = 0; i < this._planeBulletsNum; i++) {
                 this._planeBullets[i] = new objects.PlaneBullets(this.assetManager);
             }
-            //add dragons to array
-            //this._DragonPositionX = 250;
-            //for (let count = 0; count < this._dragonNum; count++) {
-            //  this._dragons[count] = new objects.Dragon(this.assetManager, this._DragonPositionX);
-            //  this._DragonPositionX += 300;
-            //}
             this._scoreBoard = new managers.ScoreBoard();
             objects.Game.scoreBoardManager = this._scoreBoard;
             this.Main();
@@ -61,22 +55,19 @@ var scenes;
             var _this = this;
             this._fireBackground.Update();
             this._plane.Update();
-            this._island.Update();
-            // check collision between plane and island
-            managers.Collision.Check(this._plane, this._island);
-            //update each dragon
-            //this._dragons.forEach(dragon => {
-            //dragon.Update();
-            // check collision between plane and the current dragon
-            //managers.Collision.Check(this._plane, dragon);
-            //});
+            //this._island.Update();
+            this._dragon.Update();
+            // check collision between plane and dragon
+            if (managers.Collision.Check(this._plane, this._dragon)) {
+                this._dragon.x = 900;
+            }
             //update each plane bullet
             var j = 0;
             this._planeBullets.forEach(function (bullet) {
                 bullet.Update();
                 // check collision between island and the current bullet
-                if (managers.Collision.Check(_this._island, bullet)) {
-                    _this._island.x = 900;
+                if (managers.Collision.Check(_this._dragon, bullet)) {
+                    _this._dragon.x = 900;
                     bullet.x = 900;
                 }
             });
@@ -84,23 +75,20 @@ var scenes;
                 this._engineSound.stop();
                 objects.Game.currentScene = config.Scene.OVER;
             }
-            if (objects.Game.keyboardManager.shoot) {
-                this._Shoot();
-            }
+            //press  space to shoot
+            //if(objects.Game.keyboardManager.shoot) {
+            //  this._Shoot();
+            //}
         };
         // This is where the fun happens
         PlayScene.prototype.Main = function () {
             // add fireBackground to the scene
             var _this = this;
             this.addChild(this._fireBackground);
-            // add island to this scene
-            this.addChild(this._island);
+            // add dragon to this scene
+            this.addChild(this._dragon);
             // add plane to this scene
             this.addChild(this._plane);
-            // add dragons to the scene
-            //this._dragons.forEach(dragon => {
-            //  this.addChild(dragon);
-            //});
             // add the Lives Label
             this.addChild(this._scoreBoard.LivesLabel);
             // add the Score Label

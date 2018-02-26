@@ -45,24 +45,24 @@ module objects {
 
     public Move():void {
       // mouse control
-      //this.x = objects.Game.stage.mouseX;
+      this.x = objects.Game.stage.mouseX;
 
       // keyboard controls
-      if(objects.Game.keyboardManager.moveLeft) {
-        this.x -= 6;
-      }
+      //if(objects.Game.keyboardManager.moveLeft) {
+      //  this.x -= 6;
+      //}
 
-      if(objects.Game.keyboardManager.moveRight) {
-        this.x += 6;
-      }
+      //if(objects.Game.keyboardManager.moveRight) {
+      //  this.x += 6;
+      //}
 
-      if(objects.Game.keyboardManager.moveForward) {
-        this.y -= 6;
-      }
+      //if(objects.Game.keyboardManager.moveForward) {
+      //  this.y -= 6;
+      //}
 
-      if(objects.Game.keyboardManager.moveBackward) {
-        this.y += 6;
-      }
+      //if(objects.Game.keyboardManager.moveBackward) {
+      //  this.y += 6;
+      //}
     }
 
     public Start():void {

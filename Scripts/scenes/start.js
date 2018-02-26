@@ -28,7 +28,7 @@ var scenes;
         StartScene.prototype.Start = function () {
             this._titleImg = new objects.titleImg(this.assetManager);
             this._startButton = new objects.Button(this.assetManager, "playNowButton", 400, 400);
-            this._startBackground = new objects.StartBackground(this.assetManager);
+            this._startBackground = new createjs.Bitmap(this.assetManager.getResult("startBackground"));
             this.Main();
         };
         StartScene.prototype.Update = function () {

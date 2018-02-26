@@ -4,7 +4,6 @@
 /// <reference path="../../Scripts/config/keys.ts"/>
 /// <reference path="../../Scripts/config/scene.ts"/>
 /// <reference path="../../Scripts/objects/scene.ts"/>
-/// <reference path="../../Scripts/objects/startBackground.ts"/>
 /// <reference path="../../Scripts/objects/titleImg.ts"/>
 /// <reference path="../../Scripts/objects/fireBackground.ts"/>
 /// <reference path="../../Scripts/objects/gameobject.ts"/>

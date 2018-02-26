@@ -18,6 +18,7 @@
     {id: "fireBackground", src:"./Assets/images/fireBackground.jpg"},
     {id: "startBackground", src:"./Assets/images/startBackground.png"},
     {id: "playNowButton", src:"./Assets/images/playNowButton.png"},
+    {id: "restartButton", src:"./Assets/images/restartButton.png"},
     {id: "dragon", src:"./Assets/images/dragon.png"},
     {id: "titleImg", src:"./Assets/images/titleImg.png"},
     {id: "planeBullet", src:"./Assets/images/planeBullet.png"},
@@ -28,7 +29,9 @@
     {id: "island", src:"./Assets/images/island.png"},
     {id: "engine", src:"./Assets/audio/engine.ogg"},
     {id: "thunder", src:"./Assets/audio/thunder.ogg"},
-    {id: "yay", src:"./Assets/audio/yay.ogg"}
+    {id: "yay", src:"./Assets/audio/yay.ogg"},
+    {id: "planeShot", src:"./Assets/audio/planeShot.mp3"},
+    {id: "gameOverSound", src:"./Assets/audio/gameOverSound.mp3"}
   ];
 
   // preloads assets

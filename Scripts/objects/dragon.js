@@ -15,22 +15,30 @@ var objects;
         // Private Instance Variables
         // Public Properties
         // Constructors
-        function Dragon(assetManager, xPos) {
+        function Dragon(assetManager) {
             var _this = _super.call(this, assetManager, "dragon") || this;
-            _this.x = xPos;
             _this.Start();
             return _this;
         }
         // Private Methods
         // Public Methods
         // Initialization
-        Dragon.prototype.Move = function () {
-            if (this.y < 100) {
-                this.y += 7;
+        Dragon.prototype.Reset = function () {
+            this.x = (Math.random() * (640 - this.width)) + this.halfWidth;
+            this.y = -this.height;
+        };
+        Dragon.prototype.CheckBounds = function () {
+            // check the bottom border
+            if (this.y >= 600 + this.height) {
+                this.Reset();
             }
         };
+        Dragon.prototype.Move = function () {
+            this.y += this._dy;
+        };
         Dragon.prototype.Start = function () {
-            this.y = -100;
+            this._dy = 5;
+            this.Reset();
         };
         // Updates the Object every frame
         Dragon.prototype.Update = function () {

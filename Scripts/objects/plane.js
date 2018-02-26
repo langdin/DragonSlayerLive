@@ -45,20 +45,20 @@ var objects;
         };
         Plane.prototype.Move = function () {
             // mouse control
-            //this.x = objects.Game.stage.mouseX;
+            this.x = objects.Game.stage.mouseX;
             // keyboard controls
-            if (objects.Game.keyboardManager.moveLeft) {
-                this.x -= 6;
-            }
-            if (objects.Game.keyboardManager.moveRight) {
-                this.x += 6;
-            }
-            if (objects.Game.keyboardManager.moveForward) {
-                this.y -= 6;
-            }
-            if (objects.Game.keyboardManager.moveBackward) {
-                this.y += 6;
-            }
+            //if(objects.Game.keyboardManager.moveLeft) {
+            //  this.x -= 6;
+            //}
+            //if(objects.Game.keyboardManager.moveRight) {
+            //  this.x += 6;
+            //}
+            //if(objects.Game.keyboardManager.moveForward) {
+            //  this.y -= 6;
+            //}
+            //if(objects.Game.keyboardManager.moveBackward) {
+            //  this.y += 6;
+            //}
         };
         Plane.prototype.Start = function () {
             this.x = 320;

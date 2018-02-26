@@ -1,7 +1,7 @@
 module scenes {
   export class StartScene extends objects.Scene {
     // Private Instance Variables
-    private _startBackground: objects.StartBackground;
+    private _startBackground: createjs.Bitmap;
     private _titleImg: objects.titleImg;
     private _startButton: objects.Button;
 
@@ -26,7 +26,7 @@ module scenes {
     public Start(): void {
       this._titleImg = new objects.titleImg(this.assetManager);
       this._startButton = new objects.Button(this.assetManager, "playNowButton", 400, 400);
-      this._startBackground = new objects.StartBackground(this.assetManager);
+      this._startBackground = new createjs.Bitmap(this.assetManager.getResult("startBackground"))
       this.Main();
     }
 

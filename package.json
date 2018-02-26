@@ -1,5 +1,5 @@
 {
-  "name": "dragonslayer",
+  "name": "dragonslayerlive",
   "version": "0.0.1",
   "description": "",
   "main": "index.js",
@@ -8,14 +8,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/langdin/DragonSlayer.git"
+    "url": "git+https://github.com/langdin/DragonSlayerLive.git"
   },
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/langdin/DragonSlayer/issues"
+    "url": "https://github.com/langdin/DragonSlayerLive.git/issues"
   },
-  "homepage": "https://github.com/langdin/DragonSlayer#readme",
+  "homepage": "https://github.com/langdin/DragonSlayerLive.git#readme",
   "devDependencies": {
     "@types/easeljs": "^1.0.0"
   },

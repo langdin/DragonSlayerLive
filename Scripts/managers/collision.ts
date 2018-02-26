@@ -12,8 +12,8 @@ module managers {
           if(!object2.isColliding) {
             object2.isColliding = true;
             switch(object2.name) {
-              case "island":
-                //objects.Game.scoreBoardManager.Score += 100;
+              case "dragon":
+                objects.Game.scoreBoardManager.Lives -= 1;
               break;
               case "planeBullet":
                 objects.Game.scoreBoardManager.Score += 100;

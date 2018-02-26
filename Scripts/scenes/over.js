@@ -26,8 +26,10 @@ var scenes;
         // Public Methods
         // Initialize Game Variables and objects
         OverScene.prototype.Start = function () {
-            this._overLabel = new objects.Label("Game Over", "40px", "Consolas", "#000000", 400, 240, true);
-            this._backButton = new objects.Button(this.assetManager, "backButton", 400, 340);
+            //this._gameOverSound = createjs.Sound.play("gameOverSound");
+            //this._gameOverSound.volume = .3;
+            this._overBackground = new createjs.Bitmap(this.assetManager.getResult("startBackground"));
+            this._restartButton = new objects.Button(this.assetManager, "restartButton", 400, 340);
             this.Main();
         };
         OverScene.prototype.Update = function () {
@@ -35,10 +37,10 @@ var scenes;
         // This is where the fun happens
         OverScene.prototype.Main = function () {
             // add the welcome label to the scene
-            this.addChild(this._overLabel);
+            this.addChild(this._overBackground);
             // add the baclButton to the scene
-            this.addChild(this._backButton);
-            this._backButton.on("click", this._backButtonClick);
+            this.addChild(this._restartButton);
+            this._restartButton.on("click", this._backButtonClick);
         };
         return OverScene;
     }(objects.Scene));

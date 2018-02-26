@@ -7,9 +7,8 @@ module objects {
 
 
     // Constructors
-    constructor(assetManager: createjs.LoadQueue, xPos: number) {
+    constructor(assetManager: createjs.LoadQueue) {
       super(assetManager, "dragon");
-      this.x = xPos;
       this.Start();
     }
 
@@ -18,20 +17,30 @@ module objects {
     // Public Methods
 
     // Initialization
-
-
-    public Move(): void {
-      if (this.y < 100) {
-        this.y += 7;
-      }
+    public Reset():void {
+      this.x = (Math.random() * (640 - this.width)) + this.halfWidth;
+      this.y = -this.height;
     }
 
-    public Start(): void {
-      this.y = -100;
+    public CheckBounds():void {
+      // check the bottom border
+      if(this.y >= 600 + this.height) {
+        this.Reset();
+      }
+
+    }
+
+    public Move():void {
+      this.y += this._dy;
+    }
+
+    public Start():void {
+      this._dy = 5;
+      this.Reset();
     }
 
     // Updates the Object every frame
-    public Update(): void {
+    public Update():void {
       this.Move();
       this.CheckBounds();
     }
