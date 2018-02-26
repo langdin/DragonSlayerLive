@@ -24,7 +24,7 @@ var objects;
         // Public Methods
         // Initialization
         Dragon.prototype.Reset = function () {
-            this.x = (Math.random() * (640 - this.width)) + this.halfWidth;
+            this.x = (Math.random() * (800 - this.width)) + this.halfWidth;
             this.y = -this.height;
         };
         Dragon.prototype.CheckBounds = function () {

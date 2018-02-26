@@ -29,6 +29,7 @@ var scenes;
             //this._gameOverSound = createjs.Sound.play("gameOverSound");
             //this._gameOverSound.volume = .3;
             this._overBackground = new createjs.Bitmap(this.assetManager.getResult("startBackground"));
+            this._gameOverImg = new objects.GameOverImg(this.assetManager);
             this._restartButton = new objects.Button(this.assetManager, "restartButton", 400, 340);
             this.Main();
         };
@@ -38,6 +39,8 @@ var scenes;
         OverScene.prototype.Main = function () {
             // add the welcome label to the scene
             this.addChild(this._overBackground);
+            // add game over img
+            this.addChild(this._gameOverImg);
             // add the baclButton to the scene
             this.addChild(this._restartButton);
             this._restartButton.on("click", this._backButtonClick);

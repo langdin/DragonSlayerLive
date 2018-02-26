@@ -10,33 +10,34 @@ var __extends = (this && this.__extends) || (function () {
 })();
 var objects;
 (function (objects) {
-    var TitleImg = /** @class */ (function (_super) {
-        __extends(TitleImg, _super);
+    var GameOverImg = /** @class */ (function (_super) {
+        __extends(GameOverImg, _super);
         // Private Instance Variables
         // Public Properties
         // Constructors
-        function TitleImg(assetManager) {
-            var _this = _super.call(this, assetManager.getResult("titleImg")) || this;
+        function GameOverImg(assetManager) {
+            var _this = _super.call(this, assetManager.getResult("gameOverImg")) || this;
             _this.Start();
             return _this;
         }
         // Private Methods
-        TitleImg.prototype._reset = function () {
+        GameOverImg.prototype._reset = function () {
         };
-        TitleImg.prototype._checkBounds = function () {
+        GameOverImg.prototype._checkBounds = function () {
         };
-        TitleImg.prototype._move = function () {
+        GameOverImg.prototype._move = function () {
         };
         // Public Methods
         // Initialization
-        TitleImg.prototype.Start = function () {
+        GameOverImg.prototype.Start = function () {
+            this.x = 170;
             this.y = 200;
         };
         // Updates the Object every frame
-        TitleImg.prototype.Update = function () {
+        GameOverImg.prototype.Update = function () {
         };
-        return TitleImg;
+        return GameOverImg;
     }(createjs.Bitmap));
-    objects.TitleImg = TitleImg;
+    objects.GameOverImg = GameOverImg;
 })(objects || (objects = {}));
-//# sourceMappingURL=titleImg.js.map
+//# sourceMappingURL=gameOverImg.js.map

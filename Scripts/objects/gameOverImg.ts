@@ -1,12 +1,12 @@
 module objects {
-    export class TitleImg extends createjs.Bitmap {
+    export class GameOverImg extends createjs.Bitmap {
       // Private Instance Variables
   
       // Public Properties
   
       // Constructors
       constructor(assetManager: createjs.LoadQueue) {
-        super(assetManager.getResult("titleImg"));
+        super(assetManager.getResult("gameOverImg"));
         this.Start();
       }
   
@@ -24,6 +24,7 @@ module objects {
   
       // Initialization
       public Start():void {
+          this.x = 170;
           this.y = 200;
       }
   

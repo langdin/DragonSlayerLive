@@ -26,7 +26,7 @@ var scenes;
         // Public Methods
         // Initialize Game Variables and objects
         StartScene.prototype.Start = function () {
-            this._titleImg = new objects.titleImg(this.assetManager);
+            this._titleImg = new objects.TitleImg(this.assetManager);
             this._startButton = new objects.Button(this.assetManager, "playNowButton", 400, 400);
             this._startBackground = new createjs.Bitmap(this.assetManager.getResult("startBackground"));
             this.Main();

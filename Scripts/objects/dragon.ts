@@ -18,7 +18,7 @@ module objects {
 
     // Initialization
     public Reset():void {
-      this.x = (Math.random() * (640 - this.width)) + this.halfWidth;
+      this.x = (Math.random() * (800 - this.width)) + this.halfWidth;
       this.y = -this.height;
     }
 

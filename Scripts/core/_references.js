@@ -7,6 +7,7 @@
 /// <reference path="../../Scripts/objects/titleImg.ts"/>
 /// <reference path="../../Scripts/objects/fireBackground.ts"/>
 /// <reference path="../../Scripts/objects/gameobject.ts"/>
+/// <reference path="../../Scripts/objects/gameOverImg.ts"/>
 /// <reference path="../../Scripts/math/vec2.ts"/>
 /// <reference path="../../Scripts/managers/keyboard.ts"/>
 /// <reference path="../../Scripts/managers/scoreboard.ts"/>

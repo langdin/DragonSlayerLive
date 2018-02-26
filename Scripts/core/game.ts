@@ -21,6 +21,7 @@
     {id: "restartButton", src:"./Assets/images/restartButton.png"},
     {id: "dragon", src:"./Assets/images/dragon.png"},
     {id: "titleImg", src:"./Assets/images/titleImg.png"},
+    {id: "gameOverImg", src:"./Assets/images/gameOverImg.png"},
     {id: "planeBullet", src:"./Assets/images/planeBullet.png"},
     {id: "startButton", src:"./Assets/images/startButton.png"},
     {id: "nextButton", src:"./Assets/images/nextButton.png"},
