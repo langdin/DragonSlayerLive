@@ -1,5 +1,5 @@
 {
-  "name": "comp397-w2018-mailpilotdemo-a",
+  "name": "dragonslayer",
   "version": "0.0.1",
   "description": "",
   "main": "index.js",
@@ -8,14 +8,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/CentennialCollege/COMP397-W2018-MailPilotDemo-A.git"
+    "url": "git+https://github.com/langdin/DragonSlayer.git"
   },
-  "author": "Tom Tsiliopoulos <tsiliopoulos@hotmail.com>",
+  "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/CentennialCollege/COMP397-W2018-MailPilotDemo-A/issues"
+    "url": "https://github.com/langdin/DragonSlayer/issues"
   },
-  "homepage": "https://github.com/CentennialCollege/COMP397-W2018-MailPilotDemo-A#readme",
+  "homepage": "https://github.com/langdin/DragonSlayer#readme",
   "devDependencies": {
     "@types/easeljs": "^1.0.0"
   },
