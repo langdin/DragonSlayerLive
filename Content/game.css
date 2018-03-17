@@ -2,3 +2,11 @@
   border: 1px black dotted;
   margin-left: 15%;
 }
+
+@font-face {
+  font-family: 'rockwell';
+  src: url('../Assets/fonts/rockwell.woff2') format('woff2'),
+       url('../Assets/fonts/rockwell.woff') format('woff');
+  font-weight: 'normal';
+  font-style: 'normal';
+}

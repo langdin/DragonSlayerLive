@@ -5,6 +5,7 @@ module scenes {
     private _gameOverImg: objects.GameOverImg;
     private _restartButton: objects.Button;
     private _gameOverSound: createjs.AbstractSoundInstance;
+    private _scoreBoard: managers.ScoreBoard;
 
     // Public Properties
 
@@ -30,7 +31,8 @@ module scenes {
       //this._gameOverSound.volume = .3;
       this._overBackground = new createjs.Bitmap(this.assetManager.getResult("startBackground"));
       this._gameOverImg = new objects.GameOverImg(this.assetManager);
-      this._restartButton = new objects.Button(this.assetManager, "restartButton", 400, 340);
+      this._restartButton = new objects.Button(this.assetManager, "restartButton", 400, 400);
+      this._scoreBoard = objects.Game.scoreBoardManager;
 
       this.Main();
     }
@@ -48,6 +50,8 @@ module scenes {
 
       // add the baclButton to the scene
       this.addChild(this._restartButton);
+
+      this.addChild(this._scoreBoard.HighScoreLabel);
 
       this._restartButton.on("click", this._backButtonClick);
     }

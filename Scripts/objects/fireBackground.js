@@ -29,9 +29,9 @@ var objects;
             }
         };
         FireBackground.prototype._move = function () {
-            if (objects.Game.scoreBoardManager.Score < 2000) {
-                this.y += this._dy;
-            }
+            //if (objects.Game.scoreBoardManager.Score < 2000) {
+            this.y += this._dy;
+            //}
         };
         // Public Methods
         // Initialization

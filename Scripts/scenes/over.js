@@ -30,7 +30,8 @@ var scenes;
             //this._gameOverSound.volume = .3;
             this._overBackground = new createjs.Bitmap(this.assetManager.getResult("startBackground"));
             this._gameOverImg = new objects.GameOverImg(this.assetManager);
-            this._restartButton = new objects.Button(this.assetManager, "restartButton", 400, 340);
+            this._restartButton = new objects.Button(this.assetManager, "restartButton", 400, 400);
+            this._scoreBoard = objects.Game.scoreBoardManager;
             this.Main();
         };
         OverScene.prototype.Update = function () {
@@ -43,6 +44,7 @@ var scenes;
             this.addChild(this._gameOverImg);
             // add the baclButton to the scene
             this.addChild(this._restartButton);
+            this.addChild(this._scoreBoard.HighScoreLabel);
             this._restartButton.on("click", this._backButtonClick);
         };
         return OverScene;

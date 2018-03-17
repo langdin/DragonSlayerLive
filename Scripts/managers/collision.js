@@ -18,7 +18,10 @@ var managers;
                         case "dragon":
                             objects.Game.scoreBoardManager.Score += 100;
                             break;
-                        case "boss":
+                        case "boss1":
+                            objects.Game.scoreBoardManager.Score += 200;
+                            break;
+                        case "boss2":
                             objects.Game.scoreBoardManager.Score += 200;
                             break;
                     }

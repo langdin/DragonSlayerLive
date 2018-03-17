@@ -25,7 +25,7 @@ module objects {
       // Initialization
       public Start():void {
           this.x = 170;
-          this.y = 200;
+          this.y = 150;
       }
   
       // Updates the Object every frame

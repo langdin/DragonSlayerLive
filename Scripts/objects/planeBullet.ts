@@ -20,6 +20,9 @@ module objects {
         }
 
         public CheckBounds(): void {
+            if(this.y == 0 - this.height) {
+                this.x == 900;
+            }
         }
 
         public SetXY(x:number, y:number):void {

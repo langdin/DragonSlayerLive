@@ -17,6 +17,7 @@ var objects;
         function Dragon(assetManager, posY) {
             var _this = _super.call(this, assetManager, "dragon") || this;
             _this._posY = posY;
+            _this._stopSpawn = false;
             _this.Start();
             return _this;
         }
@@ -24,8 +25,11 @@ var objects;
         // Public Methods
         // Initialization
         Dragon.prototype.Reset = function () {
-            this.x = (Math.random() * (800 - this.width)) + this.halfWidth;
-            this.y = -(this.height + this._posY);
+            if (!this._stopSpawn) {
+                this.x = (Math.random() * (800 - this.width)) + this.halfWidth;
+                this.y = -(this.height + this._posY) - 20;
+                //console.log("spawn")
+            }
         };
         Dragon.prototype.CheckBounds = function () {
             // check the bottom border
@@ -33,13 +37,14 @@ var objects;
                 this.Reset();
             }
         };
+        Dragon.prototype.StopSpawn = function () {
+            this._stopSpawn = true;
+            //console.log('change spawn')
+        };
         Dragon.prototype.Move = function () {
-            if (objects.Game.scoreBoardManager.Score < 2000) {
-                this.y += this._dy;
-            }
-            else {
-                this.x = 1000;
-            }
+            //if(objects.Game.scoreBoardManager.Score < 2000) {
+            this.y += this._dy;
+            //} 
         };
         Dragon.prototype.Start = function () {
             this._dy = 5;

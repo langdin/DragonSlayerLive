@@ -23,9 +23,9 @@ module objects {
       }
   
       private _move():void {
-        if (objects.Game.scoreBoardManager.Score < 2000) {
+        //if (objects.Game.scoreBoardManager.Score < 2000) {
           this.y += this._dy;
-        }
+        //}
       }
   
       // Public Methods

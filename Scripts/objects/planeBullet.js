@@ -26,6 +26,9 @@ var objects;
         PlaneBullets.prototype.Reset = function () {
         };
         PlaneBullets.prototype.CheckBounds = function () {
+            if (this.y == 0 - this.height) {
+                this.x == 900;
+            }
         };
         PlaneBullets.prototype.SetXY = function (x, y) {
             this.x = x;

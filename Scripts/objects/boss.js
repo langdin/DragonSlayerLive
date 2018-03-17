@@ -15,8 +15,8 @@ var objects;
         // Private Instance Variables
         // Public Properties
         // Constructors
-        function Boss1(assetManager) {
-            var _this = _super.call(this, assetManager, "boss") || this;
+        function Boss1(assetManager, name) {
+            var _this = _super.call(this, assetManager, name) || this;
             _this.Start();
             return _this;
         }
@@ -25,22 +25,20 @@ var objects;
         // Initialization
         Boss1.prototype.Reset = function () {
             this.x = 400;
-            this.y = -this.height;
         };
         Boss1.prototype.CheckBounds = function () {
             // check the bottom border
-            if (this.y >= 600 + this.height) {
+            if (this.y >= 0 - this.height) {
                 this.Reset();
             }
         };
         Boss1.prototype.Move = function () {
-            if (objects.Game.scoreBoardManager.Score >= 2000) {
-                this.y += this._dy;
-            }
+            this.y += this._dy;
         };
         Boss1.prototype.Start = function () {
             this._dy = 5;
-            this.Reset();
+            this.x = 1000;
+            this.y = -this.height - 20;
         };
         // Updates the Object every frame
         Boss1.prototype.Update = function () {
@@ -53,4 +51,4 @@ var objects;
     }(objects.GameObject));
     objects.Boss1 = Boss1;
 })(objects || (objects = {}));
-//# sourceMappingURL=boss1.js.map
+//# sourceMappingURL=boss.js.map

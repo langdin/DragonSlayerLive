@@ -17,15 +17,12 @@
         { id: "playNowButton", src: "./Assets/images/playNowButton.png" },
         { id: "restartButton", src: "./Assets/images/restartButton.png" },
         { id: "dragon", src: "./Assets/images/dragon.png" },
-        { id: "boss", src: "./Assets/images/boss1.gif" },
+        { id: "boss1", src: "./Assets/images/boss1.gif" },
+        { id: "boss2", src: "./Assets/images/boss2.gif" },
         { id: "titleImg", src: "./Assets/images/titleImg.png" },
         { id: "gameOverImg", src: "./Assets/images/gameOverImg.png" },
         { id: "planeBullet", src: "./Assets/images/planeBullet.png" },
-        { id: "startButton", src: "./Assets/images/startButton.png" },
-        { id: "nextButton", src: "./Assets/images/nextButton.png" },
-        { id: "backButton", src: "./Assets/images/backButton.png" },
         { id: "plane", src: "./Assets/images/player.png" },
-        { id: "island", src: "./Assets/images/island.png" },
         { id: "engine", src: "./Assets/audio/engine.ogg" },
         { id: "thunder", src: "./Assets/audio/thunder.ogg" },
         { id: "yay", src: "./Assets/audio/yay.ogg" },
@@ -70,6 +67,9 @@
                 break;
             case config.Scene.PLAY:
                 currentScene = new scenes.PlayScene(assetManager);
+                break;
+            case config.Scene.PLAY2:
+                currentScene = new scenes.PlayScene2(assetManager);
                 break;
             case config.Scene.OVER:
                 currentScene = new scenes.OverScene(assetManager);

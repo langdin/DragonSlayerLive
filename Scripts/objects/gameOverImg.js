@@ -31,7 +31,7 @@ var objects;
         // Initialization
         GameOverImg.prototype.Start = function () {
             this.x = 170;
-            this.y = 200;
+            this.y = 150;
         };
         // Updates the Object every frame
         GameOverImg.prototype.Update = function () {
