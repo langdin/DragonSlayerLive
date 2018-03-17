@@ -1,14 +1,15 @@
 module objects {
   export class Dragon extends objects.GameObject {
     // Private Instance Variables
-
+    private _posY: number;
 
     // Public Properties
 
 
     // Constructors
-    constructor(assetManager: createjs.LoadQueue) {
+    constructor(assetManager: createjs.LoadQueue, posY) {
       super(assetManager, "dragon");
+      this._posY = posY;
       this.Start();
     }
 
@@ -19,7 +20,7 @@ module objects {
     // Initialization
     public Reset():void {
       this.x = (Math.random() * (800 - this.width)) + this.halfWidth;
-      this.y = -this.height;
+      this.y = -(this.height+this._posY);
     }
 
     public CheckBounds():void {
@@ -31,7 +32,12 @@ module objects {
     }
 
     public Move():void {
-      this.y += this._dy;
+      if(objects.Game.scoreBoardManager.Score < 2000) {
+        this.y += this._dy;
+        
+      } else {
+        this.x = 1000;
+      }
     }
 
     public Start():void {

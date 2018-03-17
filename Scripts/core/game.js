@@ -17,6 +17,7 @@
         { id: "playNowButton", src: "./Assets/images/playNowButton.png" },
         { id: "restartButton", src: "./Assets/images/restartButton.png" },
         { id: "dragon", src: "./Assets/images/dragon.png" },
+        { id: "boss", src: "./Assets/images/boss1.gif" },
         { id: "titleImg", src: "./Assets/images/titleImg.png" },
         { id: "gameOverImg", src: "./Assets/images/gameOverImg.png" },
         { id: "planeBullet", src: "./Assets/images/planeBullet.png" },

@@ -10,48 +10,47 @@ var __extends = (this && this.__extends) || (function () {
 })();
 var objects;
 (function (objects) {
-    var Dragon = /** @class */ (function (_super) {
-        __extends(Dragon, _super);
+    var Boss1 = /** @class */ (function (_super) {
+        __extends(Boss1, _super);
+        // Private Instance Variables
         // Public Properties
         // Constructors
-        function Dragon(assetManager, posY) {
-            var _this = _super.call(this, assetManager, "dragon") || this;
-            _this._posY = posY;
+        function Boss1(assetManager) {
+            var _this = _super.call(this, assetManager, "boss") || this;
             _this.Start();
             return _this;
         }
         // Private Methods
         // Public Methods
         // Initialization
-        Dragon.prototype.Reset = function () {
-            this.x = (Math.random() * (800 - this.width)) + this.halfWidth;
-            this.y = -(this.height + this._posY);
+        Boss1.prototype.Reset = function () {
+            this.x = 400;
+            this.y = -this.height;
         };
-        Dragon.prototype.CheckBounds = function () {
+        Boss1.prototype.CheckBounds = function () {
             // check the bottom border
             if (this.y >= 600 + this.height) {
                 this.Reset();
             }
         };
-        Dragon.prototype.Move = function () {
-            if (objects.Game.scoreBoardManager.Score < 2000) {
+        Boss1.prototype.Move = function () {
+            if (objects.Game.scoreBoardManager.Score >= 2000) {
                 this.y += this._dy;
             }
-            else {
-                this.x = 1000;
-            }
         };
-        Dragon.prototype.Start = function () {
+        Boss1.prototype.Start = function () {
             this._dy = 5;
             this.Reset();
         };
         // Updates the Object every frame
-        Dragon.prototype.Update = function () {
-            this.Move();
+        Boss1.prototype.Update = function () {
+            if (this.y < 120) {
+                this.Move();
+            }
             this.CheckBounds();
         };
-        return Dragon;
+        return Boss1;
     }(objects.GameObject));
-    objects.Dragon = Dragon;
+    objects.Boss1 = Boss1;
 })(objects || (objects = {}));
-//# sourceMappingURL=dragon.js.map
+//# sourceMappingURL=boss1.js.map
