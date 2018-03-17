@@ -60,7 +60,7 @@ var scenes;
         };
         PlayScene.prototype.Update = function () {
             var _this = this;
-            if (this._dragonsKilled < 5) {
+            if (this._dragonsKilled < 20) {
                 this._fireBackground.Update();
             }
             this._plane.Update();
@@ -70,10 +70,10 @@ var scenes;
                 if (managers.Collision.Check(dragon, _this._plane)) {
                     dragon.x = 1200;
                 }
-                if (_this._dragonsKilled >= 5) {
+                if (_this._dragonsKilled >= 20) {
                     dragon.StopSpawn();
                 }
-                if (dragon.y > 850 && _this._dragonsKilled >= 5) {
+                if (dragon.y > 850 && _this._dragonsKilled >= 20) {
                     //console.log('boss time')
                     _this._boss1.Update();
                 }

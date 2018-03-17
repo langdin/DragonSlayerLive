@@ -87,7 +87,7 @@ module scenes {
     }
 
     public Update(): void {
-      if(this._dragonsKilled < 5) {
+      if(this._dragonsKilled < 20) {
         this._fireBackground.Update();
       }
       this._plane.Update();
@@ -99,11 +99,11 @@ module scenes {
           dragon.x = 1200;
         }
 
-        if(this._dragonsKilled >= 5) {
+        if(this._dragonsKilled >= 20) {
           dragon.StopSpawn();
         }
 
-        if(dragon.y > 850 && this._dragonsKilled >= 5) {
+        if(dragon.y > 850 && this._dragonsKilled >= 20) {
           //console.log('boss time')
           this._boss1.Update();
 
