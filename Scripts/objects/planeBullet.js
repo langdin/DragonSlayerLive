@@ -10,12 +10,12 @@ var __extends = (this && this.__extends) || (function () {
 })();
 var objects;
 (function (objects) {
-    var PlaneBullets = /** @class */ (function (_super) {
-        __extends(PlaneBullets, _super);
+    var PlaneBullet = /** @class */ (function (_super) {
+        __extends(PlaneBullet, _super);
         // Private Instance Variables
         // Public Properties
         // Constructors
-        function PlaneBullets(assetManager) {
+        function PlaneBullet(assetManager) {
             var _this = _super.call(this, assetManager, "planeBullet") || this;
             _this.Start();
             return _this;
@@ -23,29 +23,32 @@ var objects;
         // Private Methods
         // Public Methods
         // Initialization
-        PlaneBullets.prototype.Reset = function () {
+        PlaneBullet.prototype.Reset = function () {
+            this.x = -1000;
+            this.y = -1000;
         };
-        PlaneBullets.prototype.CheckBounds = function () {
-            if (this.y == 0 - this.height) {
-                this.x == 900;
+        PlaneBullet.prototype.CheckBounds = function () {
+            if (this.y <= -this.height) {
+                this.Reset();
             }
         };
-        PlaneBullets.prototype.SetXY = function (x, y) {
+        PlaneBullet.prototype.SetXY = function (x, y) {
             this.x = x;
             this.y = y;
         };
-        PlaneBullets.prototype.Move = function () {
+        PlaneBullet.prototype.Move = function () {
             this.y -= this._dy;
         };
-        PlaneBullets.prototype.Start = function () {
+        PlaneBullet.prototype.Start = function () {
             this._dy = 10;
+            this.Reset();
         };
         // Updates the Object every frame
-        PlaneBullets.prototype.Update = function () {
+        PlaneBullet.prototype.Update = function () {
             this.Move();
         };
-        return PlaneBullets;
+        return PlaneBullet;
     }(objects.GameObject));
-    objects.PlaneBullets = PlaneBullets;
+    objects.PlaneBullet = PlaneBullet;
 })(objects || (objects = {}));
 //# sourceMappingURL=planeBullet.js.map

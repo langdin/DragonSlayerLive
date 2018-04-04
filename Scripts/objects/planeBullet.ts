@@ -1,5 +1,5 @@
 module objects {
-    export class PlaneBullets extends objects.GameObject {
+    export class PlaneBullet extends objects.GameObject {
         // Private Instance Variables
 
         // Public Properties
@@ -17,11 +17,13 @@ module objects {
 
         // Initialization
         public Reset(): void {
+            this.x = - 1000;
+            this.y = - 1000;
         }
 
         public CheckBounds(): void {
-            if(this.y == 0 - this.height) {
-                this.x == 900;
+            if(this.y <= - this.height) {
+                this.Reset();
             }
         }
 
@@ -36,6 +38,7 @@ module objects {
 
         public Start(): void {
             this._dy = 10;
+            this.Reset();
         }
 
         // Updates the Object every frame

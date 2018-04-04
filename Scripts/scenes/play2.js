@@ -47,10 +47,10 @@ var scenes;
             for (var i = 0; i < this._dragonsNumber; i++) {
                 this._dragons[i] = new objects.Dragon(this.assetManager, Math.random() * 350);
             }
-            this._boss2 = new objects.Boss1(this.assetManager, "boss2");
+            this._boss = new objects.Boss1(this.assetManager, "boss2");
             this._planeBullets = new Array();
             for (var i = 0; i < this._planeBulletsNum; i++) {
-                this._planeBullets[i] = new objects.PlaneBullets(this.assetManager);
+                this._planeBullets[i] = new objects.PlaneBullet(this.assetManager);
             }
             this._scoreBoard = objects.Game.scoreBoardManager;
             this._bossKilled = false;
@@ -73,18 +73,18 @@ var scenes;
                     dragon.StopSpawn();
                 }
                 if (dragon.y > 850 && _this._dragonsKilled >= 30) {
-                    _this._boss2.Reset();
-                    _this._boss2.Update();
+                    _this._boss.Reset();
+                    _this._boss.Update();
                 }
             });
             //update each planebullet and check collision with boss
             this._planeBullets.forEach(function (bullet) {
                 bullet.Update();
-                if (managers.Collision.Check(bullet, _this._boss2)) {
+                if (managers.Collision.Check(bullet, _this._boss)) {
                     _this._bossHealth--;
                     if (_this._bossHealth == 0) {
-                        _this._boss2.x = 1800;
-                        _this.removeChild(_this._boss2);
+                        _this._boss.x = 1800;
+                        _this.removeChild(_this._boss);
                         _this._bossKilled = true;
                     }
                     bullet.x = 900;
@@ -127,7 +127,7 @@ var scenes;
             });
             // add plane to this scene
             this.addChild(this._plane);
-            this.addChild(this._boss2);
+            this.addChild(this._boss);
             // add the Lives Label
             this.addChild(this._scoreBoard.LivesLabel);
             // add the Score Label

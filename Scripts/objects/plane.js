@@ -69,6 +69,17 @@ var objects;
             this.Move();
             this.CheckBounds();
         };
+        Plane.prototype.BulletFire = function () {
+            var currentBullet = objects.Game.planeBulletManger.CurrentBullet;
+            objects.Game.planeBulletManger.Bullets[currentBullet].x = objects.Game.plane.x;
+            objects.Game.planeBulletManger.Bullets[currentBullet].y = objects.Game.plane.y - 30;
+            objects.Game.planeBulletManger.CurrentBullet++;
+            if (objects.Game.planeBulletManger.CurrentBullet > 49) {
+                objects.Game.planeBulletManger.CurrentBullet = 0;
+            }
+            var planeShotSound = createjs.Sound.play("planeShot");
+            planeShotSound.volume = 0.1;
+        };
         return Plane;
     }(objects.GameObject));
     objects.Plane = Plane;

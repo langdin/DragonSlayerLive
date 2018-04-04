@@ -7,10 +7,10 @@ module scenes {
       private _dragons: objects.Dragon[];
       private _dragonsNumber: number;
   
-      private _boss2: objects.Boss1;
+      private _boss: objects.Boss1;
       private _bossHealth: number;
   
-      private _planeBullets: objects.PlaneBullets[];
+      private _planeBullets: objects.PlaneBullet[];
       private _planeBulletsNum: number;
       private _planeBulletsCount: number;
   
@@ -69,13 +69,13 @@ module scenes {
           this._dragons[i] = new objects.Dragon(this.assetManager, Math.random()* 350);
         }
   
-        this._boss2 = new objects.Boss1(this.assetManager, "boss2");
+        this._boss = new objects.Boss1(this.assetManager, "boss2");
   
-        this._planeBullets = new Array<objects.PlaneBullets>();
+        this._planeBullets = new Array<objects.PlaneBullet>();
   
         
         for (let i = 0; i < this._planeBulletsNum; i++) {
-          this._planeBullets[i] = new objects.PlaneBullets(this.assetManager);
+          this._planeBullets[i] = new objects.PlaneBullet(this.assetManager);
         }
   
         this._scoreBoard = objects.Game.scoreBoardManager;
@@ -106,8 +106,8 @@ module scenes {
           }
   
           if(dragon.y > 850 && this._dragonsKilled >= 30) {
-            this._boss2.Reset();
-            this._boss2.Update();
+            this._boss.Reset();
+            this._boss.Update();
           }
         });
   
@@ -115,11 +115,11 @@ module scenes {
         this._planeBullets.forEach(bullet => {
              bullet.Update(); 
   
-             if (managers.Collision.Check(bullet, this._boss2)) {
+             if (managers.Collision.Check(bullet, this._boss)) {
                   this._bossHealth--;
                   if (this._bossHealth == 0) {
-                    this._boss2.x = 1800;
-                    this.removeChild(this._boss2);
+                    this._boss.x = 1800;
+                    this.removeChild(this._boss);
                     this._bossKilled = true;
                   }
                   bullet.x = 900;
@@ -170,7 +170,7 @@ module scenes {
         // add plane to this scene
         this.addChild(this._plane);
   
-        this.addChild(this._boss2);
+        this.addChild(this._boss);
   
         // add the Lives Label
         this.addChild(this._scoreBoard.LivesLabel);
