@@ -1,4 +1,4 @@
-/// <reference path="../../Scripts/objects/game.ts"/>
+/// <reference path="../../Scripts/managers/game.ts"/>
 /// <reference path="../../Scripts/objects/label.ts"/>
 /// <reference path="../../Scripts/config/keys.ts"/>
 /// <reference path="../../Scripts/config/scene.ts"/>

@@ -13,16 +13,16 @@ var managers;
                     object2.isColliding = true;
                     switch (object2.name) {
                         case "plane":
-                            objects.Game.scoreBoardManager.Lives -= 1;
+                            managers.Game.scoreBoardManager.Lives -= 1;
                             break;
                         case "dragon":
-                            objects.Game.scoreBoardManager.Score += 100;
+                            managers.Game.scoreBoardManager.Score += 100;
                             break;
                         case "boss1":
-                            objects.Game.scoreBoardManager.Score += 200;
+                            managers.Game.scoreBoardManager.Score += 200;
                             break;
                         case "boss2":
-                            objects.Game.scoreBoardManager.Score += 200;
+                            managers.Game.scoreBoardManager.Score += 200;
                             break;
                     }
                     return true;

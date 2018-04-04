@@ -21,7 +21,7 @@ var scenes;
         }
         // Private Mathods
         StartScene.prototype._startButtonClick = function () {
-            objects.Game.currentScene = config.Scene.PLAY;
+            managers.Game.currentScene = config.Scene.PLAY;
         };
         // Public Methods
         // Initialize Game Variables and objects

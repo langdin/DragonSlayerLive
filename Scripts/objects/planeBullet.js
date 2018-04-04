@@ -32,10 +32,6 @@ var objects;
                 this.Reset();
             }
         };
-        PlaneBullet.prototype.SetXY = function (x, y) {
-            this.x = x;
-            this.y = y;
-        };
         PlaneBullet.prototype.Move = function () {
             this.y -= this._dy;
         };

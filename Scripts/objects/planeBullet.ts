@@ -27,11 +27,6 @@ module objects {
             }
         }
 
-        public SetXY(x:number, y:number):void {
-            this.x = x;
-            this.y = y;
-        }
-
         public Move(): void {
             this.y -= this._dy;
         }

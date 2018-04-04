@@ -28,7 +28,7 @@ var objects;
         };
         Boss1.prototype.CheckBounds = function () {
             // check the bottom border
-            if (this.y >= 0 - this.height) {
+            if (this.y >= -this.height) {
                 this.Reset();
             }
         };
@@ -37,7 +37,7 @@ var objects;
         };
         Boss1.prototype.Start = function () {
             this._dy = 5;
-            this.x = 1000;
+            this.x = -2000;
             this.y = -this.height - 20;
         };
         // Updates the Object every frame

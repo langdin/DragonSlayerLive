@@ -47,7 +47,7 @@ var objects;
             //} 
         };
         Dragon.prototype.Start = function () {
-            this._dy = 5;
+            this._dy = 4;
             this.Reset();
         };
         // Updates the Object every frame

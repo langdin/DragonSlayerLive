@@ -44,12 +44,12 @@ module objects {
     public Move():void {
       //if(objects.Game.scoreBoardManager.Score < 2000) {
         this.y += this._dy;
-        
       //} 
     }
 
     public Start():void {
-      this._dy = 5;
+      this._dy = 4;
+    
       this.Reset();
     }
 

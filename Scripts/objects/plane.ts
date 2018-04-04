@@ -45,7 +45,7 @@ module objects {
 
     public Move(): void {
       // mouse control
-      this.x = objects.Game.stage.mouseX;
+      this.x = managers.Game.stage.mouseX;
 
       // keyboard controls
       //if(objects.Game.keyboardManager.moveLeft) {
@@ -77,12 +77,12 @@ module objects {
     }
 
     public BulletFire(): void {
-      let currentBullet = objects.Game.planeBulletManger.CurrentBullet;
-      objects.Game.planeBulletManger.Bullets[currentBullet].x = objects.Game.plane.x;
-      objects.Game.planeBulletManger.Bullets[currentBullet].y = objects.Game.plane.y - 30;
-      objects.Game.planeBulletManger.CurrentBullet++;
-      if(objects.Game.planeBulletManger.CurrentBullet > 49) {
-        objects.Game.planeBulletManger.CurrentBullet = 0;
+      let currentBullet = managers.Game.planeBulletManger.CurrentBullet;
+      managers.Game.planeBulletManger.Bullets[currentBullet].x = managers.Game.plane.x;
+      managers.Game.planeBulletManger.Bullets[currentBullet].y = managers.Game.plane.y - 30;
+      managers.Game.planeBulletManger.CurrentBullet++;
+      if(managers.Game.planeBulletManger.CurrentBullet > 49) {
+        managers.Game.planeBulletManger.CurrentBullet = 0;
       }
       let planeShotSound = createjs.Sound.play("planeShot");
       planeShotSound.volume = 0.1;

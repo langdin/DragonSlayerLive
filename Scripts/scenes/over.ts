@@ -19,7 +19,7 @@ module scenes {
     // Private Mathods
 
     private _backButtonClick():void {
-      objects.Game.currentScene = config.Scene.PLAY;
+      managers.Game.currentScene = config.Scene.PLAY;
     }
 
 
@@ -32,7 +32,7 @@ module scenes {
       this._overBackground = new createjs.Bitmap(this.assetManager.getResult("startBackground"));
       this._gameOverImg = new objects.GameOverImg(this.assetManager);
       this._restartButton = new objects.Button(this.assetManager, "restartButton", 400, 400);
-      this._scoreBoard = objects.Game.scoreBoardManager;
+      this._scoreBoard = managers.Game.scoreBoardManager;
 
       this.Main();
     }

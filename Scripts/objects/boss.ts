@@ -23,7 +23,7 @@ module objects {
 
     public CheckBounds(): void {
       // check the bottom border
-      if (this.y >= 0 - this.height) {
+      if (this.y >= - this.height) {
         this.Reset();
       }
 
@@ -35,7 +35,7 @@ module objects {
 
     public Start(): void {
       this._dy = 5;
-      this.x = 1000
+      this.x = -2000
       this.y = -this.height - 20;
     }
 

@@ -21,7 +21,7 @@ var scenes;
         }
         // Private Mathods
         OverScene.prototype._backButtonClick = function () {
-            objects.Game.currentScene = config.Scene.PLAY;
+            managers.Game.currentScene = config.Scene.PLAY;
         };
         // Public Methods
         // Initialize Game Variables and objects
@@ -31,7 +31,7 @@ var scenes;
             this._overBackground = new createjs.Bitmap(this.assetManager.getResult("startBackground"));
             this._gameOverImg = new objects.GameOverImg(this.assetManager);
             this._restartButton = new objects.Button(this.assetManager, "restartButton", 400, 400);
-            this._scoreBoard = objects.Game.scoreBoardManager;
+            this._scoreBoard = managers.Game.scoreBoardManager;
             this.Main();
         };
         OverScene.prototype.Update = function () {

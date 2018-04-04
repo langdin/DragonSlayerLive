@@ -41,14 +41,14 @@ module scenes {
       this._engineSound.volume = 0.3;
 
       this._planeBulletManager = new managers.PlaneBullet(this.assetManager);
-      objects.Game.planeBulletManger = this._planeBulletManager;
+      managers.Game.planeBulletManger = this._planeBulletManager;
 
       this._bossHealth = 10;
 
       this._fireBackground = new objects.FireBackground(this.assetManager);
 
       this._plane = new objects.Plane(this.assetManager);
-      objects.Game.plane = this._plane;
+      managers.Game.plane = this._plane;
 
       this._dragonsNumber = 5;
       this, this._dragons = new Array<objects.Dragon>();
@@ -60,7 +60,7 @@ module scenes {
 
 
       this._scoreBoard = new managers.ScoreBoard();
-      objects.Game.scoreBoardManager = this._scoreBoard;
+      managers.Game.scoreBoardManager = this._scoreBoard;
 
       this._bossKilled = false;
       this._dragonsKilled = 0;
@@ -85,7 +85,7 @@ module scenes {
         }
 
         if (dragon.y > 850 && this._dragonsKilled >= 20) {
-          //console.log('boss time')
+          console.log('boss time');
           this._boss.Update();
 
         }
@@ -122,12 +122,12 @@ module scenes {
       //objects.Game.currentScene = config.Scene.OVER;
       if (this._scoreBoard.Lives <= 0) {
         this._engineSound.stop();
-        objects.Game.currentScene = config.Scene.OVER;
+        managers.Game.currentScene = config.Scene.OVER;
       }
 
       if (this._bossKilled == true) {
         this._engineSound.stop();
-        objects.Game.currentScene = config.Scene.PLAY2;
+        managers.Game.currentScene = config.Scene.PLAY2;
       }
     }
 
