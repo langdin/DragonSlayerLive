@@ -47,5 +47,10 @@ module objects {
       this.CheckBounds();
     }
 
+    public RemoveFromScreen(): void {
+      this.x = 3000;
+      this.y = 3000;
+    }
+
   }
 }

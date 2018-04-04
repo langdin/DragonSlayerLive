@@ -14,8 +14,9 @@ var objects;
         __extends(Dragon, _super);
         // Public Properties
         // Constructors
-        function Dragon(assetManager, posY) {
+        function Dragon(assetManager, posX, posY) {
             var _this = _super.call(this, assetManager, "dragon") || this;
+            _this._posX = posX;
             _this._posY = posY;
             _this._stopSpawn = false;
             _this.Start();
@@ -26,10 +27,15 @@ var objects;
         // Initialization
         Dragon.prototype.Reset = function () {
             if (!this._stopSpawn) {
-                this.x = (Math.random() * (800 - this.width)) + this.halfWidth;
-                this.y = -(this.height + this._posY) - 20;
+                this.x = (Math.random() * (160 - this.width)) + this.halfWidth + this._posX;
+                this.y = -this.height;
+                //this.y = -(this.height + this._posY) - 20;
                 //console.log("spawn")
             }
+        };
+        Dragon.prototype.RemoveFromScreen = function () {
+            this.x = 1000;
+            this.y = 1000;
         };
         Dragon.prototype.CheckBounds = function () {
             // check the bottom border
@@ -47,13 +53,22 @@ var objects;
             //} 
         };
         Dragon.prototype.Start = function () {
-            this._dy = 4;
+            this._dy = 2;
+            this._currentBullet = this._posX / 160;
             this.Reset();
         };
         // Updates the Object every frame
         Dragon.prototype.Update = function () {
             this.Move();
             this.CheckBounds();
+        };
+        Dragon.prototype.Fire = function () {
+            managers.Game.fireBulletManger.Bullets[this._currentBullet].x = this.x;
+            managers.Game.fireBulletManger.Bullets[this._currentBullet].y = this.y + this.halfHeight + 10;
+            this._currentBullet += 5;
+            if (this._currentBullet > 19) {
+                this._currentBullet = this._posX / 160;
+            }
         };
         return Dragon;
     }(objects.GameObject));

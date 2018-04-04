@@ -12,17 +12,17 @@ module objects {
       }
   
       // Private Methods
-      private _reset():void {
-        this.y = -400;
+      private _Reset():void {
+        this.y = -680;
       }
   
-      private _checkBounds():void {
+      private _CheckBounds():void {
         if(this.y >= 0) {
-          this._reset();
+          this._Reset();
         }
       }
   
-      private _move():void {
+      private _Move():void {
         //if (objects.Game.scoreBoardManager.Score < 2000) {
           this.y += this._dy;
         //}
@@ -33,13 +33,13 @@ module objects {
       // Initialization
       public Start():void {
         this._dy = 5; // move 5 pixels down every frame
-        this._reset();
+        this._Reset();
       }
   
       // Updates the Object every frame
       public Update():void {
-        this._move();
-        this._checkBounds();
+        this._Move();
+        this._CheckBounds();
       }
   
     }

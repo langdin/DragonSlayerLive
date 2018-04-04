@@ -11,6 +11,7 @@
 /// <reference path="../../Scripts/managers/keyboard.ts"/>
 /// <reference path="../../Scripts/managers/scoreboard.ts"/>
 /// <reference path="../../Scripts/managers/planeBulletManager.ts"/>
+/// <reference path="../../Scripts/managers/fireBulletManager.ts"/>
 /// <reference path="../../Scripts/managers/collision.ts"/>
 
 /// <reference path="../../Scripts/objects/button.ts"/>
@@ -20,6 +21,7 @@
 /// <reference path="../../Scripts/objects/gameOverImg.ts"/>
 /// <reference path="../../Scripts/objects/dragon.ts"/>
 /// <reference path="../../Scripts/objects/planeBullet.ts"/>
+/// <reference path="../../Scripts/objects/fireBullet.ts"/>
 /// <reference path="../../Scripts/objects/fireBackground.ts"/>
 /// <reference path="../../Scripts/objects/plane.ts"/>
 /// <reference path="../../Scripts/objects/island.ts"/>

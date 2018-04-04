@@ -10,49 +10,41 @@ var __extends = (this && this.__extends) || (function () {
 })();
 var objects;
 (function (objects) {
-    var Boss1 = /** @class */ (function (_super) {
-        __extends(Boss1, _super);
+    var FireBullet = /** @class */ (function (_super) {
+        __extends(FireBullet, _super);
         // Private Instance Variables
         // Public Properties
         // Constructors
-        function Boss1(assetManager, name) {
-            var _this = _super.call(this, assetManager, name) || this;
+        function FireBullet(assetManager) {
+            var _this = _super.call(this, assetManager, "fireBullet") || this;
             _this.Start();
             return _this;
         }
         // Private Methods
         // Public Methods
         // Initialization
-        Boss1.prototype.Reset = function () {
-            this.x = 400;
+        FireBullet.prototype.Reset = function () {
+            this.x = -1000;
+            this.y = -1000;
         };
-        Boss1.prototype.CheckBounds = function () {
-            // check the bottom border
-            if (this.y >= -this.height) {
+        FireBullet.prototype.CheckBounds = function () {
+            if (this.y <= -this.height) {
                 this.Reset();
             }
         };
-        Boss1.prototype.Move = function () {
+        FireBullet.prototype.Move = function () {
             this.y += this._dy;
         };
-        Boss1.prototype.Start = function () {
-            this._dy = 5;
-            this.x = -2000;
-            this.y = -this.height - 20;
+        FireBullet.prototype.Start = function () {
+            this._dy = 6;
+            this.Reset();
         };
         // Updates the Object every frame
-        Boss1.prototype.Update = function () {
-            if (this.y < 120) {
-                this.Move();
-            }
-            this.CheckBounds();
+        FireBullet.prototype.Update = function () {
+            this.Move();
         };
-        Boss1.prototype.RemoveFromScreen = function () {
-            this.x = 3000;
-            this.y = 3000;
-        };
-        return Boss1;
+        return FireBullet;
     }(objects.GameObject));
-    objects.Boss1 = Boss1;
+    objects.FireBullet = FireBullet;
 })(objects || (objects = {}));
-//# sourceMappingURL=boss.js.map
+//# sourceMappingURL=fireBullet.js.map

@@ -15,7 +15,7 @@
   let keyBoardManager: managers.Keyboard;
 
   assetManifest = [
-    {id: "fireBackground", src:"./Assets/images/fireBackground.jpg"},
+    {id: "fireBackground", src:"./Assets/images/lava.jpg"},
     {id: "startBackground", src:"./Assets/images/startBackground.png"},
     {id: "playNowButton", src:"./Assets/images/playNowButton.png"},
     {id: "restartButton", src:"./Assets/images/restartButton.png"},
@@ -25,6 +25,7 @@
     {id: "titleImg", src:"./Assets/images/titleImg.png"},
     {id: "gameOverImg", src:"./Assets/images/gameOverImg.png"},
     {id: "planeBullet", src:"./Assets/images/planeBullet.png"},
+    {id: "fireBullet", src:"./Assets/images/fireBullet.png"},
     {id: "plane", src:"./Assets/images/player.png"},
     {id: "engine", src:"./Assets/audio/engine.ogg"},
     {id: "thunder", src:"./Assets/audio/thunder.ogg"},

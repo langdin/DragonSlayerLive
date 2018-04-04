@@ -11,6 +11,7 @@ module scenes {
     private _bossHealth: number;
 
     private _planeBulletManager: managers.PlaneBullet;
+    private _fireBulletManager: managers.FireBullet;
 
     private _engineSound: createjs.AbstractSoundInstance;
     private _planeShotSound: createjs.AbstractSoundInstance;
@@ -35,6 +36,8 @@ module scenes {
 
     // Public Methods
 
+     // ---------- START ------------
+
     // Initialize Game Variables and objects
     public Start(): void {
       // setup background sound
@@ -45,6 +48,10 @@ module scenes {
       this._planeBulletManager = new managers.PlaneBullet(this.assetManager);
       managers.Game.planeBulletManger = this._planeBulletManager;
 
+      this._fireBulletManager = new managers.FireBullet(this.assetManager);
+      managers.Game.fireBulletManger = this._fireBulletManager;
+
+
       this._bossHealth = 20;
 
       this._fireBackground = new objects.FireBackground(this.assetManager);
@@ -54,8 +61,10 @@ module scenes {
 
       this._dragonsNumber = 5;
       this, this._dragons = new Array<objects.Dragon>();
+      let grid = 0;
       for (let i = 0; i < this._dragonsNumber; i++) {
-        this._dragons[i] = new objects.Dragon(this.assetManager, Math.random() * 350);
+        this._dragons[i] = new objects.Dragon(this.assetManager, grid , Math.random() * 250);
+        grid += 160;
       }
 
       this._boss = new objects.Boss1(this.assetManager, "boss2");
@@ -67,20 +76,22 @@ module scenes {
       this.Main();
     }
 
+    // ---------- END START ------------
+
+
+     // ---------- UPDATE ------------
+
     public Update(): void {
       if (this._dragonsKilled < 30) {
         this._fireBackground.Update();
       }
       this._plane.Update();
 
-
-
-
       // check collision between plane and dragon
       this._dragons.forEach(dragon => {
         dragon.Update();
         if (managers.Collision.Check(dragon, this._plane)) {
-          dragon.x = 1200;
+          dragon.RemoveFromScreen();
         }
 
         if (this._dragonsKilled >= 30) {
@@ -88,23 +99,29 @@ module scenes {
         }
 
         if (dragon.y > 850 && this._dragonsKilled >= 30) {
-          this._boss.Reset();
-          this._boss.Update();
+          console.log('boss time');
+          let ticker: number = createjs.Ticker.getTicks();
+          if (ticker > 700) {
+            this._boss.Update();
+          }
         }
       });
 
       this._planeBulletManager.Update();
+
+      this._fireBulletManager.Update();
+
 
       //check collision player bullets with boss
       this._planeBulletManager.Bullets.forEach(bullet => {
         if (managers.Collision.Check(bullet, this._boss)) {
           this._bossHealth--;
           if (this._bossHealth == 0) {
-            this._boss.x = 3000;
+            this._boss.RemoveFromScreen();
             this.removeChild(this._boss);
             this._bossKilled = true;
           }
-          bullet.x = -1000;
+          bullet.Reset();
         }
       });
 
@@ -113,12 +130,19 @@ module scenes {
         for (let j = 0; j < this._dragons.length; j++) {
           if (managers.Collision.Check(this._planeBulletManager.Bullets[i], this._dragons[j])) {
             //move dragon and bullet out of canvas
-            this._planeBulletManager.Bullets[i].x = -1000;
-            this._dragons[j].x = 1000;
+            this._planeBulletManager.Bullets[i].Reset();
+            this._dragons[j].RemoveFromScreen();
             this._dragonsKilled++;
           }
         }
       }
+
+      //check collision dragon bullets with player
+      this._fireBulletManager.Bullets.forEach(bullet => {
+        if (managers.Collision.Check(bullet, this._plane)) {
+          bullet.Reset();
+        }
+      });
 
 
       //objects.Game.currentScene = config.Scene.OVER;
@@ -133,11 +157,21 @@ module scenes {
       }
 
       this._scoreBoard.HighScore = this._scoreBoard.Score;
-      //press  space to shoot
-      //if(objects.Game.keyboardManager.shoot) {
-      //  this._Shoot();
-      //}
+
+      let ticker:number = createjs.Ticker.getTicks();
+      if (ticker % 100 == 0) {
+        this._dragons.forEach(dragon => {
+          dragon.Fire();
+        })
+      }
     }
+
+
+    // ---------- END UPDATE ------------
+
+
+    // ---------- MAIN ------------
+
 
     // This is where the fun happens
     public Main(): void {
@@ -165,11 +199,16 @@ module scenes {
         this.addChild(bullet);
       });
 
+      //add bullets for dragons
+      this._fireBulletManager.Bullets.forEach(bullet => {
+        this.addChild(bullet);
+      });
+
 
       // this.on("click", this._Shoot);
       this.on("click", this._plane.BulletFire);
     }
 
-
+    // ---------- END MAIN ------------
   }
 }

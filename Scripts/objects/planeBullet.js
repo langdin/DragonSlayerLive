@@ -36,7 +36,7 @@ var objects;
             this.y -= this._dy;
         };
         PlaneBullet.prototype.Start = function () {
-            this._dy = 10;
+            this._dy = 9;
             this.Reset();
         };
         // Updates the Object every frame

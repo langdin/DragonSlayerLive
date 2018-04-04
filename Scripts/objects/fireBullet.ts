@@ -1,5 +1,5 @@
 module objects {
-    export class PlaneBullet extends objects.GameObject {
+    export class FireBullet extends objects.GameObject {
         // Private Instance Variables
 
         // Public Properties
@@ -7,7 +7,7 @@ module objects {
 
         // Constructors
         constructor(assetManager: createjs.LoadQueue) {
-            super(assetManager, "planeBullet");
+            super(assetManager, "fireBullet");
             this.Start();
         }
 
@@ -28,11 +28,11 @@ module objects {
         }
 
         public Move(): void {
-            this.y -= this._dy;
+            this.y += this._dy;
         }
 
         public Start(): void {
-            this._dy = 9;
+            this._dy = 6;
             this.Reset();
         }
 
