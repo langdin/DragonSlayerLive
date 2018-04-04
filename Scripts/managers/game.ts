@@ -8,7 +8,6 @@ module managers {
         public static scoreBoardManager: managers.ScoreBoard;
         public static HighScore: number = 0;
         public static plane: objects.Plane;
-        public static planeBulletManger: managers.PlaneBullet;
-        public static fireBulletManger: managers.FireBullet;
+        public static bulletManger: managers.Bullet;
     }
 }

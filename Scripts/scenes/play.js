@@ -28,10 +28,8 @@ var scenes;
             this._engineSound.loop = -1;
             this._engineSound.volume = 0.3;
             //bullets managers
-            this._planeBulletManager = new managers.PlaneBullet(this.assetManager);
-            managers.Game.planeBulletManger = this._planeBulletManager;
-            this._fireBulletManager = new managers.FireBullet(this.assetManager);
-            managers.Game.fireBulletManger = this._fireBulletManager;
+            this._bulletManager = new managers.Bullet(this.assetManager);
+            managers.Game.bulletManger = this._bulletManager;
             this._bossHealth = 10;
             this._fireBackground = new objects.FireBackground(this.assetManager);
             this._plane = new objects.Plane(this.assetManager);
@@ -75,10 +73,9 @@ var scenes;
                     }
                 }
             });
-            this._planeBulletManager.Update();
-            this._fireBulletManager.Update();
+            this._bulletManager.Update();
             //check collision player bullets with boss
-            this._planeBulletManager.Bullets.forEach(function (bullet) {
+            this._bulletManager.Bullets.forEach(function (bullet) {
                 if (managers.Collision.Check(bullet, _this._boss) && _this._boss.x == 400) {
                     _this._bossHealth--;
                     if (_this._bossHealth == 0) {
@@ -90,18 +87,18 @@ var scenes;
                 }
             });
             //check collision player bullets with small dragons
-            for (var i = 0; i < this._planeBulletManager.Bullets.length; i++) {
+            for (var i = 0; i < this._bulletManager.Bullets.length; i++) {
                 for (var j = 0; j < this._dragons.length; j++) {
-                    if (managers.Collision.Check(this._planeBulletManager.Bullets[i], this._dragons[j])) {
+                    if (managers.Collision.Check(this._bulletManager.Bullets[i], this._dragons[j])) {
                         //move dragon and bullet out of canvas
-                        this._planeBulletManager.Bullets[i].Reset();
+                        this._bulletManager.Bullets[i].Reset();
                         this._dragons[j].RemoveFromScreen();
                         this._dragonsKilled++;
                     }
                 }
             }
             //check collision dragon bullets with player
-            this._fireBulletManager.Bullets.forEach(function (bullet) {
+            this._bulletManager.dragonBullets.forEach(function (bullet) {
                 if (managers.Collision.Check(bullet, _this._plane)) {
                     bullet.Reset();
                 }
@@ -141,11 +138,11 @@ var scenes;
             // add the Score Label
             this.addChild(this._scoreBoard.ScoreLabel);
             //add bullets 
-            this._planeBulletManager.Bullets.forEach(function (bullet) {
+            this._bulletManager.Bullets.forEach(function (bullet) {
                 _this.addChild(bullet);
             });
             //add bullets for dragons
-            this._fireBulletManager.Bullets.forEach(function (bullet) {
+            this._bulletManager.dragonBullets.forEach(function (bullet) {
                 _this.addChild(bullet);
             });
             // this.on("click", this._Shoot);

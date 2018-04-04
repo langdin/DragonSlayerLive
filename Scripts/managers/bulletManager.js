@@ -1,35 +1,43 @@
 var managers;
 (function (managers) {
-    var PlaneBullet = /** @class */ (function () {
+    var Bullet = /** @class */ (function () {
         // constructors
-        function PlaneBullet(assetManager) {
+        function Bullet(assetManager) {
             this._assetManager = assetManager;
             this.Start();
         }
         // private methods
-        PlaneBullet.prototype._buildBulletPool = function () {
+        Bullet.prototype._buildBulletPool = function () {
             for (var count = 0; count < this._bulletCount; count++) {
                 this.Bullets[count] = new objects.PlaneBullet(this._assetManager);
             }
+            for (var count = 0; count < this._dragonBulletCount; count++) {
+                this.dragonBullets[count] = new objects.FireBullet(this._assetManager);
+            }
         };
         // public methods
-        PlaneBullet.prototype.Start = function () {
+        Bullet.prototype.Start = function () {
             // set the default bullet count
             this._bulletCount = 50;
+            this._dragonBulletCount = 30;
             // create the bullet container
             this.Bullets = new Array();
+            this.dragonBullets = new Array();
             // build bullet array
             this._buildBulletPool();
             // set the Current Bullet to 0
             this.CurrentBullet = 0;
         };
-        PlaneBullet.prototype.Update = function () {
+        Bullet.prototype.Update = function () {
             this.Bullets.forEach(function (bullet) {
                 bullet.Update();
             });
+            this.dragonBullets.forEach(function (bullet) {
+                bullet.Update();
+            });
         };
-        return PlaneBullet;
+        return Bullet;
     }());
-    managers.PlaneBullet = PlaneBullet;
+    managers.Bullet = Bullet;
 })(managers || (managers = {}));
-//# sourceMappingURL=planeBulletManager.js.map
+//# sourceMappingURL=bulletManager.js.map

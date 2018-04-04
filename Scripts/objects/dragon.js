@@ -63,8 +63,8 @@ var objects;
             this.CheckBounds();
         };
         Dragon.prototype.Fire = function () {
-            managers.Game.fireBulletManger.Bullets[this._currentBullet].x = this.x;
-            managers.Game.fireBulletManger.Bullets[this._currentBullet].y = this.y + this.halfHeight + 10;
+            managers.Game.bulletManger.dragonBullets[this._currentBullet].x = this.x;
+            managers.Game.bulletManger.dragonBullets[this._currentBullet].y = this.y + this.halfHeight + 10;
             this._currentBullet += 5;
             if (this._currentBullet > 19) {
                 this._currentBullet = this._posX / 160;

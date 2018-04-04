@@ -6,8 +6,7 @@
 /// <reference path="../../Scripts/math/vec2.ts"/>
 /// <reference path="../../Scripts/managers/keyboard.ts"/>
 /// <reference path="../../Scripts/managers/scoreboard.ts"/>
-/// <reference path="../../Scripts/managers/planeBulletManager.ts"/>
-/// <reference path="../../Scripts/managers/fireBulletManager.ts"/>
+/// <reference path="../../Scripts/managers/bulletManager.ts"/>
 /// <reference path="../../Scripts/managers/collision.ts"/>
 /// <reference path="../../Scripts/objects/button.ts"/>
 /// <reference path="../../Scripts/objects/titleImg.ts"/>

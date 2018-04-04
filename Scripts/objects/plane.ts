@@ -77,12 +77,12 @@ module objects {
     }
 
     public BulletFire(): void {
-      let currentBullet = managers.Game.planeBulletManger.CurrentBullet;
-      managers.Game.planeBulletManger.Bullets[currentBullet].x = managers.Game.plane.x;
-      managers.Game.planeBulletManger.Bullets[currentBullet].y = managers.Game.plane.y - 30;
-      managers.Game.planeBulletManger.CurrentBullet++;
-      if(managers.Game.planeBulletManger.CurrentBullet > 49) {
-        managers.Game.planeBulletManger.CurrentBullet = 0;
+      let currentBullet = managers.Game.bulletManger.CurrentBullet;
+      managers.Game.bulletManger.Bullets[currentBullet].x = managers.Game.plane.x;
+      managers.Game.bulletManger.Bullets[currentBullet].y = managers.Game.plane.y - 30;
+      managers.Game.bulletManger.CurrentBullet++;
+      if(managers.Game.bulletManger.CurrentBullet > 49) {
+        managers.Game.bulletManger.CurrentBullet = 0;
       }
       let planeShotSound = createjs.Sound.play("planeShot");
       planeShotSound.volume = 0.1;
