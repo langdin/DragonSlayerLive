@@ -65,14 +65,18 @@ var scenes;
                 if (_this._dragonsKilled >= 20) {
                     dragon.StopSpawn();
                 }
-                if (dragon.y > 850 && _this._dragonsKilled >= 20) {
-                    console.log('boss time');
-                    var ticker_1 = createjs.Ticker.getTicks();
-                    if (ticker_1 > 700) {
-                        _this._boss.Update();
-                    }
-                }
             });
+            //make boss come dows and atack
+            if (this._dragonsKilled >= 20) {
+                console.log('boss time');
+                var ticker_1 = createjs.Ticker.getTicks();
+                if (ticker_1 > 500) {
+                    this._boss.Update();
+                }
+                if (ticker_1 % 40 == 0 && this._boss.y >= 120) {
+                    this._boss.FireTriple();
+                }
+            }
             this._bulletManager.Update();
             //check collision player bullets with boss
             this._bulletManager.Bullets.forEach(function (bullet) {
@@ -98,7 +102,7 @@ var scenes;
                 }
             }
             //check collision dragon bullets with player
-            this._bulletManager.dragonBullets.forEach(function (bullet) {
+            this._bulletManager.DragonBullets.forEach(function (bullet) {
                 if (managers.Collision.Check(bullet, _this._plane)) {
                     bullet.Reset();
                 }
@@ -142,7 +146,11 @@ var scenes;
                 _this.addChild(bullet);
             });
             //add bullets for dragons
-            this._bulletManager.dragonBullets.forEach(function (bullet) {
+            this._bulletManager.DragonBullets.forEach(function (bullet) {
+                _this.addChild(bullet);
+            });
+            //add bullets for dragons
+            this._bulletManager.BossBullets.forEach(function (bullet) {
                 _this.addChild(bullet);
             });
             // this.on("click", this._Shoot);

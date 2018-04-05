@@ -16,6 +16,7 @@
 /// <reference path="../../Scripts/objects/dragon.ts"/>
 /// <reference path="../../Scripts/objects/planeBullet.ts"/>
 /// <reference path="../../Scripts/objects/fireBullet.ts"/>
+/// <reference path="../../Scripts/objects/bossBullet.ts"/>
 /// <reference path="../../Scripts/objects/fireBackground.ts"/>
 /// <reference path="../../Scripts/objects/plane.ts"/>
 /// <reference path="../../Scripts/objects/island.ts"/>

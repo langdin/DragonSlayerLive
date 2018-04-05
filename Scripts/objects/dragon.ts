@@ -69,8 +69,8 @@ module objects {
     }
 
     public Fire() {
-      managers.Game.bulletManger.dragonBullets[this._currentBullet].x = this.x;
-      managers.Game.bulletManger.dragonBullets[this._currentBullet].y = this.y + this.halfHeight + 10;
+      managers.Game.bulletManger.DragonBullets[this._currentBullet].x = this.x;
+      managers.Game.bulletManger.DragonBullets[this._currentBullet].y = this.y + this.halfHeight + 10;
       this._currentBullet += 5
       if(this._currentBullet > 19) {
         this._currentBullet = this._posX/160;

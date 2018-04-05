@@ -12,7 +12,10 @@ var managers;
                 this.Bullets[count] = new objects.PlaneBullet(this._assetManager);
             }
             for (var count = 0; count < this._dragonBulletCount; count++) {
-                this.dragonBullets[count] = new objects.FireBullet(this._assetManager);
+                this.DragonBullets[count] = new objects.FireBullet(this._assetManager);
+            }
+            for (var count = 0; count < this._bossBulletCount; count++) {
+                this.BossBullets[count] = new objects.BossBullet(this._assetManager);
             }
         };
         // public methods
@@ -20,9 +23,11 @@ var managers;
             // set the default bullet count
             this._bulletCount = 50;
             this._dragonBulletCount = 30;
+            this._bossBulletCount = 60;
             // create the bullet container
             this.Bullets = new Array();
-            this.dragonBullets = new Array();
+            this.DragonBullets = new Array();
+            this.BossBullets = new Array();
             // build bullet array
             this._buildBulletPool();
             // set the Current Bullet to 0
@@ -32,7 +37,10 @@ var managers;
             this.Bullets.forEach(function (bullet) {
                 bullet.Update();
             });
-            this.dragonBullets.forEach(function (bullet) {
+            this.DragonBullets.forEach(function (bullet) {
+                bullet.Update();
+            });
+            this.BossBullets.forEach(function (bullet) {
                 bullet.Update();
             });
         };

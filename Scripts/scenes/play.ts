@@ -94,16 +94,19 @@ module scenes {
         if (this._dragonsKilled >= 20) {
           dragon.StopSpawn();
         }
-
-        if (dragon.y > 850 && this._dragonsKilled >= 20) {
-          console.log('boss time');
-          let ticker: number = createjs.Ticker.getTicks();
-          if (ticker > 700) {
-            this._boss.Update();
-          }
-
-        }
       });
+
+      //make boss come dows and atack
+      if (this._dragonsKilled >= 20) {
+        console.log('boss time');
+        let ticker: number = createjs.Ticker.getTicks();
+        if (ticker > 500) {
+          this._boss.Update();
+        }
+        if(ticker % 40 == 0 && this._boss.y >= 120) {
+          this._boss.FireTriple();
+        }
+      }
 
       this._bulletManager.Update();
 
@@ -133,7 +136,7 @@ module scenes {
       }
 
       //check collision dragon bullets with player
-      this._bulletManager.dragonBullets.forEach(bullet => {
+      this._bulletManager.DragonBullets.forEach(bullet => {
         if (managers.Collision.Check(bullet, this._plane)) {
           bullet.Reset();
         }
@@ -189,8 +192,14 @@ module scenes {
       this._bulletManager.Bullets.forEach(bullet => {
         this.addChild(bullet);
       });
-    //add bullets for dragons
-      this._bulletManager.dragonBullets.forEach(bullet => {
+
+      //add bullets for dragons
+      this._bulletManager.DragonBullets.forEach(bullet => {
+        this.addChild(bullet);
+      });
+
+      //add bullets for dragons
+      this._bulletManager.BossBullets.forEach(bullet => {
         this.addChild(bullet);
       });
 

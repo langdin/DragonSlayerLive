@@ -12,7 +12,6 @@ var objects;
 (function (objects) {
     var Boss1 = /** @class */ (function (_super) {
         __extends(Boss1, _super);
-        // Private Instance Variables
         // Public Properties
         // Constructors
         function Boss1(assetManager, name) {
@@ -21,6 +20,15 @@ var objects;
             return _this;
         }
         // Private Methods
+        Boss1.prototype._Fire = function (direction) {
+            managers.Game.bulletManger.BossBullets[this._currentBullet].SetDirectoin(direction);
+            managers.Game.bulletManger.BossBullets[this._currentBullet].x = this.x + 70;
+            managers.Game.bulletManger.BossBullets[this._currentBullet].y = this.y - 30;
+            this._currentBullet++;
+            if (this._currentBullet > 59) {
+                this._currentBullet = 0;
+            }
+        };
         // Public Methods
         // Initialization
         Boss1.prototype.Reset = function () {
@@ -36,9 +44,12 @@ var objects;
             this.y += this._dy;
         };
         Boss1.prototype.Start = function () {
-            this._dy = 5;
+            this._dy = 3;
             this.x = -2000;
             this.y = -this.height - 20;
+            this._currentBullet = 0;
+            this._direction = 0;
+            this._directionIncrement = 2;
         };
         // Updates the Object every frame
         Boss1.prototype.Update = function () {
@@ -50,6 +61,18 @@ var objects;
         Boss1.prototype.RemoveFromScreen = function () {
             this.x = 3000;
             this.y = 3000;
+        };
+        Boss1.prototype.FireTriple = function () {
+            this._Fire(this._direction - 2);
+            this._Fire(this._direction);
+            this._Fire(this._direction + 2);
+            this._direction += this._directionIncrement;
+            if (this._direction == 2) {
+                this._directionIncrement = -2;
+            }
+            else if (this._direction == -4) {
+                this._directionIncrement = 2;
+            }
         };
         return Boss1;
     }(objects.GameObject));

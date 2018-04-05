@@ -3,11 +3,13 @@ module managers {
         // private instance variables
         private _bulletCount: number;
         private _dragonBulletCount: number;
+        private _bossBulletCount: number;
         private _assetManager: createjs.LoadQueue;
 
         // public properties
         public Bullets: objects.PlaneBullet[];
-        public dragonBullets: objects.FireBullet[];
+        public DragonBullets: objects.FireBullet[];
+        public BossBullets: objects.BossBullet[];
         public CurrentBullet: number;
 
         // constructors
@@ -23,7 +25,11 @@ module managers {
             }
 
             for (let count = 0; count < this._dragonBulletCount; count++) {
-                this.dragonBullets[count] = new objects.FireBullet(this._assetManager);
+                this.DragonBullets[count] = new objects.FireBullet(this._assetManager);
+            }
+
+            for (let count = 0; count < this._bossBulletCount; count++) {
+                this.BossBullets[count] = new objects.BossBullet(this._assetManager);
             }
         }
 
@@ -32,9 +38,11 @@ module managers {
             // set the default bullet count
             this._bulletCount = 50;
             this._dragonBulletCount = 30;
+            this._bossBulletCount = 60;
             // create the bullet container
             this.Bullets = new Array<objects.PlaneBullet>();
-            this.dragonBullets = new Array<objects.FireBullet>();
+            this.DragonBullets = new Array<objects.FireBullet>();
+            this.BossBullets = new Array<objects.BossBullet>();
 
             // build bullet array
             this._buildBulletPool();
@@ -47,7 +55,10 @@ module managers {
             this.Bullets.forEach(bullet => {
                 bullet.Update();
             });
-            this.dragonBullets.forEach(bullet => {
+            this.DragonBullets.forEach(bullet => {
+                bullet.Update();
+            });
+            this.BossBullets.forEach(bullet => {
                 bullet.Update();
             });
         }

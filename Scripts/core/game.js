@@ -23,6 +23,7 @@
         { id: "gameOverImg", src: "./Assets/images/gameOverImg.png" },
         { id: "planeBullet", src: "./Assets/images/planeBullet.png" },
         { id: "fireBullet", src: "./Assets/images/fireBullet.png" },
+        { id: "bossBullet", src: "./Assets/images/bossBullet.png" },
         { id: "plane", src: "./Assets/images/player.png" },
         { id: "engine", src: "./Assets/audio/engine.ogg" },
         { id: "thunder", src: "./Assets/audio/thunder.ogg" },
