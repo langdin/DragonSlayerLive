@@ -47,7 +47,7 @@ module scenes {
       managers.Game.bulletManger = this._bulletManager;
 
 
-      this._bossHealth = 10;
+      this._bossHealth = 20;
 
       this._fireBackground = new objects.FireBackground(this.assetManager);
 
