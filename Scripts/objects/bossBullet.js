@@ -27,7 +27,7 @@ var objects;
             this.y = -1000;
         };
         BossBullet.prototype.CheckBounds = function () {
-            if (this.y <= -this.height) {
+            if (this.y >= this.height + 600) {
                 this.Reset();
             }
         };

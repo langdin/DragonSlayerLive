@@ -22,7 +22,7 @@ module objects {
         }
 
         public CheckBounds(): void {
-            if(this.y <= - this.height) {
+            if(this.y >= this.height + 600) {
                 this.Reset();
             }
         }
@@ -39,6 +39,7 @@ module objects {
         // Updates the Object every frame
         public Update(): void {
             this.Move();
+
         }
 
     }

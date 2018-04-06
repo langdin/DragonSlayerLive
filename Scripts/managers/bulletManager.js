@@ -23,7 +23,7 @@ var managers;
             // set the default bullet count
             this._bulletCount = 50;
             this._dragonBulletCount = 30;
-            this._bossBulletCount = 60;
+            this._bossBulletCount = 30;
             // create the bullet container
             this.Bullets = new Array();
             this.DragonBullets = new Array();

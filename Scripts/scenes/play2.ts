@@ -35,7 +35,7 @@ module scenes {
 
     // Public Methods
 
-     // ---------- START ------------
+    // ---------- START ------------
 
     // Initialize Game Variables and objects
     public Start(): void {
@@ -58,7 +58,7 @@ module scenes {
       this, this._dragons = new Array<objects.Dragon>();
       let grid = 0;
       for (let i = 0; i < this._dragonsNumber; i++) {
-        this._dragons[i] = new objects.Dragon(this.assetManager, grid , Math.random() * 250);
+        this._dragons[i] = new objects.Dragon(this.assetManager, grid, Math.random() * 250);
         grid += 160;
       }
 
@@ -74,7 +74,7 @@ module scenes {
     // ---------- END START ------------
 
 
-     // ---------- UPDATE ------------
+    // ---------- UPDATE ------------
 
     public Update(): void {
       if (this._dragonsKilled < 30) {
@@ -101,7 +101,7 @@ module scenes {
         if (ticker > 500) {
           this._boss.Update();
         }
-        if(ticker % 40 == 0 && this._boss.y >= 120) {
+        if (ticker % 40 == 0 && this._boss.y >= 120) {
           this._boss.FireTriple();
         }
       }
@@ -110,7 +110,7 @@ module scenes {
 
       //check collision player bullets with boss
       this._bulletManager.Bullets.forEach(bullet => {
-        if (managers.Collision.Check(bullet, this._boss)) {
+        if (this._boss.x == 400 && this._boss.y >= 120 && managers.Collision.Check(bullet, this._boss)) {
           this._bossHealth--;
           if (this._bossHealth == 0) {
             this._boss.RemoveFromScreen();
@@ -119,6 +119,7 @@ module scenes {
           }
           bullet.Reset();
         }
+
       });
 
       //check collision player bullets with small dragons
@@ -140,6 +141,12 @@ module scenes {
         }
       });
 
+      //check collision boss bullets with player
+      this._bulletManager.BossBullets.forEach(bullet => {
+        if (managers.Collision.Check(bullet, this._plane)) {
+          bullet.Reset();
+        }
+      });
 
       //objects.Game.currentScene = config.Scene.OVER;
       if (this._scoreBoard.Lives <= 0) {
@@ -147,18 +154,27 @@ module scenes {
         managers.Game.currentScene = config.Scene.OVER;
       }
 
-      if (this._bossKilled == true) {
-        this._engineSound.stop();
-        managers.Game.currentScene = config.Scene.OVER;
-      }
+      
 
       this._scoreBoard.HighScore = this._scoreBoard.Score;
 
-      let ticker:number = createjs.Ticker.getTicks();
+      //make dragons atack
+      let ticker: number = createjs.Ticker.getTicks();
       if (ticker % 100 == 0) {
         this._dragons.forEach(dragon => {
           dragon.Fire();
         })
+      }
+
+      //fade scene after boss killed
+      if (this._bossKilled == true && this.alpha > 0) {
+        this.alpha -= .01;
+      }
+
+      //if boss killed and scene faded go to next scene
+      if (this._bossKilled == true && this.alpha <= 0) {
+        this._engineSound.stop();
+        managers.Game.currentScene = config.Scene.OVER;
       }
     }
 
@@ -182,6 +198,7 @@ module scenes {
       // add plane to this scene
       this.addChild(this._plane);
 
+      //add boss to the scene
       this.addChild(this._boss);
 
       // add the Lives Label
@@ -197,6 +214,11 @@ module scenes {
 
       //add bullets for dragons
       this._bulletManager.DragonBullets.forEach(bullet => {
+        this.addChild(bullet);
+      });
+
+      //add bullets for dragons
+      this._bulletManager.BossBullets.forEach(bullet => {
         this.addChild(bullet);
       });
 

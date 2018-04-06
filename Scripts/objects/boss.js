@@ -16,16 +16,23 @@ var objects;
         // Constructors
         function Boss1(assetManager, name) {
             var _this = _super.call(this, assetManager, name) || this;
+            _this._name = name;
             _this.Start();
             return _this;
         }
         // Private Methods
         Boss1.prototype._Fire = function (direction) {
             managers.Game.bulletManger.BossBullets[this._currentBullet].SetDirectoin(direction);
-            managers.Game.bulletManger.BossBullets[this._currentBullet].x = this.x + 70;
-            managers.Game.bulletManger.BossBullets[this._currentBullet].y = this.y - 30;
+            if (this._name == 'boss1') {
+                managers.Game.bulletManger.BossBullets[this._currentBullet].x = this.x + 70;
+                managers.Game.bulletManger.BossBullets[this._currentBullet].y = this.y - 30;
+            }
+            else if (this._name == 'boss2') {
+                managers.Game.bulletManger.BossBullets[this._currentBullet].x = this.x + 200;
+                managers.Game.bulletManger.BossBullets[this._currentBullet].y = this.y + 20;
+            }
             this._currentBullet++;
-            if (this._currentBullet > 59) {
+            if (this._currentBullet > 29) {
                 this._currentBullet = 0;
             }
         };
@@ -63,9 +70,17 @@ var objects;
             this.y = 3000;
         };
         Boss1.prototype.FireTriple = function () {
-            this._Fire(this._direction - 2);
-            this._Fire(this._direction);
-            this._Fire(this._direction + 2);
+            if (this._name == 'boss1') {
+                this._Fire(this._direction - 2);
+                this._Fire(this._direction);
+                this._Fire(this._direction + 2);
+            }
+            else if (this._name == 'boss2') {
+                this._Fire(this._direction - 4);
+                this._Fire(this._direction - 2);
+                this._Fire(this._direction);
+                this._Fire(this._direction + 2);
+            }
             this._direction += this._directionIncrement;
             if (this._direction == 2) {
                 this._directionIncrement = -2;

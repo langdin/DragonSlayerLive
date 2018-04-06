@@ -2,8 +2,9 @@ module objects {
   export class Boss1 extends objects.GameObject {
     // Private Instance Variables
     private _currentBullet: number;
-    private _direction: number; 
+    private _direction: number;
     private _directionIncrement: number;
+    private _name: String;
 
     // Public Properties
 
@@ -11,16 +12,23 @@ module objects {
     // Constructors
     constructor(assetManager: createjs.LoadQueue, name: string) {
       super(assetManager, name);
+      this._name = name;
       this.Start();
     }
 
     // Private Methods
-    private _Fire(direction:number) {
+    private _Fire(direction: number) {
       managers.Game.bulletManger.BossBullets[this._currentBullet].SetDirectoin(direction);
-      managers.Game.bulletManger.BossBullets[this._currentBullet].x = this.x + 70;
-      managers.Game.bulletManger.BossBullets[this._currentBullet].y = this.y - 30;
+      if (this._name == 'boss1') {
+        managers.Game.bulletManger.BossBullets[this._currentBullet].x = this.x + 70;
+        managers.Game.bulletManger.BossBullets[this._currentBullet].y = this.y - 30;
+      } else if (this._name == 'boss2') {
+        managers.Game.bulletManger.BossBullets[this._currentBullet].x = this.x + 200;
+        managers.Game.bulletManger.BossBullets[this._currentBullet].y = this.y + 20;
+      }
+
       this._currentBullet++;
-      if(this._currentBullet > 59) {
+      if (this._currentBullet > 29) {
         this._currentBullet = 0;
       }
     }
@@ -46,7 +54,7 @@ module objects {
 
     public Start(): void {
       this._dy = 3;
-      this.x = -2000
+      this.x = -2000;
       this.y = -this.height - 20;
       this._currentBullet = 0;
       this._direction = 0;
@@ -67,13 +75,20 @@ module objects {
     }
 
     public FireTriple(): void {
-      this._Fire(this._direction - 2);
-      this._Fire(this._direction);
-      this._Fire(this._direction + 2);
+      if (this._name == 'boss1') {
+        this._Fire(this._direction - 2);
+        this._Fire(this._direction);
+        this._Fire(this._direction + 2);
+      } else if (this._name == 'boss2') {
+        this._Fire(this._direction - 4);
+        this._Fire(this._direction - 2);
+        this._Fire(this._direction);
+        this._Fire(this._direction + 2);
+      }
       this._direction += this._directionIncrement;
-      if(this._direction == 2) {
+      if (this._direction == 2) {
         this._directionIncrement = -2;
-      } else if(this._direction == -4) {
+      } else if (this._direction == -4) {
         this._directionIncrement = 2;
       }
     }

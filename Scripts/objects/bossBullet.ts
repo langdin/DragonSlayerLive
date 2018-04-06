@@ -22,7 +22,7 @@ module objects {
         }
 
         public CheckBounds(): void {
-            if(this.y <= - this.height) {
+            if(this.y >= this.height + 600) {
                 this.Reset();
             }
         }

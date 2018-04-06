@@ -96,14 +96,14 @@ module scenes {
         }
       });
 
-      //make boss come dows and atack
+      //make boss come down and atack
       if (this._dragonsKilled >= 20) {
         console.log('boss time');
         let ticker: number = createjs.Ticker.getTicks();
         if (ticker > 500) {
           this._boss.Update();
         }
-        if(ticker % 40 == 0 && this._boss.y >= 120) {
+        if (ticker % 40 == 0 && this._boss.y >= 120) {
           this._boss.FireTriple();
         }
       }
@@ -112,7 +112,7 @@ module scenes {
 
       //check collision player bullets with boss
       this._bulletManager.Bullets.forEach(bullet => {
-        if (managers.Collision.Check(bullet, this._boss) && this._boss.x == 400) {
+        if (this._boss.x == 400 && this._boss.y >= 120 && managers.Collision.Check(bullet, this._boss)) {
           this._bossHealth--;
           if (this._bossHealth == 0) {
             this._boss.RemoveFromScreen();
@@ -142,6 +142,13 @@ module scenes {
         }
       });
 
+      //check collision boss bullets with player
+      this._bulletManager.BossBullets.forEach(bullet => {
+        if (managers.Collision.Check(bullet, this._plane)) {
+          bullet.Reset();
+        }
+      });
+
 
       //objects.Game.currentScene = config.Scene.OVER;
       if (this._scoreBoard.Lives <= 0) {
@@ -149,16 +156,23 @@ module scenes {
         managers.Game.currentScene = config.Scene.OVER;
       }
 
-      if (this._bossKilled == true) {
-        this._engineSound.stop();
-        managers.Game.currentScene = config.Scene.PLAY2;
-      }
-
+      //make dragons atack
       let ticker: number = createjs.Ticker.getTicks();
       if (ticker % 100 == 0) {
         this._dragons.forEach(dragon => {
           dragon.Fire();
         })
+      }
+
+      //fade scene after boss killed
+      if (this._bossKilled == true && this.alpha > 0) {
+        this.alpha -= .01;
+      }
+
+      //if boss killed and scene faded go to next scene
+      if (this._bossKilled == true && this.alpha <= 0) {
+        this._engineSound.stop();
+        managers.Game.currentScene = config.Scene.PLAY2;
       }
     }
 
@@ -180,7 +194,9 @@ module scenes {
       // add plane to this scene
       this.addChild(this._plane);
 
+      //add boss to the scene
       this.addChild(this._boss);
+
 
       // add the Lives Label
       this.addChild(this._scoreBoard.LivesLabel);

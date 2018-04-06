@@ -30,7 +30,7 @@ var scenes;
             this._engineSound.volume = 0.3;
             this._bulletManager = new managers.Bullet(this.assetManager);
             managers.Game.bulletManger = this._bulletManager;
-            this._bossHealth = 20;
+            this._bossHealth = 30;
             this._fireBackground = new objects.FireBackground(this.assetManager);
             this._plane = new objects.Plane(this.assetManager);
             managers.Game.plane = this._plane;
@@ -79,7 +79,7 @@ var scenes;
             this._bulletManager.Update();
             //check collision player bullets with boss
             this._bulletManager.Bullets.forEach(function (bullet) {
-                if (managers.Collision.Check(bullet, _this._boss)) {
+                if (_this._boss.x == 400 && _this._boss.y >= 120 && managers.Collision.Check(bullet, _this._boss)) {
                     _this._bossHealth--;
                     if (_this._bossHealth == 0) {
                         _this._boss.RemoveFromScreen();
@@ -106,21 +106,33 @@ var scenes;
                     bullet.Reset();
                 }
             });
+            //check collision boss bullets with player
+            this._bulletManager.BossBullets.forEach(function (bullet) {
+                if (managers.Collision.Check(bullet, _this._plane)) {
+                    bullet.Reset();
+                }
+            });
             //objects.Game.currentScene = config.Scene.OVER;
             if (this._scoreBoard.Lives <= 0) {
                 this._engineSound.stop();
                 managers.Game.currentScene = config.Scene.OVER;
             }
-            if (this._bossKilled == true) {
-                this._engineSound.stop();
-                managers.Game.currentScene = config.Scene.OVER;
-            }
             this._scoreBoard.HighScore = this._scoreBoard.Score;
+            //make dragons atack
             var ticker = createjs.Ticker.getTicks();
             if (ticker % 100 == 0) {
                 this._dragons.forEach(function (dragon) {
                     dragon.Fire();
                 });
+            }
+            //fade scene after boss killed
+            if (this._bossKilled == true && this.alpha > 0) {
+                this.alpha -= .01;
+            }
+            //if boss killed and scene faded go to next scene
+            if (this._bossKilled == true && this.alpha <= 0) {
+                this._engineSound.stop();
+                managers.Game.currentScene = config.Scene.OVER;
             }
         };
         // ---------- END UPDATE ------------
@@ -136,6 +148,7 @@ var scenes;
             });
             // add plane to this scene
             this.addChild(this._plane);
+            //add boss to the scene
             this.addChild(this._boss);
             // add the Lives Label
             this.addChild(this._scoreBoard.LivesLabel);
@@ -147,6 +160,10 @@ var scenes;
             });
             //add bullets for dragons
             this._bulletManager.DragonBullets.forEach(function (bullet) {
+                _this.addChild(bullet);
+            });
+            //add bullets for dragons
+            this._bulletManager.BossBullets.forEach(function (bullet) {
                 _this.addChild(bullet);
             });
             // this.on("click", this._Shoot);

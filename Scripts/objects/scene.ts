@@ -10,6 +10,7 @@ module objects {
       super();
 
       this.assetManager = assetManager;
+      
     }
     // Private Methods
 

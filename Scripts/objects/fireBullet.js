@@ -28,7 +28,7 @@ var objects;
             this.y = -1000;
         };
         FireBullet.prototype.CheckBounds = function () {
-            if (this.y <= -this.height) {
+            if (this.y >= this.height + 600) {
                 this.Reset();
             }
         };
