@@ -128,6 +128,7 @@ var scenes;
                     });
                 }
             }
+            this._scoreBoard.HighScore = this._scoreBoard.Score;
             //fade scene after boss killed
             if ((this._scoreBoard.Lives <= 0 || this._bossKilled == true) && this.alpha > 0) {
                 this.alpha -= .01;

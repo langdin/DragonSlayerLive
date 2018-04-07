@@ -13,12 +13,14 @@ module managers {
           let explosion: objects.smallExplosion;
           switch (object2.name) {
             case "player":
-              managers.Game.scoreBoardManager.Lives -= 1;
-              explosion = new objects.smallExplosion("smallexplosion");
-              explosion.x = object1.x;
-              explosion.y = object1.y;
-              managers.Game.currentSceneObject.addChild(explosion);
-              break;
+              if (managers.Game.scoreBoardManager.Lives > 0) {
+                managers.Game.scoreBoardManager.Lives -= 1;
+                explosion = new objects.smallExplosion("smallexplosion");
+                explosion.x = object1.x;
+                explosion.y = object1.y;
+                managers.Game.currentSceneObject.addChild(explosion);
+                break;
+              }
             case "dragon":
               managers.Game.scoreBoardManager.Score += 100;
               explosion = new objects.smallExplosion("smallexplosion");
