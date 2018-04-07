@@ -7,7 +7,12 @@ module objects {
   
       // Constructors
       constructor(assetManager: createjs.LoadQueue) {
-        super(assetManager.getResult("fireBackground"));
+        if(managers.Game.currentScene == config.Scene.PLAY) {
+          super(assetManager.getResult("fireBackground"));
+        } else if(managers.Game.currentScene == config.Scene.PLAY2) {
+          super(assetManager.getResult("lava"));
+        }
+        
         this.Start();
       }
   

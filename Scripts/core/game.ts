@@ -77,7 +77,8 @@
   };
 
   assetManifest = [
-    { id: "fireBackground", src: "./Assets/images/fireBackground.jpg" },
+    { id: "fireBackground", src: "./Assets/images/fireBackground.jpg" }, 
+    { id: "lava", src: "./Assets/images/lava.jpg" },
     { id: "startBackground", src: "./Assets/images/startBackground.png" },
     { id: "titleImg", src: "./Assets/images/titleImg.png" },
     { id: "gameOverImg", src: "./Assets/images/gameOverImg.png" },

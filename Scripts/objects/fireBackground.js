@@ -15,7 +15,13 @@ var objects;
         // Public Properties
         // Constructors
         function FireBackground(assetManager) {
-            var _this = _super.call(this, assetManager.getResult("fireBackground")) || this;
+            var _this = this;
+            if (managers.Game.currentScene == config.Scene.PLAY) {
+                _this = _super.call(this, assetManager.getResult("fireBackground")) || this;
+            }
+            else if (managers.Game.currentScene == config.Scene.PLAY2) {
+                _this = _super.call(this, assetManager.getResult("lava")) || this;
+            }
             _this.Start();
             return _this;
         }
