@@ -25,7 +25,7 @@ module scenes {
     // Initialize Game Variables and objects
     public Start(): void {
       this._titleImg = new objects.TitleImg(this.assetManager);
-      this._startButton = new objects.Button(this.assetManager, "playNowButton", 400, 400);
+      this._startButton = new objects.Button("playNowButton", 400, 400);
       this._startBackground = new createjs.Bitmap(this.assetManager.getResult("startBackground"))
       this.Main();
     }

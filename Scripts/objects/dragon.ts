@@ -10,8 +10,8 @@ module objects {
 
 
     // Constructors
-    constructor(assetManager: createjs.LoadQueue, posX: number, posY: number) {
-      super(assetManager, "dragon");
+    constructor(posX: number, posY: number) {
+      super("dragon");
       this._posX = posX;
       this._posY = posY;
       this._stopSpawn = false;
@@ -69,7 +69,7 @@ module objects {
     }
 
     public Fire() {
-      managers.Game.bulletManger.DragonBullets[this._currentBullet].x = this.x;
+      managers.Game.bulletManger.DragonBullets[this._currentBullet].x = this.x - 5;
       managers.Game.bulletManger.DragonBullets[this._currentBullet].y = this.y + this.halfHeight + 10;
       this._currentBullet += 5
       if(this._currentBullet > 19) {

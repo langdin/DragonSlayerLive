@@ -28,20 +28,20 @@ var scenes;
             this._engineSound = createjs.Sound.play("engine");
             this._engineSound.loop = -1;
             this._engineSound.volume = 0.3;
-            this._bulletManager = new managers.Bullet(this.assetManager);
+            this._bulletManager = new managers.Bullet();
             managers.Game.bulletManger = this._bulletManager;
             this._bossHealth = 30;
             this._fireBackground = new objects.FireBackground(this.assetManager);
-            this._plane = new objects.Plane(this.assetManager);
+            this._plane = new objects.Plane();
             managers.Game.plane = this._plane;
             this._dragonsNumber = 5;
             this, this._dragons = new Array();
             var grid = 0;
             for (var i = 0; i < this._dragonsNumber; i++) {
-                this._dragons[i] = new objects.Dragon(this.assetManager, grid, Math.random() * 250);
+                this._dragons[i] = new objects.Dragon(grid, Math.random() * 250);
                 grid += 160;
             }
-            this._boss = new objects.Boss1(this.assetManager, "boss2");
+            this._boss = new objects.Boss1("boss2");
             this._scoreBoard = managers.Game.scoreBoardManager;
             this._bossKilled = false;
             this._dragonsKilled = 0;
@@ -51,7 +51,7 @@ var scenes;
         // ---------- UPDATE ------------
         PlayScene2.prototype.Update = function () {
             var _this = this;
-            if (this._dragonsKilled < 30) {
+            if (this._dragonsKilled < 1) {
                 this._fireBackground.Update();
             }
             this._plane.Update();
@@ -61,25 +61,25 @@ var scenes;
                 if (managers.Collision.Check(dragon, _this._plane)) {
                     dragon.RemoveFromScreen();
                 }
-                if (_this._dragonsKilled >= 30) {
+                if (_this._dragonsKilled >= 1) {
                     dragon.StopSpawn();
                 }
             });
             //make boss come down and atack
-            if (this._dragonsKilled >= 30) {
+            if (this._dragonsKilled >= 1) {
                 console.log('boss time');
                 var ticker_1 = createjs.Ticker.getTicks();
                 if (ticker_1 > 500) {
                     this._boss.Update();
                 }
-                if (ticker_1 % 40 == 0 && this._boss.y >= 120) {
+                if (ticker_1 % 40 == 0 && this._boss.y >= 179) {
                     this._boss.FireTriple();
                 }
             }
             this._bulletManager.Update();
             //check collision player bullets with boss
             this._bulletManager.Bullets.forEach(function (bullet) {
-                if (_this._boss.x == 400 && _this._boss.y >= 120 && managers.Collision.Check(bullet, _this._boss)) {
+                if (_this._boss.x == 400 && _this._boss.y >= 170 && managers.Collision.Check(bullet, _this._boss)) {
                     _this._bossHealth--;
                     if (_this._bossHealth == 0) {
                         _this._boss.RemoveFromScreen();
@@ -113,7 +113,7 @@ var scenes;
                 }
             });
             //objects.Game.currentScene = config.Scene.OVER;
-            if (this._scoreBoard.Lives <= 0) {
+            if (this._scoreBoard.Lives <= 0 && this.alpha <= 0) {
                 this._engineSound.stop();
                 managers.Game.currentScene = config.Scene.OVER;
             }
@@ -126,11 +126,11 @@ var scenes;
                 });
             }
             //fade scene after boss killed
-            if (this._bossKilled == true && this.alpha > 0) {
+            if ((this._scoreBoard.Lives <= 0 || this._bossKilled == true) && this.alpha > 0) {
                 this.alpha -= .01;
             }
             //if boss killed and scene faded go to next scene
-            if (this._bossKilled == true && this.alpha <= 0) {
+            if ((this._scoreBoard.Lives <= 0 || this._bossKilled == true) && this.alpha <= 0) {
                 this._engineSound.stop();
                 managers.Game.currentScene = config.Scene.OVER;
             }

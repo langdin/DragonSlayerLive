@@ -12,7 +12,7 @@ var managers;
                 if (!object2.isColliding) {
                     object2.isColliding = true;
                     switch (object2.name) {
-                        case "plane":
+                        case "player":
                             managers.Game.scoreBoardManager.Lives -= 1;
                             break;
                         case "dragon":

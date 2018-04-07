@@ -7,8 +7,8 @@ module objects {
 
 
     // Constructors
-    constructor(assetManager: createjs.LoadQueue) {
-      super(assetManager, "plane");
+    constructor() {
+      super("player");
       this.Start();
     }
 

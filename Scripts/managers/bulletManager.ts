@@ -4,7 +4,6 @@ module managers {
         private _bulletCount: number;
         private _dragonBulletCount: number;
         private _bossBulletCount: number;
-        private _assetManager: createjs.LoadQueue;
 
         // public properties
         public Bullets: objects.PlaneBullet[];
@@ -13,23 +12,22 @@ module managers {
         public CurrentBullet: number;
 
         // constructors
-        constructor(assetManager: createjs.LoadQueue) {
-            this._assetManager = assetManager;
+        constructor() {
             this.Start();
         }
 
         // private methods
         private _buildBulletPool(): void {
             for (let count = 0; count < this._bulletCount; count++) {
-                this.Bullets[count] = new objects.PlaneBullet(this._assetManager);
+                this.Bullets[count] = new objects.PlaneBullet();
             }
 
             for (let count = 0; count < this._dragonBulletCount; count++) {
-                this.DragonBullets[count] = new objects.FireBullet(this._assetManager);
+                this.DragonBullets[count] = new objects.FireBullet();
             }
 
             for (let count = 0; count < this._bossBulletCount; count++) {
-                this.BossBullets[count] = new objects.BossBullet(this._assetManager);
+                this.BossBullets[count] = new objects.BossBullet();
             }
         }
 

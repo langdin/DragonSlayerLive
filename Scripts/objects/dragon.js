@@ -14,8 +14,8 @@ var objects;
         __extends(Dragon, _super);
         // Public Properties
         // Constructors
-        function Dragon(assetManager, posX, posY) {
-            var _this = _super.call(this, assetManager, "dragon") || this;
+        function Dragon(posX, posY) {
+            var _this = _super.call(this, "dragon") || this;
             _this._posX = posX;
             _this._posY = posY;
             _this._stopSpawn = false;
@@ -63,7 +63,7 @@ var objects;
             this.CheckBounds();
         };
         Dragon.prototype.Fire = function () {
-            managers.Game.bulletManger.DragonBullets[this._currentBullet].x = this.x;
+            managers.Game.bulletManger.DragonBullets[this._currentBullet].x = this.x - 5;
             managers.Game.bulletManger.DragonBullets[this._currentBullet].y = this.y + this.halfHeight + 10;
             this._currentBullet += 5;
             if (this._currentBullet > 19) {

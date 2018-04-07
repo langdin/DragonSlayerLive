@@ -10,8 +10,8 @@ module objects {
 
 
     // Constructors
-    constructor(assetManager: createjs.LoadQueue, name: string) {
-      super(assetManager, name);
+    constructor(name: string) {
+      super(name);
       this._name = name;
       this.Start();
     }
@@ -20,11 +20,11 @@ module objects {
     private _Fire(direction: number) {
       managers.Game.bulletManger.BossBullets[this._currentBullet].SetDirectoin(direction);
       if (this._name == 'boss1') {
-        managers.Game.bulletManger.BossBullets[this._currentBullet].x = this.x + 70;
-        managers.Game.bulletManger.BossBullets[this._currentBullet].y = this.y - 30;
+        managers.Game.bulletManger.BossBullets[this._currentBullet].x = this.x + 120;
+        managers.Game.bulletManger.BossBullets[this._currentBullet].y = this.y - 50;
       } else if (this._name == 'boss2') {
-        managers.Game.bulletManger.BossBullets[this._currentBullet].x = this.x + 200;
-        managers.Game.bulletManger.BossBullets[this._currentBullet].y = this.y + 20;
+        managers.Game.bulletManger.BossBullets[this._currentBullet].x = this.x + 230;
+        managers.Game.bulletManger.BossBullets[this._currentBullet].y = this.y - 50;
       }
 
       this._currentBullet++;
@@ -63,8 +63,14 @@ module objects {
 
     // Updates the Object every frame
     public Update(): void {
-      if (this.y < 120) {
-        this.Move();
+      if (this._name == 'boss1') {
+        if (this.y < 140) {
+          this.Move();
+        }
+      } else if (this._name == 'boss2') {
+        if (this.y < 180) {
+          this.Move();
+        }
       }
       this.CheckBounds();
     }

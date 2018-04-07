@@ -15,8 +15,8 @@ var objects;
         // Private Instance Variables
         // Public Properties
         // Constructors
-        function Plane(assetManager) {
-            var _this = _super.call(this, assetManager, "plane") || this;
+        function Plane() {
+            var _this = _super.call(this, "player") || this;
             _this.Start();
             return _this;
         }

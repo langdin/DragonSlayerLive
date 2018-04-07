@@ -6,8 +6,8 @@ module objects {
 
 
         // Constructors
-        constructor(assetManager: createjs.LoadQueue) {
-            super(assetManager, "fireBullet");
+        constructor() {
+            super("dragonBullet");
             this.Start();
         }
 

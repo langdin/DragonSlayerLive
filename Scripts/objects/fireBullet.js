@@ -15,8 +15,8 @@ var objects;
         // Private Instance Variables
         // Public Properties
         // Constructors
-        function FireBullet(assetManager) {
-            var _this = _super.call(this, assetManager, "fireBullet") || this;
+        function FireBullet() {
+            var _this = _super.call(this, "dragonBullet") || this;
             _this.Start();
             return _this;
         }

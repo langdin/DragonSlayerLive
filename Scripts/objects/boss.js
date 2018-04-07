@@ -14,8 +14,8 @@ var objects;
         __extends(Boss1, _super);
         // Public Properties
         // Constructors
-        function Boss1(assetManager, name) {
-            var _this = _super.call(this, assetManager, name) || this;
+        function Boss1(name) {
+            var _this = _super.call(this, name) || this;
             _this._name = name;
             _this.Start();
             return _this;
@@ -24,12 +24,12 @@ var objects;
         Boss1.prototype._Fire = function (direction) {
             managers.Game.bulletManger.BossBullets[this._currentBullet].SetDirectoin(direction);
             if (this._name == 'boss1') {
-                managers.Game.bulletManger.BossBullets[this._currentBullet].x = this.x + 70;
-                managers.Game.bulletManger.BossBullets[this._currentBullet].y = this.y - 30;
+                managers.Game.bulletManger.BossBullets[this._currentBullet].x = this.x + 120;
+                managers.Game.bulletManger.BossBullets[this._currentBullet].y = this.y - 50;
             }
             else if (this._name == 'boss2') {
-                managers.Game.bulletManger.BossBullets[this._currentBullet].x = this.x + 200;
-                managers.Game.bulletManger.BossBullets[this._currentBullet].y = this.y + 20;
+                managers.Game.bulletManger.BossBullets[this._currentBullet].x = this.x + 230;
+                managers.Game.bulletManger.BossBullets[this._currentBullet].y = this.y - 50;
             }
             this._currentBullet++;
             if (this._currentBullet > 29) {
@@ -60,8 +60,15 @@ var objects;
         };
         // Updates the Object every frame
         Boss1.prototype.Update = function () {
-            if (this.y < 120) {
-                this.Move();
+            if (this._name == 'boss1') {
+                if (this.y < 140) {
+                    this.Move();
+                }
+            }
+            else if (this._name == 'boss2') {
+                if (this.y < 180) {
+                    this.Move();
+                }
             }
             this.CheckBounds();
         };

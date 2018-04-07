@@ -37,13 +37,14 @@ module scenes {
 
     // Initialize Game Variables and objects
     public Start(): void {
+      console.log('play start');
       // setup background sound
       this._engineSound = createjs.Sound.play("engine");
       this._engineSound.loop = -1;
       this._engineSound.volume = 0.3;
 
       //bullets managers
-      this._bulletManager = new managers.Bullet(this.assetManager);
+      this._bulletManager = new managers.Bullet();
       managers.Game.bulletManger = this._bulletManager;
 
 
@@ -51,18 +52,18 @@ module scenes {
 
       this._fireBackground = new objects.FireBackground(this.assetManager);
 
-      this._plane = new objects.Plane(this.assetManager);
+      this._plane = new objects.Plane();
       managers.Game.plane = this._plane;
 
       this._dragonsNumber = 5;
       this, this._dragons = new Array<objects.Dragon>();
       let grid = 0;
       for (let i = 0; i < this._dragonsNumber; i++) {
-        this._dragons[i] = new objects.Dragon(this.assetManager, grid, Math.random() * 250);
+        this._dragons[i] = new objects.Dragon(grid, Math.random() * 250);
         grid += 160;
       }
 
-      this._boss = new objects.Boss1(this.assetManager, "boss1");
+      this._boss = new objects.Boss1("boss1");
 
 
       this._scoreBoard = new managers.ScoreBoard();
@@ -79,7 +80,7 @@ module scenes {
     // ---------- UPDATE ------------
 
     public Update(): void {
-      if (this._dragonsKilled < 20) {
+      if (this._dragonsKilled < 1) {
         this._fireBackground.Update();
       }
       this._plane.Update();
@@ -91,19 +92,19 @@ module scenes {
           dragon.RemoveFromScreen();
         }
 
-        if (this._dragonsKilled >= 20) {
+        if (this._dragonsKilled >= 1) {
           dragon.StopSpawn();
         }
       });
 
       //make boss come down and atack
-      if (this._dragonsKilled >= 20) {
+      if (this._dragonsKilled >= 1) {
         console.log('boss time');
         let ticker: number = createjs.Ticker.getTicks();
         if (ticker > 500) {
           this._boss.Update();
         }
-        if (ticker % 40 == 0 && this._boss.y >= 120) {
+        if (ticker % 40 == 0 && this._boss.y >= 140) {
           this._boss.FireTriple();
         }
       }
@@ -112,7 +113,7 @@ module scenes {
 
       //check collision player bullets with boss
       this._bulletManager.Bullets.forEach(bullet => {
-        if (this._boss.x == 400 && this._boss.y >= 120 && managers.Collision.Check(bullet, this._boss)) {
+        if (this._boss.x == 400 && this._boss.y >= 140 && managers.Collision.Check(bullet, this._boss)) {
           this._bossHealth--;
           if (this._bossHealth == 0) {
             this._boss.RemoveFromScreen();
@@ -151,7 +152,7 @@ module scenes {
 
 
       //objects.Game.currentScene = config.Scene.OVER;
-      if (this._scoreBoard.Lives <= 0) {
+      if (this._scoreBoard.Lives <= 0 && this.alpha <= 0) {
         this._engineSound.stop();
         managers.Game.currentScene = config.Scene.OVER;
       }
@@ -165,7 +166,7 @@ module scenes {
       }
 
       //fade scene after boss killed
-      if (this._bossKilled == true && this.alpha > 0) {
+      if ((this._scoreBoard.Lives <= 0 || this._bossKilled == true) && this.alpha > 0) {
         this.alpha -= .01;
       }
 

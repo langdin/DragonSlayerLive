@@ -14,8 +14,8 @@ var objects;
         __extends(BossBullet, _super);
         // Public Properties
         // Constructors
-        function BossBullet(assetManager) {
-            var _this = _super.call(this, assetManager, "bossBullet") || this;
+        function BossBullet() {
+            var _this = _super.call(this, "bossBullet") || this;
             _this.Start();
             return _this;
         }

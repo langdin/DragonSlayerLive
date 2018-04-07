@@ -2,20 +2,19 @@ var managers;
 (function (managers) {
     var Bullet = /** @class */ (function () {
         // constructors
-        function Bullet(assetManager) {
-            this._assetManager = assetManager;
+        function Bullet() {
             this.Start();
         }
         // private methods
         Bullet.prototype._buildBulletPool = function () {
             for (var count = 0; count < this._bulletCount; count++) {
-                this.Bullets[count] = new objects.PlaneBullet(this._assetManager);
+                this.Bullets[count] = new objects.PlaneBullet();
             }
             for (var count = 0; count < this._dragonBulletCount; count++) {
-                this.DragonBullets[count] = new objects.FireBullet(this._assetManager);
+                this.DragonBullets[count] = new objects.FireBullet();
             }
             for (var count = 0; count < this._bossBulletCount; count++) {
-                this.BossBullets[count] = new objects.BossBullet(this._assetManager);
+                this.BossBullets[count] = new objects.BossBullet();
             }
         };
         // public methods
