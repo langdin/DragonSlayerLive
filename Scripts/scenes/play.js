@@ -74,7 +74,7 @@ var scenes;
                 if (ticker_1 > 500) {
                     this._boss.Update();
                 }
-                if (ticker_1 % 40 == 0 && this._boss.y >= 140) {
+                if (ticker_1 % 70 == 0 && this._boss.y >= 140) {
                     this._boss.FireTriple();
                 }
             }

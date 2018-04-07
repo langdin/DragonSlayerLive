@@ -12,7 +12,6 @@ var objects;
 (function (objects) {
     var BossBullet = /** @class */ (function (_super) {
         __extends(BossBullet, _super);
-        // Public Properties
         // Constructors
         function BossBullet() {
             var _this = _super.call(this, "bossBullet") || this;
@@ -32,13 +31,23 @@ var objects;
             }
         };
         BossBullet.prototype.Move = function () {
-            this.y += this._dy;
             if (this.x != -1000) {
-                this.x = this.x + this._direction;
+                if (this.simpleShot) {
+                    this._dy = 7;
+                    this.x = this.x + this._direction;
+                }
+                else {
+                    this._dy = 3;
+                    var ticker = createjs.Ticker.getTicks();
+                    if (ticker % 2 == 0) {
+                        this.x = this.x + 15 * Math.sin(ticker / 10) + this._direction;
+                    }
+                }
             }
+            this.y += this._dy;
         };
         BossBullet.prototype.Start = function () {
-            this._dy = 6;
+            this._dy = 3;
             this.Reset();
         };
         // Updates the Object every frame

@@ -20,9 +20,11 @@ module objects {
     private _Fire(direction: number) {
       managers.Game.bulletManger.BossBullets[this._currentBullet].SetDirectoin(direction);
       if (this._name == 'boss1') {
+        managers.Game.bulletManger.BossBullets[this._currentBullet].simpleShot = true;
         managers.Game.bulletManger.BossBullets[this._currentBullet].x = this.x + 120;
         managers.Game.bulletManger.BossBullets[this._currentBullet].y = this.y - 50;
       } else if (this._name == 'boss2') {
+        managers.Game.bulletManger.BossBullets[this._currentBullet].simpleShot = false;
         managers.Game.bulletManger.BossBullets[this._currentBullet].x = this.x + 230;
         managers.Game.bulletManger.BossBullets[this._currentBullet].y = this.y - 50;
       }
@@ -82,6 +84,7 @@ module objects {
 
     public FireTriple(): void {
       if (this._name == 'boss1') {
+        
         this._Fire(this._direction - 2);
         this._Fire(this._direction);
         this._Fire(this._direction + 2);
@@ -89,7 +92,6 @@ module objects {
         this._Fire(this._direction - 4);
         this._Fire(this._direction - 2);
         this._Fire(this._direction);
-        this._Fire(this._direction + 2);
       }
       this._direction += this._directionIncrement;
       if (this._direction == 2) {

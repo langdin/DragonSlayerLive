@@ -20,8 +20,8 @@ var scenes;
             return _this;
         }
         // Private Mathods
-        StartScene.prototype._startButtonClick = function () {
-            managers.Game.currentScene = config.Scene.PLAY;
+        StartScene.prototype._StartButtonClick = function () {
+            managers.Game.fade = true;
         };
         // Public Methods
         // Initialize Game Variables and objects
@@ -29,9 +29,16 @@ var scenes;
             this._titleImg = new objects.TitleImg(this.assetManager);
             this._startButton = new objects.Button("playNowButton", 400, 400);
             this._startBackground = new createjs.Bitmap(this.assetManager.getResult("startBackground"));
+            managers.Game.fade = false;
             this.Main();
         };
         StartScene.prototype.Update = function () {
+            if (managers.Game.fade) {
+                this.alpha -= 0.01;
+            }
+            if (this.alpha <= 0) {
+                managers.Game.currentScene = config.Scene.PLAY;
+            }
         };
         // This is where the fun happens
         StartScene.prototype.Main = function () {
@@ -41,7 +48,7 @@ var scenes;
             this.addChild(this._titleImg);
             // add the startButton to the scene
             this.addChild(this._startButton);
-            this._startButton.on("click", this._startButtonClick);
+            this._startButton.on("click", this._StartButtonClick);
         };
         return StartScene;
     }(objects.Scene));

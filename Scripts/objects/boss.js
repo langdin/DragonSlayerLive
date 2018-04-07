@@ -24,10 +24,12 @@ var objects;
         Boss1.prototype._Fire = function (direction) {
             managers.Game.bulletManger.BossBullets[this._currentBullet].SetDirectoin(direction);
             if (this._name == 'boss1') {
+                managers.Game.bulletManger.BossBullets[this._currentBullet].simpleShot = true;
                 managers.Game.bulletManger.BossBullets[this._currentBullet].x = this.x + 120;
                 managers.Game.bulletManger.BossBullets[this._currentBullet].y = this.y - 50;
             }
             else if (this._name == 'boss2') {
+                managers.Game.bulletManger.BossBullets[this._currentBullet].simpleShot = false;
                 managers.Game.bulletManger.BossBullets[this._currentBullet].x = this.x + 230;
                 managers.Game.bulletManger.BossBullets[this._currentBullet].y = this.y - 50;
             }
@@ -86,7 +88,6 @@ var objects;
                 this._Fire(this._direction - 4);
                 this._Fire(this._direction - 2);
                 this._Fire(this._direction);
-                this._Fire(this._direction + 2);
             }
             this._direction += this._directionIncrement;
             if (this._direction == 2) {

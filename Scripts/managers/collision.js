@@ -7,6 +7,9 @@ var managers;
             // define points for both object1 and object2
             var P1 = new math.Vec2(object1.x, object1.y);
             var P2 = new math.Vec2(object2.x, object2.y);
+            if (object2.name == "boss1" || object2.name == "boss2") {
+                P2 = new math.Vec2(object2.x, object2.y - 90);
+            }
             // check if there is a collision
             if (math.Vec2.Distance(P1, P2) < (object1.halfHeight + object2.halfHeight)) {
                 if (!object2.isColliding) {
@@ -15,13 +18,13 @@ var managers;
                     switch (object2.name) {
                         case "player":
                             if (managers.Game.scoreBoardManager.Lives > 0) {
-                                managers.Game.scoreBoardManager.Lives -= 1;
+                                //managers.Game.scoreBoardManager.Lives -= 1;
                                 explosion = new objects.smallExplosion("smallexplosion");
                                 explosion.x = object1.x;
                                 explosion.y = object1.y;
                                 managers.Game.currentSceneObject.addChild(explosion);
-                                break;
                             }
+                            break;
                         case "dragon":
                             managers.Game.scoreBoardManager.Score += 100;
                             explosion = new objects.smallExplosion("smallexplosion");

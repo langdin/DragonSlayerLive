@@ -15,8 +15,8 @@ module scenes {
     }
 
     // Private Mathods
-    private _startButtonClick():void {
-      managers.Game.currentScene = config.Scene.PLAY;
+    private _StartButtonClick(): void {
+      managers.Game.fade = true;
     }
 
 
@@ -26,12 +26,18 @@ module scenes {
     public Start(): void {
       this._titleImg = new objects.TitleImg(this.assetManager);
       this._startButton = new objects.Button("playNowButton", 400, 400);
-      this._startBackground = new createjs.Bitmap(this.assetManager.getResult("startBackground"))
+      this._startBackground = new createjs.Bitmap(this.assetManager.getResult("startBackground"));
+      managers.Game.fade = false;
       this.Main();
     }
 
     public Update(): void {
-
+      if (managers.Game.fade ) {
+        this.alpha -= 0.01;
+      }
+      if(this.alpha <= 0) {
+        managers.Game.currentScene = config.Scene.PLAY;
+      }
     }
 
     // This is where the fun happens
@@ -45,7 +51,7 @@ module scenes {
       // add the startButton to the scene
       this.addChild(this._startButton);
 
-      this._startButton.on("click", this._startButtonClick);
+      this._startButton.on("click", this._StartButtonClick);
     }
   }
 }

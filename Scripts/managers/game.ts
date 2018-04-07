@@ -10,5 +10,6 @@ module managers {
         public static textureAtlas: createjs.SpriteSheet;
         public static plane: objects.Plane;
         public static bulletManger: managers.Bullet;
+        public static fade: boolean;
     }
 }

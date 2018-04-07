@@ -101,7 +101,7 @@ module scenes {
         if (ticker > 500) {
           this._boss.Update();
         }
-        if (ticker % 40 == 0 && this._boss.y >= 179) {
+        if (ticker % 90 == 0 && this._boss.y >= 179) {
           this._boss.FireTriple();
         }
       }

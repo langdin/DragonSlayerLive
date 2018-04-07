@@ -19,7 +19,6 @@ module scenes {
 
     private _bossKilled: boolean;
     private _dragonsKilled: number;
-
     // Public Properties
 
 
@@ -104,7 +103,7 @@ module scenes {
         if (ticker > 500) {
           this._boss.Update();
         }
-        if (ticker % 40 == 0 && this._boss.y >= 140) {
+        if (ticker % 70 == 0 && this._boss.y >= 140) {
           this._boss.FireTriple();
         }
       }
@@ -178,6 +177,7 @@ module scenes {
         this._engineSound.stop();
         managers.Game.currentScene = config.Scene.PLAY2;
       }
+
     }
 
     // ---------- END UPDATE ------------
