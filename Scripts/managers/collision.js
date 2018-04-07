@@ -11,18 +11,29 @@ var managers;
             if (math.Vec2.Distance(P1, P2) < (object1.halfHeight + object2.halfHeight)) {
                 if (!object2.isColliding) {
                     object2.isColliding = true;
+                    var explosion = void 0;
                     switch (object2.name) {
                         case "player":
                             managers.Game.scoreBoardManager.Lives -= 1;
+                            explosion = new objects.smallExplosion("smallexplosion");
+                            explosion.x = object1.x;
+                            explosion.y = object1.y;
+                            managers.Game.currentSceneObject.addChild(explosion);
                             break;
                         case "dragon":
                             managers.Game.scoreBoardManager.Score += 100;
+                            explosion = new objects.smallExplosion("smallexplosion");
+                            explosion.x = object2.x;
+                            explosion.y = object2.y;
+                            managers.Game.currentSceneObject.addChild(explosion);
                             break;
                         case "boss1":
-                            managers.Game.scoreBoardManager.Score += 200;
-                            break;
                         case "boss2":
                             managers.Game.scoreBoardManager.Score += 200;
+                            explosion = new objects.smallExplosion("smallexplosion");
+                            explosion.x = object1.x;
+                            explosion.y = object1.y;
+                            managers.Game.currentSceneObject.addChild(explosion);
                             break;
                     }
                     return true;

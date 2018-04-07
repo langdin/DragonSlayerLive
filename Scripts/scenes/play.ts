@@ -80,7 +80,7 @@ module scenes {
     // ---------- UPDATE ------------
 
     public Update(): void {
-      if (this._dragonsKilled < 1) {
+      if (this._dragonsKilled < 20) {
         this._fireBackground.Update();
       }
       this._plane.Update();
@@ -92,13 +92,13 @@ module scenes {
           dragon.RemoveFromScreen();
         }
 
-        if (this._dragonsKilled >= 1) {
+        if (this._dragonsKilled >= 20) {
           dragon.StopSpawn();
         }
       });
 
       //make boss come down and atack
-      if (this._dragonsKilled >= 1) {
+      if (this._dragonsKilled >= 20) {
         console.log('boss time');
         let ticker: number = createjs.Ticker.getTicks();
         if (ticker > 500) {
@@ -159,10 +159,12 @@ module scenes {
 
       //make dragons atack
       let ticker: number = createjs.Ticker.getTicks();
-      if (ticker % 100 == 0) {
-        this._dragons.forEach(dragon => {
-          dragon.Fire();
-        })
+      if (!this._bossKilled) {
+        if (ticker % 100 == 0) {
+          this._dragons.forEach(dragon => {
+            dragon.Fire();
+          })
+        }
       }
 
       //fade scene after boss killed

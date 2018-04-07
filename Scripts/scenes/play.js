@@ -53,7 +53,7 @@ var scenes;
         // ---------- UPDATE ------------
         PlayScene.prototype.Update = function () {
             var _this = this;
-            if (this._dragonsKilled < 1) {
+            if (this._dragonsKilled < 20) {
                 this._fireBackground.Update();
             }
             this._plane.Update();
@@ -63,12 +63,12 @@ var scenes;
                 if (managers.Collision.Check(dragon, _this._plane)) {
                     dragon.RemoveFromScreen();
                 }
-                if (_this._dragonsKilled >= 1) {
+                if (_this._dragonsKilled >= 20) {
                     dragon.StopSpawn();
                 }
             });
             //make boss come down and atack
-            if (this._dragonsKilled >= 1) {
+            if (this._dragonsKilled >= 20) {
                 console.log('boss time');
                 var ticker_1 = createjs.Ticker.getTicks();
                 if (ticker_1 > 500) {
@@ -121,10 +121,12 @@ var scenes;
             }
             //make dragons atack
             var ticker = createjs.Ticker.getTicks();
-            if (ticker % 100 == 0) {
-                this._dragons.forEach(function (dragon) {
-                    dragon.Fire();
-                });
+            if (!this._bossKilled) {
+                if (ticker % 100 == 0) {
+                    this._dragons.forEach(function (dragon) {
+                        dragon.Fire();
+                    });
+                }
             }
             //fade scene after boss killed
             if ((this._scoreBoard.Lives <= 0 || this._bossKilled == true) && this.alpha > 0) {
