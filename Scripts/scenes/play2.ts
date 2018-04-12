@@ -175,7 +175,12 @@ module scenes {
       }
 
       //if boss killed and scene faded go to next scene
-      if ((this._scoreBoard.Lives <= 0 || this._bossKilled == true) && this.alpha <= 0) {
+      if (this._bossKilled == true && this.alpha <= 0) {
+        this._engineSound.stop();
+        console.log("end lvl2");
+        managers.Game.currentScene = config.Scene.PLAY3;
+      }
+      if (this._scoreBoard.Lives <= 0 && this.alpha <= 0) {
         this._engineSound.stop();
         managers.Game.currentScene = config.Scene.OVER;
       }

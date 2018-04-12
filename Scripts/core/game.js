@@ -123,6 +123,9 @@
             case config.Scene.PLAY2:
                 currentScene = new scenes.PlayScene2(assetManager);
                 break;
+            case config.Scene.PLAY3:
+                currentScene = new scenes.PlayScene3(assetManager);
+                break;
             case config.Scene.OVER:
                 currentScene = new scenes.OverScene(assetManager);
                 break;

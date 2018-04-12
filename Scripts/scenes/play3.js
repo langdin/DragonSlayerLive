@@ -10,11 +10,11 @@ var __extends = (this && this.__extends) || (function () {
 })();
 var scenes;
 (function (scenes) {
-    var PlayScene2 = /** @class */ (function (_super) {
-        __extends(PlayScene2, _super);
+    var PlayScene3 = /** @class */ (function (_super) {
+        __extends(PlayScene3, _super);
         // Public Properties
         // Constructor
-        function PlayScene2(assetManager) {
+        function PlayScene3(assetManager) {
             var _this = _super.call(this, assetManager) || this;
             _this.Start();
             return _this;
@@ -23,7 +23,7 @@ var scenes;
         // Public Methods
         // ---------- START ------------
         // Initialize Game Variables and objects
-        PlayScene2.prototype.Start = function () {
+        PlayScene3.prototype.Start = function () {
             // setup background sound
             this._engineSound = createjs.Sound.play("engine");
             this._engineSound.loop = -1;
@@ -32,6 +32,7 @@ var scenes;
             managers.Game.bulletManger = this._bulletManager;
             this._bossHealth = 30;
             this._fireBackground = new objects.FireBackground(this.assetManager);
+            console.log(this._fireBackground);
             this._plane = new objects.Plane();
             managers.Game.plane = this._plane;
             this._dragonsNumber = 5;
@@ -49,7 +50,7 @@ var scenes;
         };
         // ---------- END START ------------
         // ---------- UPDATE ------------
-        PlayScene2.prototype.Update = function () {
+        PlayScene3.prototype.Update = function () {
             var _this = this;
             if (this._dragonsKilled < 30) {
                 this._fireBackground.Update();
@@ -132,12 +133,7 @@ var scenes;
                 this.alpha -= .01;
             }
             //if boss killed and scene faded go to next scene
-            if (this._bossKilled == true && this.alpha <= 0) {
-                this._engineSound.stop();
-                console.log("end lvl2");
-                managers.Game.currentScene = config.Scene.PLAY3;
-            }
-            if (this._scoreBoard.Lives <= 0 && this.alpha <= 0) {
+            if ((this._scoreBoard.Lives <= 0 || this._bossKilled == true) && this.alpha <= 0) {
                 this._engineSound.stop();
                 managers.Game.currentScene = config.Scene.OVER;
             }
@@ -145,7 +141,7 @@ var scenes;
         // ---------- END UPDATE ------------
         // ---------- MAIN ------------
         // This is where the fun happens
-        PlayScene2.prototype.Main = function () {
+        PlayScene3.prototype.Main = function () {
             var _this = this;
             // add fireBackground to the scene
             this.addChild(this._fireBackground);
@@ -176,8 +172,8 @@ var scenes;
             // this.on("click", this._Shoot);
             this.on("click", this._plane.BulletFire);
         };
-        return PlayScene2;
+        return PlayScene3;
     }(objects.Scene));
-    scenes.PlayScene2 = PlayScene2;
+    scenes.PlayScene3 = PlayScene3;
 })(scenes || (scenes = {}));
-//# sourceMappingURL=play2.js.map
+//# sourceMappingURL=play3.js.map

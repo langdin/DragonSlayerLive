@@ -11,6 +11,8 @@ module objects {
           super(assetManager.getResult("fireBackground"));
         } else if(managers.Game.currentScene == config.Scene.PLAY2) {
           super(assetManager.getResult("lava"));
+        } else if(managers.Game.currentScene == config.Scene.PLAY3) {
+          super(assetManager.getResult("lava"));
         }
         
         this.Start();

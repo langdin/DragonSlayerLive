@@ -3,6 +3,7 @@ module config {
     START,
     PLAY,
     PLAY2,
+    PLAY3,
     OVER
   }
 }

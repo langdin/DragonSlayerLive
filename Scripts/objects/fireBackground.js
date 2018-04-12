@@ -22,6 +22,9 @@ var objects;
             else if (managers.Game.currentScene == config.Scene.PLAY2) {
                 _this = _super.call(this, assetManager.getResult("lava")) || this;
             }
+            else if (managers.Game.currentScene == config.Scene.PLAY3) {
+                _this = _super.call(this, assetManager.getResult("lava")) || this;
+            }
             _this.Start();
             return _this;
         }
