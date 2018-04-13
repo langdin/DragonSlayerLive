@@ -23,13 +23,16 @@ var objects;
         // Private Methods
         Boss1.prototype._Fire = function (direction) {
             managers.Game.bulletManger.BossBullets[this._currentBullet].SetDirectoin(direction);
+            managers.Game.bulletManger.BossBullets[this._currentBullet].simpleShot = this._simpleShot;
             if (this._name == 'boss1') {
-                managers.Game.bulletManger.BossBullets[this._currentBullet].simpleShot = true;
                 managers.Game.bulletManger.BossBullets[this._currentBullet].x = this.x + 120;
                 managers.Game.bulletManger.BossBullets[this._currentBullet].y = this.y - 50;
             }
             else if (this._name == 'boss2') {
-                managers.Game.bulletManger.BossBullets[this._currentBullet].simpleShot = false;
+                managers.Game.bulletManger.BossBullets[this._currentBullet].x = this.x + 230;
+                managers.Game.bulletManger.BossBullets[this._currentBullet].y = this.y - 50;
+            }
+            else if (this._name == 'boss3') {
                 managers.Game.bulletManger.BossBullets[this._currentBullet].x = this.x + 230;
                 managers.Game.bulletManger.BossBullets[this._currentBullet].y = this.y - 50;
             }
@@ -59,6 +62,7 @@ var objects;
             this._currentBullet = 0;
             this._direction = 0;
             this._directionIncrement = 2;
+            this._simpleShot = true;
         };
         // Updates the Object every frame
         Boss1.prototype.Update = function () {
@@ -78,15 +82,18 @@ var objects;
             this.x = 3000;
             this.y = 3000;
         };
-        Boss1.prototype.FireTriple = function () {
+        //TODO fore boss3 make shooting multiple patterns
+        Boss1.prototype.FireAtack = function () {
             if (this._name == 'boss1') {
-                this._Fire(this._direction - 2);
+                this._simpleShot = true;
                 this._Fire(this._direction);
                 this._Fire(this._direction + 2);
+                this._Fire(this._direction + -2);
             }
             else if (this._name == 'boss2') {
-                this._Fire(this._direction - 4);
+                this._simpleShot = false;
                 this._Fire(this._direction - 2);
+                this._Fire(this._direction - 4);
                 this._Fire(this._direction);
             }
             this._direction += this._directionIncrement;

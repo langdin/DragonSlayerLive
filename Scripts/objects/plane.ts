@@ -66,7 +66,7 @@ module objects {
     }
 
     public Start(): void {
-      this.x = 320;
+      this.x = 400;
       this.y = 530;
     }
 

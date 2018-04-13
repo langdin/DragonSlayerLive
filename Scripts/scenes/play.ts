@@ -19,6 +19,7 @@ module scenes {
 
     private _bossKilled: boolean;
     private _dragonsKilled: number;
+    private _fadeIn: boolean;
     // Public Properties
 
 
@@ -70,6 +71,8 @@ module scenes {
 
       this._bossKilled = false;
       this._dragonsKilled = 0;
+      this.alpha = 0;
+      this._fadeIn = false;
       this.Main();
     }
 
@@ -79,9 +82,15 @@ module scenes {
     // ---------- UPDATE ------------
 
     public Update(): void {
-      if (this._dragonsKilled < 20) {
+      if (this._dragonsKilled < 1) {
         this._fireBackground.Update();
       }
+      if (this.alpha < 1 && !this._fadeIn) {
+        this.alpha += 0.025;
+        return;
+      }
+      this._fadeIn = true;
+
       this._plane.Update();
 
       // check collision between plane and dragon
@@ -91,20 +100,20 @@ module scenes {
           dragon.RemoveFromScreen();
         }
 
-        if (this._dragonsKilled >= 20) {
+        if (this._dragonsKilled >= 1) {
           dragon.StopSpawn();
         }
       });
 
       //make boss come down and atack
-      if (this._dragonsKilled >= 20) {
+      if (this._dragonsKilled >= 1) {
         console.log('boss time');
         let ticker: number = createjs.Ticker.getTicks();
         if (ticker > 500) {
           this._boss.Update();
         }
         if (ticker % 70 == 0 && this._boss.y >= 140) {
-          this._boss.FireTriple();
+          this._boss.FireAtack();
         }
       }
 
@@ -169,7 +178,7 @@ module scenes {
       this._scoreBoard.HighScore = this._scoreBoard.Score;
       //fade scene after boss killed
       if ((this._scoreBoard.Lives <= 0 || this._bossKilled == true) && this.alpha > 0) {
-        this.alpha -= .01;
+        this.alpha -= 0.025;
       }
 
       //if boss killed and scene faded go to next scene

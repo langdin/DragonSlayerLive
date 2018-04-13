@@ -33,7 +33,7 @@ module scenes {
 
     public Update(): void {
       if (managers.Game.fade ) {
-        this.alpha -= 0.01;
+        this.alpha -= 0.025;
       }
       if(this.alpha <= 0) {
         managers.Game.currentScene = config.Scene.PLAY;

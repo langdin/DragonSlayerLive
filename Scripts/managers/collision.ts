@@ -2,6 +2,7 @@ module managers {
   export class Collision {
 
 
+    //TODO collision with 3rd boss
     public static Check(object1: objects.GameObject, object2: objects.GameObject): boolean {
       // define points for both object1 and object2
       let P1 = new math.Vec2(object1.x, object1.y);

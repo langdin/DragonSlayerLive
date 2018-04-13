@@ -32,9 +32,13 @@ var scenes;
             this._gameOverImg = new objects.GameOverImg(this.assetManager);
             this._restartButton = new objects.Button("restartButton", 400, 400);
             this._scoreBoard = managers.Game.scoreBoardManager;
+            this.alpha = 0;
             this.Main();
         };
         OverScene.prototype.Update = function () {
+            if (this.alpha < 1) {
+                this.alpha += 0.025;
+            }
         };
         // This is where the fun happens
         OverScene.prototype.Main = function () {

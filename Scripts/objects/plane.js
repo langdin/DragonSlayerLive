@@ -61,7 +61,7 @@ var objects;
             //}
         };
         Plane.prototype.Start = function () {
-            this.x = 320;
+            this.x = 400;
             this.y = 530;
         };
         // Updates the Object every frame

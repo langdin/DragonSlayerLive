@@ -3,6 +3,7 @@ var managers;
     var Collision = /** @class */ (function () {
         function Collision() {
         }
+        //TODO collision with 3rd boss
         Collision.Check = function (object1, object2) {
             // define points for both object1 and object2
             var P1 = new math.Vec2(object1.x, object1.y);

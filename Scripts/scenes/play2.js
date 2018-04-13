@@ -45,15 +45,22 @@ var scenes;
             this._scoreBoard = managers.Game.scoreBoardManager;
             this._bossKilled = false;
             this._dragonsKilled = 0;
+            this.alpha = 0;
+            this._fadeIn = false;
             this.Main();
         };
         // ---------- END START ------------
         // ---------- UPDATE ------------
         PlayScene2.prototype.Update = function () {
             var _this = this;
-            if (this._dragonsKilled < 30) {
+            if (this._dragonsKilled < 1) {
                 this._fireBackground.Update();
             }
+            if (this.alpha < 1 && !this._fadeIn) {
+                this.alpha += 0.025;
+                return;
+            }
+            this._fadeIn = true;
             this._plane.Update();
             // check collision between plane and dragon
             this._dragons.forEach(function (dragon) {
@@ -61,19 +68,19 @@ var scenes;
                 if (managers.Collision.Check(dragon, _this._plane)) {
                     dragon.RemoveFromScreen();
                 }
-                if (_this._dragonsKilled >= 30) {
+                if (_this._dragonsKilled >= 1) {
                     dragon.StopSpawn();
                 }
             });
             //make boss come down and atack
-            if (this._dragonsKilled >= 30) {
+            if (this._dragonsKilled >= 1) {
                 console.log('boss time');
                 var ticker_1 = createjs.Ticker.getTicks();
                 if (ticker_1 > 500) {
                     this._boss.Update();
                 }
                 if (ticker_1 % 90 == 0 && this._boss.y >= 179) {
-                    this._boss.FireTriple();
+                    this._boss.FireAtack();
                 }
             }
             this._bulletManager.Update();
@@ -129,7 +136,7 @@ var scenes;
             }
             //fade scene after boss killed
             if ((this._scoreBoard.Lives <= 0 || this._bossKilled == true) && this.alpha > 0) {
-                this.alpha -= .01;
+                this.alpha -= 0.025;
             }
             //if boss killed and scene faded go to next scene
             if (this._bossKilled == true && this.alpha <= 0) {
