@@ -10,9 +10,12 @@ module scenes {
     private _boss: objects.Boss1;
     private _bossHealth: number;
 
+    private _bossHealthBar: createjs.Shape;
+    private _bossHealthBorder: createjs.Shape;
+
     private _bulletManager: managers.Bullet;
 
-    private _engineSound: createjs.AbstractSoundInstance;
+    //private _engineSound: createjs.AbstractSoundInstance;
     private _planeShotSound: createjs.AbstractSoundInstance;
 
     private _scoreBoard: managers.ScoreBoard;
@@ -42,14 +45,23 @@ module scenes {
     // Initialize Game Variables and objects
     public Start(): void {
       // setup background sound
-      this._engineSound = createjs.Sound.play("engine");
-      this._engineSound.loop = -1;
-      this._engineSound.volume = 0.3;
+      //this._engineSound = createjs.Sound.play("engine");
+      //this._engineSound.loop = -1;
+      //this._engineSound.volume = 0.3;
 
       this._bulletManager = new managers.Bullet();
       managers.Game.bulletManger = this._bulletManager;
 
       this._bossHealth = 30;
+      // progress bar for boss health
+      this._bossHealthBar = new createjs.Shape().set({x:20, y:400, scaleY:1});
+      this._bossHealthBar.graphics.beginFill("red").drawRect(0,0,30, -200);
+
+      this._bossHealthBorder = new createjs.Shape().set({x:17, y:403});
+      this._bossHealthBorder.graphics.beginFill("white").drawRect(0,0,36, -206);
+
+      this._bossHealthBorder.alpha = 0;
+      this._bossHealthBar.alpha = 0;
 
       this._fireBackground = new objects.FireBackground(this.assetManager);
       console.log(this._fireBackground);
@@ -107,6 +119,8 @@ module scenes {
       //make boss come down and atack
       if (this._dragonsKilled >= 30) {
         console.log('boss time');
+        this._bossHealthBorder.alpha = 1;
+        this._bossHealthBar.alpha = 1;
         let ticker: number = createjs.Ticker.getTicks();
         if (ticker > 500) {
           this._boss.Update();
@@ -122,6 +136,7 @@ module scenes {
       this._bulletManager.Bullets.forEach(bullet => {
         if (this._boss.x == 400 && this._boss.y >= 170 && managers.Collision.Check(bullet, this._boss)) {
           this._bossHealth--;
+          this._bossHealthBar.set({scaleY:this._bossHealth/30});
           if (this._bossHealth == 0) {
             this._boss.RemoveFromScreen();
             this.removeChild(this._boss);
@@ -160,7 +175,7 @@ module scenes {
 
       //objects.Game.currentScene = config.Scene.OVER;
       if (this._scoreBoard.Lives <= 0 && this.alpha <= 0) {
-        this._engineSound.stop();
+        //this._engineSound.stop();
         managers.Game.currentScene = config.Scene.OVER;
       }
 
@@ -186,7 +201,7 @@ module scenes {
 
       //if boss killed and scene faded go to next scene
       if ((this._scoreBoard.Lives <= 0 || this._bossKilled == true) && this.alpha <= 0) {
-        this._engineSound.stop();
+        //this._engineSound.stop();
         managers.Game.currentScene = config.Scene.OVER;
       }
     }
@@ -202,6 +217,10 @@ module scenes {
     public Main(): void {
       // add fireBackground to the scene
       this.addChild(this._fireBackground);
+
+      //add boss health progress bar
+      this.addChild(this._bossHealthBorder);
+      this.addChild(this._bossHealthBar);
 
       // add dragons to this scene
       this._dragons.forEach(dragon => {
