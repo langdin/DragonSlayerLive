@@ -193,8 +193,14 @@ var scenes;
             this._bulletManager.BossBullets.forEach(function (bullet) {
                 _this.addChild(bullet);
             });
-            // this.on("click", this._Shoot);
-            this.on("click", this._plane.BulletFire);
+            this.on("click", function () {
+                if (managers.Game.upgrade) {
+                    this._plane.BulletTriple();
+                }
+                else {
+                    this._plane.BulletFire();
+                }
+            });
         };
         return PlayScene2;
     }(objects.Scene));

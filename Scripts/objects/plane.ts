@@ -76,8 +76,9 @@ module objects {
       this.CheckBounds();
     }
 
-    public BulletFire(): void {
+    public BulletFire(direction: number = 0): void {
       let currentBullet = managers.Game.bulletManger.CurrentBullet;
+      managers.Game.bulletManger.Bullets[currentBullet].SetDirection(direction);
       managers.Game.bulletManger.Bullets[currentBullet].x = managers.Game.plane.x;
       managers.Game.bulletManger.Bullets[currentBullet].y = managers.Game.plane.y - 30;
       managers.Game.bulletManger.CurrentBullet++;
@@ -86,6 +87,12 @@ module objects {
       }
       let planeShotSound = createjs.Sound.play("planeShot");
       planeShotSound.volume = 0.1;
+    }
+
+    public BulletTriple(): void {
+      this.BulletFire();
+      this.BulletFire(2);
+      this.BulletFire(-2);
     }
   }
 }

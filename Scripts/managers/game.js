@@ -4,6 +4,7 @@ var managers;
         function Game() {
         }
         Game.HighScore = 0;
+        Game.upgrade = false;
         return Game;
     }());
     managers.Game = Game;

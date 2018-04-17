@@ -24,6 +24,8 @@ module scenes {
     private _bossHealthBar: createjs.Shape;
     private _bossHealthBorder: createjs.Shape;
 
+    private _gem: objects.Coin;
+
     // Public Properties
 
 
@@ -47,6 +49,7 @@ module scenes {
       //this._engineSound.loop = -1;
       //this._engineSound.volume = 0.3;
 
+      this._gem = new objects.Coin();
 
       //bullets managers
       this._bulletManager = new managers.Bullet();
@@ -110,6 +113,10 @@ module scenes {
       this._fadeIn = true;
 
       this._plane.Update();
+      this._gem.Update();
+      if(managers.Collision.Check(this._plane, this._gem)) {
+        this._gem.Reset();
+      }
 
       // check collision between plane and dragon
       this._dragons.forEach(dragon => {
@@ -157,6 +164,11 @@ module scenes {
       for (let i = 0; i < this._bulletManager.Bullets.length; i++) {
         for (let j = 0; j < this._dragons.length; j++) {
           if (managers.Collision.Check(this._bulletManager.Bullets[i], this._dragons[j])) {
+            //if havent upgrated weapon yet
+            if(!managers.Game.upgrade && this._dragonsKilled == 15) {
+              this._gem.x = this._dragons[j].x;
+              this._gem.y = this._dragons[j].y;
+            }
             //move dragon and bullet out of canvas
             this._bulletManager.Bullets[i].Reset();
             this._dragons[j].RemoveFromScreen();
@@ -207,7 +219,7 @@ module scenes {
         //this._engineSound.stop();
         managers.Game.currentScene = config.Scene.PLAY2;
       }
-
+      console.log(managers.Game.upgrade);
     }
 
     // ---------- END UPDATE ------------
@@ -223,6 +235,8 @@ module scenes {
       //add boss health progress bar
       this.addChild(this._bossHealthBorder);
       this.addChild(this._bossHealthBar);
+
+      this.addChild(this._gem);
 
       // add dragons to this scene
       this._dragons.forEach(dragon => {
@@ -258,7 +272,13 @@ module scenes {
       });
 
       // this.on("click", this._Shoot);
-      this.on("click", this._plane.BulletFire);
+      this.on("click", function() {
+        if(managers.Game.upgrade) {
+          this._plane.BulletTriple();
+        } else {
+          this._plane.BulletFire();
+        }
+      });
     }
 
     // ---------- END MAIN ------------

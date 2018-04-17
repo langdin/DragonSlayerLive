@@ -69,8 +69,10 @@ var objects;
             this.Move();
             this.CheckBounds();
         };
-        Plane.prototype.BulletFire = function () {
+        Plane.prototype.BulletFire = function (direction) {
+            if (direction === void 0) { direction = 0; }
             var currentBullet = managers.Game.bulletManger.CurrentBullet;
+            managers.Game.bulletManger.Bullets[currentBullet].SetDirection(direction);
             managers.Game.bulletManger.Bullets[currentBullet].x = managers.Game.plane.x;
             managers.Game.bulletManger.Bullets[currentBullet].y = managers.Game.plane.y - 30;
             managers.Game.bulletManger.CurrentBullet++;
@@ -79,6 +81,11 @@ var objects;
             }
             var planeShotSound = createjs.Sound.play("planeShot");
             planeShotSound.volume = 0.1;
+        };
+        Plane.prototype.BulletTriple = function () {
+            this.BulletFire();
+            this.BulletFire(2);
+            this.BulletFire(-2);
         };
         return Plane;
     }(objects.GameObject));

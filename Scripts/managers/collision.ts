@@ -2,12 +2,12 @@ module managers {
   export class Collision {
 
 
-    //TODO collision with 3rd boss
-    public static Check(object1: objects.GameObject, object2: objects.GameObject): boolean {
+    //TODO collision with 3rd boss // add object2 type
+    public static Check(object1: objects.GameObject, object2): boolean {
       // define points for both object1 and object2
       let P1 = new math.Vec2(object1.x, object1.y);
       let P2 = new math.Vec2(object2.x, object2.y);
-      if(object2.name == "boss1" || object2.name == "boss2") {
+      if (object2.name == "boss1" || object2.name == "boss2") {
         P2 = new math.Vec2(object2.x, object2.y - 90);
       }
       // check if there is a collision
@@ -23,6 +23,7 @@ module managers {
                 explosion.x = object1.x;
                 explosion.y = object1.y;
                 managers.Game.currentSceneObject.addChild(explosion);
+                managers.Game.upgrade = false;
               }
               break;
             case "dragon":
@@ -31,6 +32,10 @@ module managers {
               explosion.x = object2.x;
               explosion.y = object2.y;
               managers.Game.currentSceneObject.addChild(explosion);
+              break;
+            case "gem":
+              managers.Game.scoreBoardManager.Score += 300;
+              managers.Game.upgrade = true;
               break;
             case "boss1":
             case "boss2":

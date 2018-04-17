@@ -257,8 +257,13 @@ module scenes {
         this.addChild(bullet);
       });
 
-      // this.on("click", this._Shoot);
-      this.on("click", this._plane.BulletFire);
+      this.on("click", function() {
+        if(managers.Game.upgrade) {
+          this._plane.BulletTriple();
+        } else {
+          this._plane.BulletFire();
+        }
+      });
     }
 
     // ---------- END MAIN ------------

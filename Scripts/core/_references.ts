@@ -29,6 +29,7 @@
 /// <reference path="../../Scripts/objects/plane.ts"/>
 /// <reference path="../../Scripts/objects/planeBullet.ts"/>
 /// <reference path="../../Scripts/objects/boss.ts"/>
+/// <reference path="../../Scripts/objects/coin.ts"/>
 
 /// <reference path="../../Scripts/scenes/over.ts"/>
 /// <reference path="../../Scripts/scenes/play3.ts"/>

@@ -31,8 +31,7 @@ module objects {
             if(this.x != -1000) {
                 if(this.simpleShot) {
                     this._dy = 7;
-                    this.x = this.x + this._direction;
-                    let ticker: number = createjs.Ticker.getTicks();
+                    this.x += this._direction;
                 } else {
                     this._dy = 3;
                     let ticker: number = createjs.Ticker.getTicks();

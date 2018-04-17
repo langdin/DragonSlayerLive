@@ -3,7 +3,7 @@ var managers;
     var Collision = /** @class */ (function () {
         function Collision() {
         }
-        //TODO collision with 3rd boss
+        //TODO collision with 3rd boss // add object2 type
         Collision.Check = function (object1, object2) {
             // define points for both object1 and object2
             var P1 = new math.Vec2(object1.x, object1.y);
@@ -24,6 +24,7 @@ var managers;
                                 explosion.x = object1.x;
                                 explosion.y = object1.y;
                                 managers.Game.currentSceneObject.addChild(explosion);
+                                managers.Game.upgrade = false;
                             }
                             break;
                         case "dragon":
@@ -32,6 +33,10 @@ var managers;
                             explosion.x = object2.x;
                             explosion.y = object2.y;
                             managers.Game.currentSceneObject.addChild(explosion);
+                            break;
+                        case "gem":
+                            managers.Game.scoreBoardManager.Score += 300;
+                            managers.Game.upgrade = true;
                             break;
                         case "boss1":
                         case "boss2":

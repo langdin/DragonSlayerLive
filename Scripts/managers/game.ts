@@ -11,5 +11,6 @@ module managers {
         public static plane: objects.Plane;
         public static bulletManger: managers.Bullet;
         public static fade: boolean;
+        public static upgrade: boolean = false;
     }
 }

@@ -34,8 +34,7 @@ var objects;
             if (this.x != -1000) {
                 if (this.simpleShot) {
                     this._dy = 7;
-                    this.x = this.x + this._direction;
-                    var ticker = createjs.Ticker.getTicks();
+                    this.x += this._direction;
                 }
                 else {
                     this._dy = 3;

@@ -69,6 +69,7 @@
         }
     };
     assetManifest = [
+        { id: "gem", src: "./Assets/images/gem.png" },
         { id: "fireBackground", src: "./Assets/images/fireBackground.jpg" },
         { id: "lava", src: "./Assets/images/lava.jpg" },
         { id: "startBackground", src: "./Assets/images/startBackground.png" },
