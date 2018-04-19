@@ -24,6 +24,13 @@ module scenes {
     private _dragonsKilled: number;
 
     private _fadeIn: boolean;
+
+    private _gem: objects.Coin;
+
+    private _explosions: objects.smallExplosion[];
+    private _expCount: number;
+
+    private _BGMusic: createjs.AbstractSoundInstance;
     // Public Properties
 
 
@@ -44,14 +51,16 @@ module scenes {
     // Initialize Game Variables and objects
     public Start(): void {
       // setup background sound
-      //this._engineSound = createjs.Sound.play("engine");
-      //this._engineSound.loop = -1;
-      //this._engineSound.volume = 0.3;
+      this._BGMusic = createjs.Sound.play("BGMusic");
+      this._BGMusic.loop = -1;
+      this._BGMusic.volume = 0.3;
+
+      this._gem = new objects.Coin();
 
       this._bulletManager = new managers.Bullet();
       managers.Game.bulletManger = this._bulletManager;
 
-      this._bossHealth = 30;
+      this._bossHealth = 100;
       // progress bar for boss health
       this._bossHealthBar = new createjs.Shape().set({x:20, y:400, scaleY:1});
       this._bossHealthBar.graphics.beginFill("red").drawRect(0,0,30, -200);
@@ -79,6 +88,9 @@ module scenes {
 
       this._scoreBoard = managers.Game.scoreBoardManager;
 
+      this._explosions = new Array<objects.smallExplosion>();
+      this._expCount = 0;
+
       this._bossKilled = false;
       this._dragonsKilled = 0;
       this.alpha = 0;
@@ -92,7 +104,7 @@ module scenes {
     // ---------- UPDATE ------------
 
     public Update(): void {
-      if (this._dragonsKilled < 30) {
+      if (this._dragonsKilled < 1) {
         this._fireBackground.Update();
       }
       if(this.alpha < 1 && !this._fadeIn) {
@@ -102,6 +114,11 @@ module scenes {
       this._fadeIn = true;
       this._plane.Update();
 
+      this._gem.Update();
+      if(managers.Collision.Check(this._plane, this._gem)) {
+        this._gem.Reset();
+      }
+
       // check collision between plane and dragon
       this._dragons.forEach(dragon => {
         dragon.Update();
@@ -109,13 +126,13 @@ module scenes {
           dragon.RemoveFromScreen();
         }
 
-        if (this._dragonsKilled >= 30) {
+        if (this._dragonsKilled >= 1) {
           dragon.StopSpawn();
         }
       });
 
       //make boss come down and atack
-      if (this._dragonsKilled >= 30) {
+      if (this._dragonsKilled >= 1) {
         console.log('boss time');
         this._bossHealthBorder.alpha = 1;
         this._bossHealthBar.alpha = 1;
@@ -134,10 +151,12 @@ module scenes {
       this._bulletManager.Bullets.forEach(bullet => {
         if (this._boss.x == 400 && this._boss.y >= 170 && managers.Collision.Check(bullet, this._boss)) {
           this._bossHealth--;
-          this._bossHealthBar.set({scaleY:this._bossHealth/30});
+          if(this._bossHealth >= 0) {
+            this._bossHealthBar.set({ scaleY: this._bossHealth / 50 });
+          }
           if (this._bossHealth == 0) {
-            this._boss.RemoveFromScreen();
-            this.removeChild(this._boss);
+            //this._boss.RemoveFromScreen();
+            //this.removeChild(this._boss);
             this._bossKilled = true;
           }
           bullet.Reset();
@@ -149,6 +168,11 @@ module scenes {
       for (let i = 0; i < this._bulletManager.Bullets.length; i++) {
         for (let j = 0; j < this._dragons.length; j++) {
           if (managers.Collision.Check(this._bulletManager.Bullets[i], this._dragons[j])) {
+            //if havent upgrated weapon yet
+            if(!managers.Game.upgrade && this._dragonsKilled == 15) {
+              this._gem.x = this._dragons[j].x;
+              this._gem.y = this._dragons[j].y;
+            }
             //move dragon and bullet out of canvas
             this._bulletManager.Bullets[i].Reset();
             this._dragons[j].RemoveFromScreen();
@@ -171,12 +195,6 @@ module scenes {
         }
       });
 
-      //objects.Game.currentScene = config.Scene.OVER;
-      if (this._scoreBoard.Lives <= 0 && this.alpha <= 0) {
-        //this._engineSound.stop();
-        managers.Game.currentScene = config.Scene.OVER;
-      }
-
       
 
       this._scoreBoard.HighScore = this._scoreBoard.Score;
@@ -194,17 +212,28 @@ module scenes {
 
       //fade scene after boss killed
       if ((this._scoreBoard.Lives <= 0 || this._bossKilled == true) && this.alpha > 0) {
-        this.alpha -= 0.025;
+        if (this._bossKilled) {
+          let ticker: number = createjs.Ticker.getTicks();
+          if (ticker % 7 == 0 && this._expCount < 20) {
+            //TODO added explosion only on this level
+            this._explosions[this._expCount] = new objects.smallExplosion();
+            this._explosions[this._expCount].x = this._boss.x - this._boss.width / 3 + Math.random() * 2/3 * this._boss.width;
+            this._explosions[this._expCount].y = this._boss.y - this._boss.height / 3 + Math.random() * 2/3 * this._boss.height;
+            managers.Game.currentSceneObject.addChild(this._explosions[this._expCount]);
+            createjs.Sound.play("explosion");
+            this._expCount++;
+          }
+        }
+        this.alpha -= 0.004;
       }
 
       //if boss killed and scene faded go to next scene
-      if (this._bossKilled == true && this.alpha <= 0) {
-        //this._engineSound.stop();
-        console.log("end lvl2");
+      if (this._bossKilled && this.alpha <= 0) {
+        this._BGMusic.stop();
         managers.Game.currentScene = config.Scene.PLAY3;
       }
       if (this._scoreBoard.Lives <= 0 && this.alpha <= 0) {
-        //this._engineSound.stop();
+        this._BGMusic.stop();
         managers.Game.currentScene = config.Scene.OVER;
       }
     }
@@ -224,6 +253,9 @@ module scenes {
       //add boss health progress bar
       this.addChild(this._bossHealthBorder);
       this.addChild(this._bossHealthBar);
+
+      //add gem
+      this.addChild(this._gem);
 
       // add dragons to this scene
       this._dragons.forEach(dragon => {
@@ -258,10 +290,12 @@ module scenes {
       });
 
       this.on("click", function() {
-        if(managers.Game.upgrade) {
-          this._plane.BulletTriple();
-        } else {
-          this._plane.BulletFire();
+        if (this._scoreBoard.Lives > 0) {
+          if (managers.Game.upgrade) {
+            this._plane.BulletCombo();
+          } else {
+            this._plane.BulletFire();
+          }
         }
       });
     }

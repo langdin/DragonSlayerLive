@@ -76,23 +76,28 @@ module objects {
       this.CheckBounds();
     }
 
-    public BulletFire(direction: number = 0): void {
+    public BulletFire(double: boolean = false): void {
       let currentBullet = managers.Game.bulletManger.CurrentBullet;
-      managers.Game.bulletManger.Bullets[currentBullet].SetDirection(direction);
-      managers.Game.bulletManger.Bullets[currentBullet].x = managers.Game.plane.x;
+      let dx = 0;
+      if(double && (currentBullet+1) % 2 == 0) {
+        dx = 10;
+      } else if(double && (currentBullet+1) % 2 != 0) {
+        dx = -10;
+      }
+
+      managers.Game.bulletManger.Bullets[currentBullet].x = managers.Game.plane.x + dx;
       managers.Game.bulletManger.Bullets[currentBullet].y = managers.Game.plane.y - 30;
       managers.Game.bulletManger.CurrentBullet++;
       if(managers.Game.bulletManger.CurrentBullet > 49) {
         managers.Game.bulletManger.CurrentBullet = 0;
       }
       let planeShotSound = createjs.Sound.play("planeShot");
-      planeShotSound.volume = 0.1;
+      //planeShotSound.volume = 0.1;
     }
 
-    public BulletTriple(): void {
-      this.BulletFire();
-      this.BulletFire(2);
-      this.BulletFire(-2);
+    public BulletCombo(): void {
+      this.BulletFire(true);
+      this.BulletFire(true);
     }
   }
 }

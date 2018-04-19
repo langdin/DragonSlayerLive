@@ -25,19 +25,19 @@ var scenes;
         PlayScene.prototype.Start = function () {
             console.log('play start');
             // setup background sound
-            //this._engineSound = createjs.Sound.play("engine");
-            //this._engineSound.loop = -1;
-            //this._engineSound.volume = 0.3;
+            this._BGMusic = createjs.Sound.play("BGMusic");
+            this._BGMusic.loop = -1;
+            this._BGMusic.volume = 0.3;
             this._gem = new objects.Coin();
             //bullets managers
             this._bulletManager = new managers.Bullet();
             managers.Game.bulletManger = this._bulletManager;
             //number of hits to kill boss
-            this._bossHealth = 20;
+            this._bossHealth = 50;
             // progress bar for boss health
-            this._bossHealthBar = new createjs.Shape().set({ x: 20, y: 400, scaleY: 1 });
+            this._bossHealthBar = new createjs.Shape().set({ x: 20, y: 300, scaleY: 1 });
             this._bossHealthBar.graphics.beginFill("red").drawRect(0, 0, 30, -200);
-            this._bossHealthBorder = new createjs.Shape().set({ x: 17, y: 403 });
+            this._bossHealthBorder = new createjs.Shape().set({ x: 17, y: 303 });
             this._bossHealthBorder.graphics.beginFill("white").drawRect(0, 0, 36, -206);
             this._bossHealthBorder.alpha = 0;
             this._bossHealthBar.alpha = 0;
@@ -59,6 +59,8 @@ var scenes;
             //scoreboard
             this._scoreBoard = new managers.ScoreBoard();
             managers.Game.scoreBoardManager = this._scoreBoard;
+            this._explosions = new Array();
+            this._expCount = 0;
             this._bossKilled = false;
             this._dragonsKilled = 0;
             this.alpha = 0;
@@ -69,7 +71,7 @@ var scenes;
         // ---------- UPDATE ------------
         PlayScene.prototype.Update = function () {
             var _this = this;
-            if (this._dragonsKilled < 20) {
+            if (this._dragonsKilled < 1) {
                 this._fireBackground.Update();
             }
             if (this.alpha < 1 && !this._fadeIn) {
@@ -88,12 +90,12 @@ var scenes;
                 if (managers.Collision.Check(dragon, _this._plane)) {
                     dragon.RemoveFromScreen();
                 }
-                if (_this._dragonsKilled >= 20) {
+                if (_this._dragonsKilled >= 1) {
                     dragon.StopSpawn();
                 }
             });
             //make boss come down and atack
-            if (this._dragonsKilled >= 20) {
+            if (this._dragonsKilled >= 1) {
                 console.log('boss time');
                 var ticker_1 = createjs.Ticker.getTicks();
                 this._bossHealthBorder.alpha = 1;
@@ -101,7 +103,7 @@ var scenes;
                 if (ticker_1 > 500) {
                     this._boss.Update();
                 }
-                if (ticker_1 % 70 == 0 && this._boss.y >= 140) {
+                if (ticker_1 % 70 == 0 && this._boss.y >= 140 && !this._bossKilled) {
                     this._boss.FireAtack();
                 }
             }
@@ -110,10 +112,12 @@ var scenes;
             this._bulletManager.Bullets.forEach(function (bullet) {
                 if (_this._boss.x == 400 && _this._boss.y >= 140 && managers.Collision.Check(bullet, _this._boss)) {
                     _this._bossHealth--;
-                    _this._bossHealthBar.set({ scaleY: _this._bossHealth / 20 });
+                    if (_this._bossHealth >= 0) {
+                        _this._bossHealthBar.set({ scaleY: _this._bossHealth / 50 });
+                    }
                     if (_this._bossHealth == 0) {
-                        _this._boss.RemoveFromScreen();
-                        _this.removeChild(_this._boss);
+                        //this._boss.RemoveFromScreen();
+                        //this.removeChild(this._boss);
                         _this._bossKilled = true;
                     }
                     bullet.Reset();
@@ -147,11 +151,6 @@ var scenes;
                     bullet.Reset();
                 }
             });
-            //objects.Game.currentScene = config.Scene.OVER;
-            if (this._scoreBoard.Lives <= 0 && this.alpha <= 0) {
-                //this._engineSound.stop();
-                managers.Game.currentScene = config.Scene.OVER;
-            }
             //make dragons atack
             var ticker = createjs.Ticker.getTicks();
             if (!this._bossKilled) {
@@ -163,15 +162,31 @@ var scenes;
             }
             this._scoreBoard.HighScore = this._scoreBoard.Score;
             //fade scene after boss killed
-            if ((this._scoreBoard.Lives <= 0 || this._bossKilled == true) && this.alpha > 0) {
-                this.alpha -= 0.025;
+            if ((this._scoreBoard.Lives <= 0 || this._bossKilled) && this.alpha > 0) {
+                if (this._bossKilled) {
+                    var ticker_2 = createjs.Ticker.getTicks();
+                    if (ticker_2 % 7 == 0 && this._expCount < 20) {
+                        //TODO added explosion only on this level
+                        this._explosions[this._expCount] = new objects.smallExplosion();
+                        this._explosions[this._expCount].x = this._boss.x - this._boss.width / 3 + Math.random() * 2 / 3 * this._boss.width;
+                        this._explosions[this._expCount].y = this._boss.y - this._boss.height / 3 + Math.random() * 2 / 3 * this._boss.height;
+                        managers.Game.currentSceneObject.addChild(this._explosions[this._expCount]);
+                        createjs.Sound.play("explosion");
+                        this._expCount++;
+                    }
+                }
+                this.alpha -= 0.004;
+            }
+            //objects.Game.currentScene = config.Scene.OVER;
+            if (this._scoreBoard.Lives <= 0 && this.alpha <= 0) {
+                this._BGMusic.stop();
+                managers.Game.currentScene = config.Scene.OVER;
             }
             //if boss killed and scene faded go to next scene
-            if (this._bossKilled == true && this.alpha <= 0) {
-                //this._engineSound.stop();
+            if (this._bossKilled && this.alpha <= 0) {
+                this._BGMusic.stop();
                 managers.Game.currentScene = config.Scene.PLAY2;
             }
-            console.log(managers.Game.upgrade);
         };
         // ---------- END UPDATE ------------
         // ---------- MAIN ------------
@@ -183,6 +198,7 @@ var scenes;
             //add boss health progress bar
             this.addChild(this._bossHealthBorder);
             this.addChild(this._bossHealthBar);
+            //add gem
             this.addChild(this._gem);
             // add dragons to this scene
             this._dragons.forEach(function (dragon) {
@@ -210,11 +226,13 @@ var scenes;
             });
             // this.on("click", this._Shoot);
             this.on("click", function () {
-                if (managers.Game.upgrade) {
-                    this._plane.BulletTriple();
-                }
-                else {
-                    this._plane.BulletFire();
+                if (this._scoreBoard.Lives > 0) {
+                    if (managers.Game.upgrade) {
+                        this._plane.BulletCombo();
+                    }
+                    else {
+                        this._plane.BulletFire();
+                    }
                 }
             });
         };

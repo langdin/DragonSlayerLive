@@ -75,9 +75,9 @@
         { id: "startBackground", src: "./Assets/images/startBackground.png" },
         { id: "titleImg", src: "./Assets/images/titleImg.png" },
         { id: "gameOverImg", src: "./Assets/images/gameOverImg.png" },
-        { id: "engine", src: "./Assets/audio/engine.ogg" },
-        { id: "planeShot", src: "./Assets/audio/planeShot.mp3" },
-        { id: "gameOverSound", src: "./Assets/audio/gameOverSound.mp3" }
+        { id: "BGMusic", src: "./Assets/audio/BGMusic.mp3" },
+        { id: "planeShot", src: "./Assets/audio/Shot.mp3" },
+        { id: "explosion", src: "./Assets/audio/explosion.mp3" }
     ];
     // preloads assets
     function Init() {

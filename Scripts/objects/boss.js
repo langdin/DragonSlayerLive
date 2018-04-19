@@ -32,10 +32,6 @@ var objects;
                 managers.Game.bulletManger.BossBullets[this._currentBullet].x = this.x + 230;
                 managers.Game.bulletManger.BossBullets[this._currentBullet].y = this.y - 50;
             }
-            else if (this._name == 'boss3') {
-                managers.Game.bulletManger.BossBullets[this._currentBullet].x = this.x + 230;
-                managers.Game.bulletManger.BossBullets[this._currentBullet].y = this.y - 50;
-            }
             this._currentBullet++;
             if (this._currentBullet > 29) {
                 this._currentBullet = 0;

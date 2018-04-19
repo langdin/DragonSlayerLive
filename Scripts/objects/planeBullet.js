@@ -12,6 +12,7 @@ var objects;
 (function (objects) {
     var PlaneBullet = /** @class */ (function (_super) {
         __extends(PlaneBullet, _super);
+        // Private Instance Variables
         // Public Properties
         // Constructors
         function PlaneBullet() {
@@ -33,20 +34,14 @@ var objects;
         };
         PlaneBullet.prototype.Move = function () {
             this.y -= this._dy;
-            this.x += this._direction;
         };
         PlaneBullet.prototype.Start = function () {
             this._dy = 8;
-            this._direction = 0;
             this.Reset();
         };
         // Updates the Object every frame
         PlaneBullet.prototype.Update = function () {
             this.Move();
-        };
-        PlaneBullet.prototype.SetDirection = function (dir) {
-            if (dir === void 0) { dir = 0; }
-            this._direction = dir;
         };
         return PlaneBullet;
     }(objects.GameObject));
