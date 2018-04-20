@@ -8,7 +8,7 @@ module managers {
       let P1 = new math.Vec2(object1.x, object1.y);
       let P2 = new math.Vec2(object2.x, object2.y);
       if (object2.name == "boss1" || object2.name == "boss2") {
-        P2 = new math.Vec2(object2.x, object2.y - 110);
+        P2 = new math.Vec2(object2.x, object2.y - 99);
       }
       // check if there is a collision
       if (math.Vec2.Distance(P1, P2) < (object1.halfHeight + object2.halfHeight)) {

@@ -35,7 +35,7 @@ module managers {
         public Start(): void {
             // set the default bullet count
             this._bulletCount = 50;
-            this._dragonBulletCount = 30;
+            this._dragonBulletCount = 50;
             this._bossBulletCount = 30;
             // create the bullet container
             this.Bullets = new Array<objects.PlaneBullet>();

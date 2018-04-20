@@ -28,10 +28,11 @@ var scenes;
             this._BGMusic = createjs.Sound.play("BGMusic");
             this._BGMusic.loop = -1;
             this._BGMusic.volume = 0.3;
-            this._gem = new objects.Coin();
+            this._weapon = new objects.Coin();
             this._bulletManager = new managers.Bullet();
             managers.Game.bulletManger = this._bulletManager;
-            this._bossHealth = 100;
+            this._bossHealth = 70;
+            this._bossCurrentHealth = 70;
             // progress bar for boss health
             this._bossHealthBar = new createjs.Shape().set({ x: 20, y: 400, scaleY: 1 });
             this._bossHealthBar.graphics.beginFill("red").drawRect(0, 0, 30, -200);
@@ -42,12 +43,12 @@ var scenes;
             this._fireBackground = new objects.FireBackground(this.assetManager);
             this._plane = new objects.Plane();
             managers.Game.plane = this._plane;
-            this._dragonsNumber = 5;
+            this._dragonsNumber = 6;
             this, this._dragons = new Array();
             var grid = 0;
             for (var i = 0; i < this._dragonsNumber; i++) {
                 this._dragons[i] = new objects.Dragon(grid, Math.random() * 250);
-                grid += 160;
+                grid += 133;
             }
             this._boss = new objects.Boss1("boss2");
             this._scoreBoard = managers.Game.scoreBoardManager;
@@ -55,6 +56,7 @@ var scenes;
             this._expCount = 0;
             this._bossKilled = false;
             this._dragonsKilled = 0;
+            this._dragonsKillGoal = 30;
             this.alpha = 0;
             this._fadeIn = false;
             this.Main();
@@ -63,7 +65,7 @@ var scenes;
         // ---------- UPDATE ------------
         PlayScene2.prototype.Update = function () {
             var _this = this;
-            if (this._dragonsKilled < 1) {
+            if (this._dragonsKilled < this._dragonsKillGoal) {
                 this._fireBackground.Update();
             }
             if (this.alpha < 1 && !this._fadeIn) {
@@ -72,9 +74,9 @@ var scenes;
             }
             this._fadeIn = true;
             this._plane.Update();
-            this._gem.Update();
-            if (managers.Collision.Check(this._plane, this._gem)) {
-                this._gem.Reset();
+            this._weapon.Update();
+            if (managers.Collision.Check(this._plane, this._weapon)) {
+                this._weapon.Reset();
             }
             // check collision between plane and dragon
             this._dragons.forEach(function (dragon) {
@@ -82,32 +84,30 @@ var scenes;
                 if (managers.Collision.Check(dragon, _this._plane)) {
                     dragon.RemoveFromScreen();
                 }
-                if (_this._dragonsKilled >= 1) {
+                if (_this._dragonsKilled >= _this._dragonsKillGoal) {
                     dragon.StopSpawn();
                 }
             });
             //make boss come down and atack
-            if (this._dragonsKilled >= 1) {
+            if (this._dragonsKilled >= this._dragonsKillGoal) {
                 console.log('boss time');
                 this._bossHealthBorder.alpha = 1;
                 this._bossHealthBar.alpha = 1;
                 var ticker_1 = createjs.Ticker.getTicks();
-                if (ticker_1 > 500) {
-                    this._boss.Update();
-                }
-                if (ticker_1 % 90 == 0 && this._boss.y >= 179) {
+                this._boss.Update();
+                if (ticker_1 % 90 == 0 && this._boss.y >= 179 && !this._bossKilled) {
                     this._boss.FireAtack();
                 }
             }
             this._bulletManager.Update();
             //check collision player bullets with boss
             this._bulletManager.Bullets.forEach(function (bullet) {
-                if (_this._boss.x == 400 && _this._boss.y >= 170 && managers.Collision.Check(bullet, _this._boss)) {
-                    _this._bossHealth--;
+                if (_this._boss.x == 400 && _this._boss.y >= 180 && managers.Collision.Check(bullet, _this._boss)) {
+                    _this._bossCurrentHealth--;
                     if (_this._bossHealth >= 0) {
-                        _this._bossHealthBar.set({ scaleY: _this._bossHealth / 50 });
+                        _this._bossHealthBar.set({ scaleY: _this._bossCurrentHealth / _this._bossHealth });
                     }
-                    if (_this._bossHealth == 0) {
+                    if (_this._bossCurrentHealth <= 0) {
                         //this._boss.RemoveFromScreen();
                         //this.removeChild(this._boss);
                         _this._bossKilled = true;
@@ -121,8 +121,8 @@ var scenes;
                     if (managers.Collision.Check(this._bulletManager.Bullets[i], this._dragons[j])) {
                         //if havent upgrated weapon yet
                         if (!managers.Game.upgrade && this._dragonsKilled == 15) {
-                            this._gem.x = this._dragons[j].x;
-                            this._gem.y = this._dragons[j].y;
+                            this._weapon.x = this._dragons[j].x;
+                            this._weapon.y = this._dragons[j].y;
                         }
                         //move dragon and bullet out of canvas
                         this._bulletManager.Bullets[i].Reset();
@@ -158,7 +158,6 @@ var scenes;
                 if (this._bossKilled) {
                     var ticker_2 = createjs.Ticker.getTicks();
                     if (ticker_2 % 7 == 0 && this._expCount < 20) {
-                        //TODO added explosion only on this level
                         this._explosions[this._expCount] = new objects.smallExplosion();
                         this._explosions[this._expCount].x = this._boss.x - this._boss.width / 3 + Math.random() * 2 / 3 * this._boss.width;
                         this._explosions[this._expCount].y = this._boss.y - this._boss.height / 3 + Math.random() * 2 / 3 * this._boss.height;
@@ -190,7 +189,7 @@ var scenes;
             this.addChild(this._bossHealthBorder);
             this.addChild(this._bossHealthBar);
             //add gem
-            this.addChild(this._gem);
+            this.addChild(this._weapon);
             // add dragons to this scene
             this._dragons.forEach(function (dragon) {
                 _this.addChild(dragon);

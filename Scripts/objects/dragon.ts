@@ -5,6 +5,7 @@ module objects {
     private _posY: number;
     private _stopSpawn: boolean;
     private _currentBullet: number;
+    private _pos: number;
 
     // Public Properties
 
@@ -25,7 +26,7 @@ module objects {
     // Initialization
     public Reset(): void {
       if (!this._stopSpawn) {
-        this.x = (Math.random() * (160 - this.width)) + this.halfWidth + this._posX;
+        this.x = (Math.random() * (this._pos - this.width)) + this.halfWidth + this._posX;
         this.y = -this.height;
         //this.y = -(this.height + this._posY) - 20;
         //console.log("spawn")
@@ -57,8 +58,15 @@ module objects {
     }
 
     public Start(): void {
+      if(managers.Game.currentScene == config.Scene.PLAY) {
+        this._pos = 160
+      } else if(managers.Game.currentScene == config.Scene.PLAY2) {
+        this._pos = 133
+      } else if(managers.Game.currentScene == config.Scene.PLAY3) {
+        this._pos = 114;
+      }
       this._dy = 2;
-      this._currentBullet = this._posX/160;
+      this._currentBullet = this._posX/this._pos;
       this.Reset();
     }
 
@@ -72,8 +80,8 @@ module objects {
       managers.Game.bulletManger.DragonBullets[this._currentBullet].x = this.x - 5;
       managers.Game.bulletManger.DragonBullets[this._currentBullet].y = this.y + this.halfHeight + 10;
       this._currentBullet += 5
-      if(this._currentBullet > 19) {
-        this._currentBullet = this._posX/160;
+      if(this._currentBullet > 49) {
+        this._currentBullet = this._posX/this._pos;
       }
     }
   }

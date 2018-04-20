@@ -16,7 +16,6 @@ var objects;
         // Constructors
         function Boss1(name) {
             var _this = _super.call(this, name) || this;
-            _this._name = name;
             _this.Start();
             return _this;
         }
@@ -24,11 +23,11 @@ var objects;
         Boss1.prototype._Fire = function (direction) {
             managers.Game.bulletManger.BossBullets[this._currentBullet].SetDirectoin(direction);
             managers.Game.bulletManger.BossBullets[this._currentBullet].simpleShot = this._simpleShot;
-            if (this._name == 'boss1') {
+            if (this.name == 'boss1') {
                 managers.Game.bulletManger.BossBullets[this._currentBullet].x = this.x + 120;
                 managers.Game.bulletManger.BossBullets[this._currentBullet].y = this.y - 50;
             }
-            else if (this._name == 'boss2') {
+            else if (this.name == 'boss2') {
                 managers.Game.bulletManger.BossBullets[this._currentBullet].x = this.x + 230;
                 managers.Game.bulletManger.BossBullets[this._currentBullet].y = this.y - 50;
             }
@@ -43,9 +42,15 @@ var objects;
             this.x = 400;
         };
         Boss1.prototype.CheckBounds = function () {
-            // check the bottom border
-            if (this.y >= -this.height) {
-                this.Reset();
+            if (this.name == 'boss1') {
+                if (this.y >= 140) {
+                    this.y = 140;
+                }
+            }
+            else if (this.name == 'boss2') {
+                if (this.y >= 180) {
+                    this.y = 180;
+                }
             }
         };
         Boss1.prototype.Move = function () {
@@ -53,8 +58,13 @@ var objects;
         };
         Boss1.prototype.Start = function () {
             this._dy = 3;
-            this.x = -2000;
-            this.y = -this.height - 20;
+            this.x = 400;
+            if (this.name == 'boss1') {
+                this.y = -500;
+            }
+            else if (this.name == 'boss2') {
+                this.y = -600;
+            }
             this._currentBullet = 0;
             this._direction = 0;
             this._directionIncrement = 2;
@@ -62,16 +72,7 @@ var objects;
         };
         // Updates the Object every frame
         Boss1.prototype.Update = function () {
-            if (this._name == 'boss1') {
-                if (this.y < 140) {
-                    this.Move();
-                }
-            }
-            else if (this._name == 'boss2') {
-                if (this.y < 180) {
-                    this.Move();
-                }
-            }
+            this.Move();
             this.CheckBounds();
         };
         Boss1.prototype.RemoveFromScreen = function () {
@@ -80,13 +81,13 @@ var objects;
         };
         //TODO fore boss3 make shooting multiple patterns
         Boss1.prototype.FireAtack = function () {
-            if (this._name == 'boss1') {
+            if (this.name == 'boss1') {
                 this._simpleShot = true;
                 this._Fire(this._direction);
                 this._Fire(this._direction + 2);
                 this._Fire(this._direction + -2);
             }
-            else if (this._name == 'boss2') {
+            else if (this.name == 'boss2') {
                 this._simpleShot = false;
                 this._Fire(this._direction - 2);
                 this._Fire(this._direction - 4);
