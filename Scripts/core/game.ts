@@ -81,10 +81,16 @@
     { id: "fireBackground", src: "./Assets/images/fireBackground.jpg" }, 
     { id: "lava", src: "./Assets/images/lava.jpg" },
     { id: "startBackground", src: "./Assets/images/startBackground.png" },
+    { id: "gameOver", src: "./Assets/images/gameOver.jpg" },
     { id: "titleImg", src: "./Assets/images/titleImg.png" },
     { id: "gameOverImg", src: "./Assets/images/gameOverImg.png" },
     { id: "BGMusic", src: "./Assets/audio/BGMusic.mp3" },
     { id: "planeShot", src: "./Assets/audio/Shot.mp3" },
+    { id: "gemSound", src: "./Assets/audio/gem.mp3" },
+    { id: "gameover", src: "./Assets/audio/GameoverOne.wav" },
+    { id: "intro", src: "./Assets/audio/Introduction.mp3" },
+    { id: "win", src: "./Assets/audio/Win.mp3" },
+    { id: "caution", src: "./Assets/audio/caution.mp3" },
     { id: "explosion", src: "./Assets/audio/explosion.mp3" }
   ];
 

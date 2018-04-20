@@ -29,7 +29,7 @@ module scenes {
     public Start(): void {
       //this._gameOverSound = createjs.Sound.play("gameOverSound");
       //this._gameOverSound.volume = .3;
-      this._overBackground = new createjs.Bitmap(this.assetManager.getResult("startBackground"));
+      this._overBackground = new createjs.Bitmap(this.assetManager.getResult("gameOver"));
       this._gameOverImg = new objects.GameOverImg(this.assetManager);
       this._restartButton = new objects.Button("restartButton", 400, 400);
       this._scoreBoard = managers.Game.scoreBoardManager;

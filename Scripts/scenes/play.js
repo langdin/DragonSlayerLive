@@ -65,7 +65,7 @@ var scenes;
             this._expCount = 0;
             this._bossKilled = false;
             this._dragonsKilled = 0;
-            this._dragonsKillGoal = 1;
+            this._dragonsKillGoal = 20;
             this.alpha = 0;
             this._fadeIn = false;
             this.Main();
@@ -85,6 +85,7 @@ var scenes;
             this._plane.Update();
             this._weapon.Update();
             if (managers.Collision.Check(this._plane, this._weapon)) {
+                var gemSound = createjs.Sound.play("gemSound");
                 this._weapon.Reset();
             }
             // check collision between plane and dragon
@@ -187,7 +188,7 @@ var scenes;
             //if boss killed and scene faded go to next scene
             if (this._bossKilled && this.alpha <= 0) {
                 this._BGMusic.stop();
-                managers.Game.currentScene = config.Scene.PLAY3;
+                managers.Game.currentScene = config.Scene.PLAY2;
             }
         };
         // ---------- END UPDATE ------------

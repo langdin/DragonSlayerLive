@@ -123,7 +123,7 @@ module scenes {
       this._boss1Killed = false;
       this._boss2Killed = false;
       this._dragonsKilled = 0;
-      this._dragonsKillGoal = 1;
+      this._dragonsKillGoal = 35;
       this.alpha = 0;
       this._fadeIn = false;
       this.Main();
@@ -147,6 +147,7 @@ module scenes {
 
       this._weapon.Update();
       if(managers.Collision.Check(this._plane, this._weapon)) {
+        let gemSound = createjs.Sound.play("gemSound");
         this._weapon.Reset();
       }
 

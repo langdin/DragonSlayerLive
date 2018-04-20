@@ -76,6 +76,7 @@ var scenes;
             this._plane.Update();
             this._weapon.Update();
             if (managers.Collision.Check(this._plane, this._weapon)) {
+                var gemSound = createjs.Sound.play("gemSound");
                 this._weapon.Reset();
             }
             // check collision between plane and dragon

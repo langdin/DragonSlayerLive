@@ -106,7 +106,7 @@ module scenes {
 
       this._bossKilled = false;
       this._dragonsKilled = 0;
-      this._dragonsKillGoal = 1;
+      this._dragonsKillGoal = 20;
       this.alpha = 0;
       this._fadeIn = false;
       this.Main();
@@ -130,6 +130,7 @@ module scenes {
       this._plane.Update();
       this._weapon.Update();
       if (managers.Collision.Check(this._plane, this._weapon)) {
+        let gemSound = createjs.Sound.play("gemSound");
         this._weapon.Reset();
       }
 
@@ -246,7 +247,7 @@ module scenes {
       //if boss killed and scene faded go to next scene
       if (this._bossKilled && this.alpha <= 0) {
         this._BGMusic.stop();
-        managers.Game.currentScene = config.Scene.PLAY3;
+        managers.Game.currentScene = config.Scene.PLAY2;
       }
     }
 

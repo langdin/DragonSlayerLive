@@ -45,7 +45,7 @@ var objects;
         // Public Methods
         // Initialization
         FireBackground.prototype.Start = function () {
-            this._dy = 5; // move 5 pixels down every frame
+            this._dy = 4; // move 5 pixels down every frame
             this._Reset();
         };
         // Updates the Object every frame

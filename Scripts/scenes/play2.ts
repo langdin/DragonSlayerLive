@@ -120,6 +120,7 @@ module scenes {
 
       this._weapon.Update();
       if(managers.Collision.Check(this._plane, this._weapon)) {
+        let gemSound = createjs.Sound.play("gemSound");
         this._weapon.Reset();
       }
 
