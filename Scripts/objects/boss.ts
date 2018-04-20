@@ -87,16 +87,31 @@ module objects {
 
     //TODO fore boss3 make shooting multiple patterns
     public FireAtack(): void {
-      if (this.name == 'boss1') {
+      if(managers.Game.currentScene == config.Scene.PLAY) {
         this._simpleShot = true;
         this._Fire(this._direction);
         this._Fire(this._direction + 2);
         this._Fire(this._direction + -2);
-      } else if (this.name == 'boss2') {
+      } else if(managers.Game.currentScene == config.Scene.PLAY2) {
         this._simpleShot = false;
         this._Fire(this._direction - 2);
         this._Fire(this._direction - 4);
         this._Fire(this._direction);
+      } else if(managers.Game.currentScene == config.Scene.PLAY3) {
+        if (this.name == 'boss1') {
+          this._simpleShot = true;
+          this._Fire(this._direction);
+          this._Fire(this._direction + 2);
+          this._Fire(this._direction - 2);
+          this._Fire(this._direction + 4);
+          this._Fire(this._direction - 4);
+        } else if (this.name == 'boss2') {
+          this._simpleShot = false;
+          this._Fire(this._direction - 2);
+          this._Fire(this._direction - 4);
+          this._Fire(this._direction - 6);
+          this._Fire(this._direction);
+        }
       }
       this._direction += this._directionIncrement;
       if (this._direction == 2) {

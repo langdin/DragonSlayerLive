@@ -68,7 +68,7 @@ var scenes;
             this._boss1Killed = false;
             this._boss2Killed = false;
             this._dragonsKilled = 0;
-            this._dragonsKillGoal = 40;
+            this._dragonsKillGoal = 1;
             this.alpha = 0;
             this._fadeIn = false;
             this.Main();

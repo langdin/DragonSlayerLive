@@ -104,7 +104,7 @@ var scenes;
             this._bulletManager.Bullets.forEach(function (bullet) {
                 if (_this._boss.x == 400 && _this._boss.y >= 180 && managers.Collision.Check(bullet, _this._boss)) {
                     _this._bossCurrentHealth--;
-                    if (_this._bossHealth >= 0) {
+                    if (_this._bossCurrentHealth >= 0) {
                         _this._bossHealthBar.set({ scaleY: _this._bossCurrentHealth / _this._bossHealth });
                     }
                     if (_this._bossCurrentHealth <= 0) {

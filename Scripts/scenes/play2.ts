@@ -153,7 +153,7 @@ module scenes {
       this._bulletManager.Bullets.forEach(bullet => {
         if (this._boss.x == 400 && this._boss.y >= 180 && managers.Collision.Check(bullet, this._boss)) {
           this._bossCurrentHealth--;
-          if(this._bossHealth >= 0) {
+          if(this._bossCurrentHealth >= 0) {
             this._bossHealthBar.set({ scaleY: this._bossCurrentHealth / this._bossHealth });
           }
           if (this._bossCurrentHealth <= 0) {

@@ -106,7 +106,7 @@ module scenes {
 
       this._bossKilled = false;
       this._dragonsKilled = 0;
-      this._dragonsKillGoal = 20;
+      this._dragonsKillGoal = 1;
       this.alpha = 0;
       this._fadeIn = false;
       this.Main();
@@ -246,7 +246,7 @@ module scenes {
       //if boss killed and scene faded go to next scene
       if (this._bossKilled && this.alpha <= 0) {
         this._BGMusic.stop();
-        managers.Game.currentScene = config.Scene.PLAY2;
+        managers.Game.currentScene = config.Scene.PLAY3;
       }
     }
 
