@@ -165,6 +165,7 @@ module scenes {
       this._weapon.Update();
       if(managers.Collision.Check(this._plane, this._weapon)) {
         let gemSound = createjs.Sound.play("gemSound");
+        this._weaponUp.alpha = 1;
         this._weapon.Reset();
       }
       if(this._weaponUp.alpha > 0) {
@@ -174,7 +175,9 @@ module scenes {
       this._health.Update();
       if (managers.Collision.Check(this._plane, this._health)) {
         let healthSound = createjs.Sound.play("gemSound");
-        this._healthUp.alpha = 1;
+        if(this._scoreBoard.Lives < 5) {
+          this._healthUp.alpha = 1;
+        }
         this._health.Reset();
       }
       if(this._healthUp.alpha > 0) {
@@ -242,9 +245,7 @@ module scenes {
       //check collision player bullets with boss2
       this._bulletManager.Bullets.forEach(bullet => {
         if (this._boss2.x == 400 && this._boss2.y >= 180 && managers.Collision.Check(bullet, this._boss2)) {
-          
           this._boss2CurrentHealth--;
-          console.log(this._boss2CurrentHealth);
           if(this._boss2CurrentHealth >= 0) {
             this._boss2HealthBar.set({ scaleY: this._boss2CurrentHealth / this._boss2Health });
           }
@@ -328,6 +329,7 @@ module scenes {
           if(ticker % 300 == 0) {
             this._boss1.RemoveFromScreen();
             this.removeChild(this._boss1);
+            this._expCount = 0;
           }
       }
 
@@ -421,6 +423,10 @@ module scenes {
       this._bulletManager.BossBullets.forEach(bullet => {
         this.addChild(bullet);
       });
+
+
+      this.addChild(this._healthUp);
+      this.addChild(this._weaponUp);
 
       this.on("click", function() {
         if (this._scoreBoard.Lives > 0) {

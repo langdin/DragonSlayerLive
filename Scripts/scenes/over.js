@@ -21,13 +21,19 @@ var scenes;
         }
         // Private Mathods
         OverScene.prototype._backButtonClick = function () {
+            this._BGMusic.stop();
             managers.Game.currentScene = config.Scene.PLAY;
         };
         // Public Methods
         // Initialize Game Variables and objects
         OverScene.prototype.Start = function () {
-            //this._gameOverSound = createjs.Sound.play("gameOverSound");
-            //this._gameOverSound.volume = .3;
+            if (managers.Game.scoreBoardManager.Lives == 0) {
+                this._BGMusic = createjs.Sound.play("gameover");
+            }
+            else {
+                this._BGMusic = createjs.Sound.play("win");
+            }
+            this._BGMusic.volume = 0.3;
             this._overBackground = new createjs.Bitmap(this.assetManager.getResult("gameOver"));
             this._gameOverImg = new objects.GameOverImg(this.assetManager);
             this._restartButton = new objects.Button("restartButton", 400, 400);

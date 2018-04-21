@@ -19,7 +19,7 @@ var managers;
                     switch (object2.name) {
                         case "player":
                             if (managers.Game.scoreBoardManager.Lives > 0) {
-                                managers.Game.scoreBoardManager.Lives -= 1;
+                                //managers.Game.scoreBoardManager.Lives -= 1;
                                 explosion = new objects.smallExplosion();
                                 explosion.x = object1.x;
                                 explosion.y = object1.y;

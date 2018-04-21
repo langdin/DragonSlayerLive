@@ -2,7 +2,6 @@ module scenes {
     export class Instructions extends objects.Scene {
       // Private Instance Variables
       private _startBackground: createjs.Bitmap;
-      private _titleImg: objects.TitleImg;
       private _startButton: objects.Button;
       private _load: createjs.Shape;
   
@@ -29,9 +28,8 @@ module scenes {
         this._load = new createjs.Shape();
         this._load.x = 20;
         this._load.y = 400;
-        this._titleImg = new objects.TitleImg(this.assetManager);
-        this._startButton = new objects.Button("playNowButton", 400, 400);
-        this._startBackground = new createjs.Bitmap(this.assetManager.getResult("startBackground"));
+        this._startButton = new objects.Button("startButton", 380, 510);
+        this._startBackground = new createjs.Bitmap(this.assetManager.getResult("tutorial"));
         managers.Game.fade = false;
         this.Main();
       }
@@ -55,7 +53,6 @@ module scenes {
         this.addChild(this._startBackground);
   
         // add title image
-        this.addChild(this._titleImg);
   
         // add the startButton to the scene
         this.addChild(this._startButton);

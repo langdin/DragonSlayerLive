@@ -6,6 +6,7 @@ module scenes {
     private _restartButton: objects.Button;
     private _gameOverSound: createjs.AbstractSoundInstance;
     private _scoreBoard: managers.ScoreBoard;
+    private _BGMusic: createjs.AbstractSoundInstance;
 
     // Public Properties
 
@@ -19,6 +20,7 @@ module scenes {
     // Private Mathods
 
     private _backButtonClick():void {
+      this._BGMusic.stop();
       managers.Game.currentScene = config.Scene.PLAY;
     }
 
@@ -27,8 +29,12 @@ module scenes {
 
     // Initialize Game Variables and objects
     public Start(): void {
-      //this._gameOverSound = createjs.Sound.play("gameOverSound");
-      //this._gameOverSound.volume = .3;
+      if(managers.Game.scoreBoardManager.Lives == 0) {
+        this._BGMusic = createjs.Sound.play("gameover");
+      } else {
+        this._BGMusic = createjs.Sound.play("win");
+      }
+      this._BGMusic.volume = 0.3;
       this._overBackground = new createjs.Bitmap(this.assetManager.getResult("gameOver"));
       this._gameOverImg = new objects.GameOverImg(this.assetManager);
       this._restartButton = new objects.Button("restartButton", 400, 400);

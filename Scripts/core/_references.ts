@@ -36,4 +36,6 @@
 /// <reference path="../../Scripts/scenes/play3.ts"/>
 /// <reference path="../../Scripts/scenes/play2.ts"/>
 /// <reference path="../../Scripts/scenes/play.ts"/>
+/// <reference path="../../Scripts/scenes/instructions.ts"/>
+/// <reference path="../../Scripts/scenes/intro.ts"/>
 /// <reference path="../../Scripts/scenes/start.ts"/>

@@ -34,6 +34,7 @@ module scenes {
     private _expCount: number;
 
     private _BGMusic: createjs.AbstractSoundInstance;
+    //private _cautionSound: createjs.AbstractSoundInstance;
 
     private _healthUp: objects.Label;
     private _weaponUp: objects.Label;
@@ -159,7 +160,9 @@ module scenes {
       this._health.Update();
       if (managers.Collision.Check(this._plane, this._health)) {
         let healthSound = createjs.Sound.play("gemSound");
-        this._healthUp.alpha = 1;
+        if(this._scoreBoard.Lives < 5) {
+          this._healthUp.alpha = 1;
+        }
         this._health.Reset();
       }
       if(this._healthUp.alpha > 0) {
@@ -181,6 +184,9 @@ module scenes {
       //make boss come down and atack
       if (this._dragonsKilled >= this._dragonsKillGoal) {
         console.log('boss time');
+        //this._cautionSound = createjs.Sound.play("caution");
+        //this._cautionSound.loop = -1;
+        //this._cautionSound.volume = 0.2;
         let ticker: number = createjs.Ticker.getTicks();
         this._bossHealthBorder.alpha = 1;
         this._bossHealthBar.alpha = 1;

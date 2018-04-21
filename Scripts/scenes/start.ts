@@ -41,7 +41,7 @@ module scenes {
         this.alpha -= 0.025;
       }
       if(this.alpha <= 0) {
-        managers.Game.currentScene = config.Scene.PLAY;
+        managers.Game.currentScene = config.Scene.INTRO;
       }
       let ticker: number = createjs.Ticker.getTicks();
       let i = ticker*5;

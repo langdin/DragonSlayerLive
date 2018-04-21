@@ -88,6 +88,7 @@ var scenes;
             this._weapon.Update();
             if (managers.Collision.Check(this._plane, this._weapon)) {
                 var gemSound = createjs.Sound.play("gemSound");
+                this._weaponUp.alpha = 1;
                 this._weapon.Reset();
             }
             if (this._weaponUp.alpha > 0) {
@@ -96,7 +97,9 @@ var scenes;
             this._health.Update();
             if (managers.Collision.Check(this._plane, this._health)) {
                 var healthSound = createjs.Sound.play("gemSound");
-                this._healthUp.alpha = 1;
+                if (this._scoreBoard.Lives < 5) {
+                    this._healthUp.alpha = 1;
+                }
                 this._health.Reset();
             }
             if (this._healthUp.alpha > 0) {
@@ -254,6 +257,8 @@ var scenes;
             this._bulletManager.BossBullets.forEach(function (bullet) {
                 _this.addChild(bullet);
             });
+            this.addChild(this._healthUp);
+            this.addChild(this._weaponUp);
             this.on("click", function () {
                 if (this._scoreBoard.Lives > 0) {
                     if (managers.Game.upgrade) {

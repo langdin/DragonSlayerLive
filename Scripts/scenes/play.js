@@ -106,7 +106,9 @@ var scenes;
             this._health.Update();
             if (managers.Collision.Check(this._plane, this._health)) {
                 var healthSound = createjs.Sound.play("gemSound");
-                this._healthUp.alpha = 1;
+                if (this._scoreBoard.Lives < 5) {
+                    this._healthUp.alpha = 1;
+                }
                 this._health.Reset();
             }
             if (this._healthUp.alpha > 0) {
@@ -125,6 +127,9 @@ var scenes;
             //make boss come down and atack
             if (this._dragonsKilled >= this._dragonsKillGoal) {
                 console.log('boss time');
+                //this._cautionSound = createjs.Sound.play("caution");
+                //this._cautionSound.loop = -1;
+                //this._cautionSound.volume = 0.2;
                 var ticker_1 = createjs.Ticker.getTicks();
                 this._bossHealthBorder.alpha = 1;
                 this._bossHealthBar.alpha = 1;

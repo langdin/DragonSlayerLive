@@ -99,6 +99,7 @@ var scenes;
             this._weapon.Update();
             if (managers.Collision.Check(this._plane, this._weapon)) {
                 var gemSound = createjs.Sound.play("gemSound");
+                this._weaponUp.alpha = 1;
                 this._weapon.Reset();
             }
             if (this._weaponUp.alpha > 0) {
@@ -107,7 +108,9 @@ var scenes;
             this._health.Update();
             if (managers.Collision.Check(this._plane, this._health)) {
                 var healthSound = createjs.Sound.play("gemSound");
-                this._healthUp.alpha = 1;
+                if (this._scoreBoard.Lives < 5) {
+                    this._healthUp.alpha = 1;
+                }
                 this._health.Reset();
             }
             if (this._healthUp.alpha > 0) {
@@ -167,7 +170,6 @@ var scenes;
             this._bulletManager.Bullets.forEach(function (bullet) {
                 if (_this._boss2.x == 400 && _this._boss2.y >= 180 && managers.Collision.Check(bullet, _this._boss2)) {
                     _this._boss2CurrentHealth--;
-                    console.log(_this._boss2CurrentHealth);
                     if (_this._boss2CurrentHealth >= 0) {
                         _this._boss2HealthBar.set({ scaleY: _this._boss2CurrentHealth / _this._boss2Health });
                     }
@@ -240,6 +242,7 @@ var scenes;
                 if (ticker_3 % 300 == 0) {
                     this._boss1.RemoveFromScreen();
                     this.removeChild(this._boss1);
+                    this._expCount = 0;
                 }
             }
             //fade scene after boss killed
@@ -317,6 +320,8 @@ var scenes;
             this._bulletManager.BossBullets.forEach(function (bullet) {
                 _this.addChild(bullet);
             });
+            this.addChild(this._healthUp);
+            this.addChild(this._weaponUp);
             this.on("click", function () {
                 if (this._scoreBoard.Lives > 0) {
                     if (managers.Game.upgrade) {

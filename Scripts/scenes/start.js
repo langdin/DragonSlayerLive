@@ -41,7 +41,7 @@ var scenes;
                 this.alpha -= 0.025;
             }
             if (this.alpha <= 0) {
-                managers.Game.currentScene = config.Scene.PLAY;
+                managers.Game.currentScene = config.Scene.INTRO;
             }
             var ticker = createjs.Ticker.getTicks();
             var i = ticker * 5;
