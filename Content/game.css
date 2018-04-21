@@ -1,6 +1,7 @@
 #canvas {
   border: 1px black dotted;
   background-color: #000000;
+  margin-left: 17%;
 }
 
 @font-face {
