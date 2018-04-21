@@ -372,7 +372,7 @@ var managers;
                     switch (object2.name) {
                         case "player":
                             if (managers.Game.scoreBoardManager.Lives > 0) {
-                                managers.Game.scoreBoardManager.Lives -= 1;
+                                //managers.Game.scoreBoardManager.Lives -= 1;
                                 explosion = new objects.smallExplosion();
                                 explosion.x = object1.x;
                                 explosion.y = object1.y;
@@ -613,7 +613,7 @@ var objects;
                 this._pos = 133;
             }
             else if (managers.Game.currentScene == config.Scene.PLAY3) {
-                this._pos = 114;
+                this._pos = 133;
             }
             this._dy = 2;
             this._currentBullet = this._posX / this._pos;
@@ -845,7 +845,7 @@ var objects;
                 managers.Game.bulletManger.CurrentBullet = 0;
             }
             var planeShotSound = createjs.Sound.play("planeShot");
-            //planeShotSound.volume = 0.1;
+            planeShotSound.volume = 0.2;
         };
         Plane.prototype.BulletCombo = function () {
             this.BulletFire(true);
@@ -1070,7 +1070,6 @@ var scenes;
         }
         // Private Mathods
         OverScene.prototype._backButtonClick = function () {
-            this._BGMusic.stop();
             managers.Game.currentScene = config.Scene.PLAY;
         };
         // Public Methods
@@ -1078,14 +1077,15 @@ var scenes;
         OverScene.prototype.Start = function () {
             if (managers.Game.scoreBoardManager.Lives == 0) {
                 this._BGMusic = createjs.Sound.play("gameover");
+                this._gameOverImg = new objects.GameOverImg(this.assetManager);
+                this._overBackground = new createjs.Bitmap(this.assetManager.getResult("gameOver"));
             }
             else {
                 this._BGMusic = createjs.Sound.play("win");
+                this._overBackground = new createjs.Bitmap(this.assetManager.getResult("winBG"));
             }
             this._BGMusic.volume = 0.3;
-            this._overBackground = new createjs.Bitmap(this.assetManager.getResult("gameOver"));
-            this._gameOverImg = new objects.GameOverImg(this.assetManager);
-            this._restartButton = new objects.Button("restartButton", 400, 400);
+            this._restartButton = new objects.Button("restartButton", 400, 450);
             this._scoreBoard = managers.Game.scoreBoardManager;
             this.alpha = 0;
             this.Main();
@@ -1104,7 +1104,9 @@ var scenes;
             // add the baclButton to the scene
             this.addChild(this._restartButton);
             this.addChild(this._scoreBoard.HighScoreLabel);
-            this._restartButton.on("click", this._backButtonClick);
+            this._restartButton.on("click", function () {
+                managers.Game.currentScene = config.Scene.PLAY;
+            });
         };
         return OverScene;
     }(objects.Scene));
@@ -1163,12 +1165,12 @@ var scenes;
             //weapon up label
             this._weaponUp = new objects.Label("weapon up", "10px", "rockwell", "#FFFF00", this._plane.x, this._plane.y - 45, false);
             this._weaponUp.alpha = 0;
-            this._dragonsNumber = 7;
+            this._dragonsNumber = 6;
             this, this._dragons = new Array();
             var grid = 0;
             for (var i = 0; i < this._dragonsNumber; i++) {
                 this._dragons[i] = new objects.Dragon(grid, Math.random() * 250);
-                grid += 114;
+                grid += 133;
             }
             this._scoreBoard = managers.Game.scoreBoardManager;
             this._explosions = new Array();
@@ -1210,7 +1212,7 @@ var scenes;
             this._health.Update();
             if (managers.Collision.Check(this._plane, this._health)) {
                 var healthSound = createjs.Sound.play("gemSound");
-                if (this._scoreBoard.Lives < 5) {
+                if (this._scoreBoard.Lives <= 5) {
                     this._healthUp.alpha = 1;
                 }
                 this._health.Reset();
@@ -1230,9 +1232,11 @@ var scenes;
             });
             //make boss come down and atack after small dragons killed
             if (this._dragonsKilled >= this._dragonsKillGoal) {
-                //console.log('boss1 time');
-                this._boss1HealthBorder.alpha = 1;
-                this._boss1HealthBar.alpha = 1;
+                console.log('boss1 time');
+                if (this._boss1.y >= 139) {
+                    this._boss1HealthBorder.alpha = 1;
+                    this._boss1HealthBar.alpha = 1;
+                }
                 var ticker_1 = createjs.Ticker.getTicks();
                 this._boss1.Update();
                 if (ticker_1 % 90 == 0 && this._boss1.y >= 140 && !this._boss1Killed) {
@@ -1242,8 +1246,10 @@ var scenes;
             //make boss come down and atack after boss1
             if (this._boss1Killed) {
                 console.log('boss2 time');
-                this._boss2HealthBorder.alpha = 1;
-                this._boss2HealthBar.alpha = 1;
+                if (this._boss1.y >= 139) {
+                    this._boss2HealthBorder.alpha = 1;
+                    this._boss2HealthBar.alpha = 1;
+                }
                 var ticker_2 = createjs.Ticker.getTicks();
                 this._boss2.Update();
                 if (ticker_2 % 90 == 0 && this._boss2.y >= 179 && !this._boss2Killed) {
@@ -1272,7 +1278,6 @@ var scenes;
             this._bulletManager.Bullets.forEach(function (bullet) {
                 if (_this._boss2.x == 400 && _this._boss2.y >= 180 && managers.Collision.Check(bullet, _this._boss2)) {
                     _this._boss2CurrentHealth--;
-                    console.log(_this._boss2CurrentHealth);
                     if (_this._boss2CurrentHealth >= 0) {
                         _this._boss2HealthBar.set({ scaleY: _this._boss2CurrentHealth / _this._boss2Health });
                     }
@@ -1529,7 +1534,7 @@ var scenes;
             this._health.Update();
             if (managers.Collision.Check(this._plane, this._health)) {
                 var healthSound = createjs.Sound.play("gemSound");
-                if (this._scoreBoard.Lives < 5) {
+                if (this._scoreBoard.Lives <= 5) {
                     this._healthUp.alpha = 1;
                 }
                 this._health.Reset();
@@ -1550,8 +1555,10 @@ var scenes;
             //make boss come down and atack
             if (this._dragonsKilled >= this._dragonsKillGoal) {
                 console.log('boss time');
-                this._bossHealthBorder.alpha = 1;
-                this._bossHealthBar.alpha = 1;
+                if (this._boss.y >= 179) {
+                    this._bossHealthBorder.alpha = 1;
+                    this._bossHealthBar.alpha = 1;
+                }
                 var ticker_5 = createjs.Ticker.getTicks();
                 this._boss.Update();
                 if (ticker_5 % 90 == 0 && this._boss.y >= 179 && !this._bossKilled) {
@@ -1804,7 +1811,7 @@ var scenes;
             this._health.Update();
             if (managers.Collision.Check(this._plane, this._health)) {
                 var healthSound = createjs.Sound.play("gemSound");
-                if (this._scoreBoard.Lives < 5) {
+                if (this._scoreBoard.Lives <= 5) {
                     this._healthUp.alpha = 1;
                 }
                 this._health.Reset();
@@ -1829,8 +1836,10 @@ var scenes;
                 //this._cautionSound.loop = -1;
                 //this._cautionSound.volume = 0.2;
                 var ticker_7 = createjs.Ticker.getTicks();
-                this._bossHealthBorder.alpha = 1;
-                this._bossHealthBar.alpha = 1;
+                if (this._boss.y >= 139) {
+                    this._bossHealthBorder.alpha = 1;
+                    this._bossHealthBar.alpha = 1;
+                }
                 this._boss.Update();
                 if (ticker_7 % 70 == 0 && this._boss.y >= 140 && !this._bossKilled) {
                     this._boss.FireAtack();
@@ -2009,8 +2018,7 @@ var scenes;
             this._load = new createjs.Shape();
             this._load.x = 20;
             this._load.y = 400;
-            this._titleImg = new objects.TitleImg(this.assetManager);
-            this._startButton = new objects.Button("playNowButton", 400, 400);
+            this._startButton = new objects.Button("startButton", 380, 510);
             this._startBackground = new createjs.Bitmap(this.assetManager.getResult("tutorial"));
             managers.Game.fade = false;
             this.Main();
@@ -2032,7 +2040,6 @@ var scenes;
             // add background of this page
             this.addChild(this._startBackground);
             // add title image
-            this.addChild(this._titleImg);
             // add the startButton to the scene
             this.addChild(this._startButton);
             this.addChild(this._load);
@@ -2064,9 +2071,8 @@ var scenes;
             this._load = new createjs.Shape();
             this._load.x = 20;
             this._load.y = 400;
-            this._titleImg = new objects.TitleImg(this.assetManager);
-            this._startButton = new objects.Button("playNowButton", 400, 400);
-            this._startBackground = new createjs.Bitmap(this.assetManager.getResult("intro"));
+            this._startButton = new objects.Button("nextButton", 400, 510);
+            this._startBackground = new createjs.Bitmap(this.assetManager.getResult("introduction"));
             managers.Game.fade = false;
             this.Main();
         };
@@ -2075,7 +2081,7 @@ var scenes;
                 this.alpha -= 0.025;
             }
             if (this.alpha <= 0) {
-                managers.Game.currentScene = config.Scene.PLAY;
+                managers.Game.currentScene = config.Scene.INSTRUCTION;
             }
             var ticker = createjs.Ticker.getTicks();
             var i = ticker * 5;
@@ -2087,7 +2093,6 @@ var scenes;
             // add background of this page
             this.addChild(this._startBackground);
             // add title image
-            this.addChild(this._titleImg);
             // add the startButton to the scene
             this.addChild(this._startButton);
             this.addChild(this._load);
@@ -2205,54 +2210,61 @@ var scenes;
             "./Assets/sprites/textureAtlas.png"
         ],
         "frames": [
-            [1, 1, 512, 295, 0, 0, 0],
-            [515, 1, 385, 259, 0, 0, 0],
-            [515, 262, 347, 108, 0, 0, 0],
-            [1, 298, 510, 298, 0, 0, 0],
-            [513, 372, 394, 259, 0, 0, 0],
-            [1, 598, 510, 295, 0, 0, 0],
-            [864, 262, 37, 37, 0, 0, 0],
-            [864, 301, 32, 28, 0, 0, 0],
-            [864, 331, 31, 29, 0, 0, 0],
-            [513, 633, 347, 108, 0, 0, 0],
-            [862, 633, 31, 29, 0, 0, 0],
-            [862, 664, 31, 29, 0, 0, 0],
-            [862, 695, 31, 29, 0, 0, 0],
-            [862, 726, 31, 29, 0, 0, 0],
-            [513, 743, 312, 272, 0, 0, 0],
-            [827, 743, 29, 29, 0, 0, 0],
-            [827, 774, 70, 65, 0, 0, 0],
-            [827, 841, 70, 58, 0, 0, 0],
-            [827, 901, 60, 49, 0, 0, 0],
-            [889, 901, 15, 29, 0, 0, 0],
-            [1, 895, 476, 301, 0, 0, 0],
-            [479, 1017, 421, 268, 0, 0, 0],
-            [1, 1198, 450, 396, 0, 0, 0],
-            [453, 1287, 434, 248, 0, 0, 0]
+            [1, 1, 450, 396, 0, 0, 0],
+            [1, 399, 510, 298, 0, 0, 0],
+            [1, 699, 347, 108, 0, 0, 0],
+            [1, 809, 347, 108, 0, 0, 0],
+            [350, 699, 347, 108, 0, 0, 0],
+            [350, 809, 347, 108, 0, 0, 0],
+            [453, 1, 503, 301, 0, 0, 0],
+            [453, 304, 70, 65, 0, 0, 0],
+            [513, 371, 512, 295, 0, 0, 0],
+            [513, 668, 31, 29, 0, 0, 0],
+            [546, 668, 31, 29, 0, 0, 0],
+            [579, 668, 31, 29, 0, 0, 0],
+            [612, 668, 31, 29, 0, 0, 0],
+            [645, 668, 31, 29, 0, 0, 0],
+            [678, 668, 32, 28, 0, 0, 0],
+            [525, 304, 70, 58, 0, 0, 0],
+            [597, 304, 60, 49, 0, 0, 0],
+            [659, 304, 37, 37, 0, 0, 0],
+            [698, 304, 35, 34, 0, 0, 0],
+            [698, 340, 29, 29, 0, 0, 0],
+            [729, 340, 15, 29, 0, 0, 0],
+            [712, 668, 434, 248, 0, 0, 0],
+            [958, 1, 510, 295, 0, 0, 0],
+            [1027, 298, 476, 301, 0, 0, 0],
+            [1470, 1, 394, 259, 0, 0, 0],
+            [1148, 601, 421, 268, 0, 0, 0],
+            [1505, 262, 385, 259, 0, 0, 0],
+            [1571, 523, 312, 272, 0, -22, -34]
         ],
         "animations": {
             "boss2": {
-                "frames": [22, 0, 5, 20, 3],
+                "frames": [0, 8, 22, 23, 1, 6],
                 "speed": 0.12
             },
-            "boss1": {
-                "frames": [14, 1, 4, 23, 21],
-                "speed": 0.12
-            },
-            "playNowButton": { "frames": [2] },
-            "bossBullet": { "frames": [6] },
-            "dragonBullet": { "frames": [7] },
-            "smallexplosion": {
-                "frames": [8, 10, 11, 12, 15, 13],
-                "speed": 0.5
-            },
-            "restartButton": { "frames": [9] },
+            "nextButton": { "frames": [2] },
+            "playNowButton": { "frames": [3] },
+            "restartButton": { "frames": [4] },
+            "startButton": { "frames": [5] },
             "player": {
-                "frames": [16, 17],
+                "frames": [7, 15],
                 "speed": 0.1
             },
-            "dragon": { "frames": [18] },
-            "planeBullet": { "frames": [19] }
+            "smallexplosion": {
+                "frames": [9, 10, 11, 12, 13, 19],
+                "speed": 0.5
+            },
+            "dragonBullet": { "frames": [14] },
+            "dragon": { "frames": [16] },
+            "bossBullet": { "frames": [17] },
+            "gem": { "frames": [18] },
+            "planeBullet": { "frames": [20] },
+            "boss1": {
+                "frames": [27, 26, 24, 21, 25],
+                "speed": 0.12
+            }
         }
     };
     assetManifest = [
@@ -2263,7 +2275,8 @@ var scenes;
         { id: "fire3", src: "./Assets/images/fire3.jpg" },
         { id: "startBackground", src: "./Assets/images/startBackground.png" },
         { id: "gameOver", src: "./Assets/images/gameOver.jpg" },
-        { id: "intro", src: "./Assets/images/introduction.jpg" },
+        { id: "winBG", src: "./Assets/images/winBG.jpg" },
+        { id: "introduction", src: "./Assets/images/introduction.jpg" },
         { id: "tutorial", src: "./Assets/images/tutorial.jpg" },
         { id: "titleImg", src: "./Assets/images/titleImg.png" },
         { id: "gameOverImg", src: "./Assets/images/gameOverImg.png" },

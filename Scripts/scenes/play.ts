@@ -188,8 +188,10 @@ module scenes {
         //this._cautionSound.loop = -1;
         //this._cautionSound.volume = 0.2;
         let ticker: number = createjs.Ticker.getTicks();
-        this._bossHealthBorder.alpha = 1;
-        this._bossHealthBar.alpha = 1;
+        if(this._boss.y >= 139) {
+          this._bossHealthBorder.alpha = 1;
+          this._bossHealthBar.alpha = 1;
+        }
         
         this._boss.Update();
         

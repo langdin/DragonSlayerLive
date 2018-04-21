@@ -174,8 +174,10 @@ module scenes {
       //make boss come down and atack
       if (this._dragonsKilled >= this._dragonsKillGoal) {
         console.log('boss time');
-        this._bossHealthBorder.alpha = 1;
-        this._bossHealthBar.alpha = 1;
+        if(this._boss.y >= 179) {
+          this._bossHealthBorder.alpha = 1;
+          this._bossHealthBar.alpha = 1;
+        }
         let ticker: number = createjs.Ticker.getTicks();
         this._boss.Update();
         if (ticker % 90 == 0 && this._boss.y >= 179 && !this._bossKilled) {

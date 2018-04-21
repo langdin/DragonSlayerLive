@@ -117,12 +117,12 @@ module scenes {
       this._weaponUp = new objects.Label("weapon up", "10px", "rockwell", "#FFFF00", this._plane.x, this._plane.y - 45 , false);
       this._weaponUp.alpha = 0;
 
-      this._dragonsNumber = 7;
+      this._dragonsNumber = 6;
       this, this._dragons = new Array<objects.Dragon>();
       let grid = 0;
       for (let i = 0; i < this._dragonsNumber; i++) {
         this._dragons[i] = new objects.Dragon(grid, Math.random() * 250);
-        grid += 114;
+        grid += 133;
       }
       
 
@@ -198,9 +198,11 @@ module scenes {
 
       //make boss come down and atack after small dragons killed
       if (this._dragonsKilled >= this._dragonsKillGoal) {
-        //console.log('boss1 time');
-        this._boss1HealthBorder.alpha = 1;
-        this._boss1HealthBar.alpha = 1;
+        console.log('boss1 time');
+        if(this._boss1.y >= 139) {
+          this._boss1HealthBorder.alpha = 1;
+          this._boss1HealthBar.alpha = 1;
+        }
         let ticker: number = createjs.Ticker.getTicks();
         this._boss1.Update();
         if (ticker % 90 == 0 && this._boss1.y >= 140 && !this._boss1Killed) {
@@ -211,8 +213,10 @@ module scenes {
       //make boss come down and atack after boss1
       if (this._boss1Killed) {
         console.log('boss2 time');
-        this._boss2HealthBorder.alpha = 1;
-        this._boss2HealthBar.alpha = 1;
+        if(this._boss1.y >= 139) {
+          this._boss2HealthBorder.alpha = 1;
+          this._boss2HealthBar.alpha = 1;
+        }
         let ticker: number = createjs.Ticker.getTicks();
         this._boss2.Update();
         if (ticker % 90 == 0 && this._boss2.y >= 179 && !this._boss2Killed) {

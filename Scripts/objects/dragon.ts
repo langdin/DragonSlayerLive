@@ -63,7 +63,7 @@ module objects {
       } else if(managers.Game.currentScene == config.Scene.PLAY2) {
         this._pos = 133
       } else if(managers.Game.currentScene == config.Scene.PLAY3) {
-        this._pos = 114;
+        this._pos = 133;
       }
       this._dy = 2;
       this._currentBullet = this._posX/this._pos;

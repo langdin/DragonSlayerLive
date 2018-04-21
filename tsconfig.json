@@ -1,7 +1,8 @@
 {
   "compilerOptions": {
-    "module": "commonjs",
+    "module": "system",
     "target": "es5",
-    "sourceMap": true
+    "sourceMap": true,
+    "outFile": "./Scripts/build/game.js"
   }
 }

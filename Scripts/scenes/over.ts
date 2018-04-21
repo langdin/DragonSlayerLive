@@ -28,9 +28,9 @@ module scenes {
 
     // Initialize Game Variables and objects
     public Start(): void {
-      this._gameOverImg = new objects.GameOverImg(this.assetManager);
       if(managers.Game.scoreBoardManager.Lives == 0) {
         this._BGMusic = createjs.Sound.play("gameover");
+        this._gameOverImg = new objects.GameOverImg(this.assetManager);
         this._overBackground = new createjs.Bitmap(this.assetManager.getResult("gameOver"));
       } else {
         this._BGMusic = createjs.Sound.play("win");
