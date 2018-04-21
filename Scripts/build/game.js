@@ -1136,10 +1136,10 @@ var scenes;
             this._health = new objects.Health();
             this._bulletManager = new managers.Bullet();
             managers.Game.bulletManger = this._bulletManager;
-            this._boss1Health = 80;
-            this._boss2Health = 100;
-            this._boss1CurrentHealth = 80;
-            this._boss2CurrentHealth = 100;
+            this._boss1Health = 70;
+            this._boss2Health = 80;
+            this._boss1CurrentHealth = 70;
+            this._boss2CurrentHealth = 80;
             // progress bar for boss1 health
             this._boss1HealthBar = new createjs.Shape().set({ x: 20, y: 400, scaleY: 1 });
             this._boss1HealthBar.graphics.beginFill("red").drawRect(0, 0, 30, -200);
