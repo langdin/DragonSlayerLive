@@ -27,16 +27,17 @@ var scenes;
         // Public Methods
         // Initialize Game Variables and objects
         OverScene.prototype.Start = function () {
+            this._gameOverImg = new objects.GameOverImg(this.assetManager);
             if (managers.Game.scoreBoardManager.Lives == 0) {
                 this._BGMusic = createjs.Sound.play("gameover");
+                this._overBackground = new createjs.Bitmap(this.assetManager.getResult("gameOver"));
             }
             else {
                 this._BGMusic = createjs.Sound.play("win");
+                this._overBackground = new createjs.Bitmap(this.assetManager.getResult("winBG"));
             }
             this._BGMusic.volume = 0.3;
-            this._overBackground = new createjs.Bitmap(this.assetManager.getResult("gameOver"));
-            this._gameOverImg = new objects.GameOverImg(this.assetManager);
-            this._restartButton = new objects.Button("restartButton", 400, 400);
+            this._restartButton = new objects.Button("restartButton", 400, 450);
             this._scoreBoard = managers.Game.scoreBoardManager;
             this.alpha = 0;
             this.Main();

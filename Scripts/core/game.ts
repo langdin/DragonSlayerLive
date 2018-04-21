@@ -91,6 +91,7 @@
     { id: "fire3", src: "./Assets/images/fire3.jpg" },
     { id: "startBackground", src: "./Assets/images/startBackground.png" },
     { id: "gameOver", src: "./Assets/images/gameOver.jpg" },
+    { id: "winBG", src: "./Assets/images/winBG.jpg" },
     { id: "introduction", src: "./Assets/images/introduction.jpg" },
     { id: "tutorial", src: "./Assets/images/tutorial.jpg" },
     { id: "titleImg", src: "./Assets/images/titleImg.png" },
