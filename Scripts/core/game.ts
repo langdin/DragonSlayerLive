@@ -78,8 +78,10 @@
 
   assetManifest = [
     { id: "gem", src: "./Assets/images/gem.png" }, 
+    { id: "heart", src: "./Assets/images/life.png" }, 
     { id: "fireBackground", src: "./Assets/images/fireBackground.jpg" }, 
     { id: "lava", src: "./Assets/images/lava.jpg" },
+    { id: "fire3", src: "./Assets/images/fire3.jpg" },
     { id: "startBackground", src: "./Assets/images/startBackground.png" },
     { id: "gameOver", src: "./Assets/images/gameOver.jpg" },
     { id: "titleImg", src: "./Assets/images/titleImg.png" },

@@ -23,7 +23,7 @@ var objects;
                 _this = _super.call(this, assetManager.getResult("lava")) || this;
             }
             else if (managers.Game.currentScene == config.Scene.PLAY3) {
-                _this = _super.call(this, assetManager.getResult("lava")) || this;
+                _this = _super.call(this, assetManager.getResult("fire3")) || this;
             }
             _this.Start();
             return _this;
@@ -45,7 +45,7 @@ var objects;
         // Public Methods
         // Initialization
         FireBackground.prototype.Start = function () {
-            this._dy = 4; // move 5 pixels down every frame
+            this._dy = 5; // move 5 pixels down every frame
             this._Reset();
         };
         // Updates the Object every frame

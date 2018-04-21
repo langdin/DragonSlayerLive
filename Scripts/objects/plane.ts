@@ -2,13 +2,13 @@ module objects {
   export class Plane extends objects.GameObject {
     // Private Instance Variables
 
-
     // Public Properties
 
 
     // Constructors
     constructor() {
       super("player");
+      
       this.Start();
     }
 
@@ -46,7 +46,6 @@ module objects {
     public Move(): void {
       // mouse control
       this.x = managers.Game.stage.mouseX;
-
       // keyboard controls
       //if(objects.Game.keyboardManager.moveLeft) {
       //  this.x -= 6;

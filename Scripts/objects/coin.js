@@ -42,7 +42,7 @@ var objects;
         Coin.prototype.CheckBounds = function () {
         };
         Coin.prototype.Move = function () {
-            this.y += 2;
+            this.y += 1;
         };
         Coin.prototype.Reset = function () {
             this.x = -1000;

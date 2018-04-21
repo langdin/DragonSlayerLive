@@ -25,11 +25,11 @@ var scenes;
         // Initialize Game Variables and objects
         PlayScene3.prototype.Start = function () {
             // setup background sound
-            this._ticker = createjs.Ticker.getTicks();
             this._BGMusic = createjs.Sound.play("BGMusic");
             this._BGMusic.loop = -1;
             this._BGMusic.volume = 0.3;
             this._weapon = new objects.Coin();
+            this._health = new objects.Health();
             this._bulletManager = new managers.Bullet();
             managers.Game.bulletManger = this._bulletManager;
             this._boss1Health = 80;
@@ -55,6 +55,12 @@ var scenes;
             this._fireBackground = new objects.FireBackground(this.assetManager);
             this._plane = new objects.Plane();
             managers.Game.plane = this._plane;
+            //health up label
+            this._healthUp = new objects.Label("health up", "10px", "rockwell", "#FFFF00", this._plane.x, this._plane.y - 45, false);
+            this._healthUp.alpha = 0;
+            //weapon up label
+            this._weaponUp = new objects.Label("weapon up", "10px", "rockwell", "#FFFF00", this._plane.x, this._plane.y - 45, false);
+            this._weaponUp.alpha = 0;
             this._dragonsNumber = 7;
             this, this._dragons = new Array();
             var grid = 0;
@@ -86,10 +92,26 @@ var scenes;
             }
             this._fadeIn = true;
             this._plane.Update();
+            this._healthUp.x = this._plane.x;
+            this._healthUp.y = this._plane.y - 45;
+            this._weaponUp.x = this._plane.x;
+            this._weaponUp.y = this._plane.y - 45;
             this._weapon.Update();
             if (managers.Collision.Check(this._plane, this._weapon)) {
                 var gemSound = createjs.Sound.play("gemSound");
                 this._weapon.Reset();
+            }
+            if (this._weaponUp.alpha > 0) {
+                this._weaponUp.alpha -= 0.005;
+            }
+            this._health.Update();
+            if (managers.Collision.Check(this._plane, this._health)) {
+                var healthSound = createjs.Sound.play("gemSound");
+                this._healthUp.alpha = 1;
+                this._health.Reset();
+            }
+            if (this._healthUp.alpha > 0) {
+                this._healthUp.alpha -= 0.005;
             }
             // check collision between plane and dragon
             this._dragons.forEach(function (dragon) {
@@ -165,9 +187,14 @@ var scenes;
                 for (var j = 0; j < this._dragons.length; j++) {
                     if (managers.Collision.Check(this._bulletManager.Bullets[i], this._dragons[j])) {
                         //if havent upgrated weapon yet
-                        if (!managers.Game.upgrade && this._dragonsKilled == 15) {
+                        if (!managers.Game.upgrade && this._dragonsKilled == 17) {
                             this._weapon.x = this._dragons[j].x;
                             this._weapon.y = this._dragons[j].y;
+                        }
+                        if (this._dragonsKilled == 28) {
+                            //TODO health up
+                            this._health.x = this._dragons[j].x;
+                            this._health.y = this._dragons[j].y;
                         }
                         //move dragon and bullet out of canvas
                         this._bulletManager.Bullets[i].Reset();
@@ -217,14 +244,24 @@ var scenes;
             }
             //fade scene after boss killed
             if ((this._scoreBoard.Lives <= 0 || this._boss2Killed == true) && this.alpha > 0) {
+                var ticker_4 = createjs.Ticker.getTicks();
                 if (this._boss2Killed) {
                     console.log('boss2 killed');
-                    var ticker_4 = createjs.Ticker.getTicks();
                     if (ticker_4 % 7 == 0 && this._expCount < 20) {
                         //TODO added explosion only on this level
                         this._explosions[this._expCount] = new objects.smallExplosion();
                         this._explosions[this._expCount].x = this._boss2.x - this._boss2.width / 3 + Math.random() * 2 / 3 * this._boss2.width;
                         this._explosions[this._expCount].y = this._boss2.y - this._boss2.height / 3 + Math.random() * 2 / 3 * this._boss2.height;
+                        managers.Game.currentSceneObject.addChild(this._explosions[this._expCount]);
+                        createjs.Sound.play("explosion");
+                        this._expCount++;
+                    }
+                }
+                else if (this._scoreBoard.Lives <= 0) {
+                    if (ticker_4 % 7 == 0 && this._expCount < 20) {
+                        this._explosions[this._expCount] = new objects.smallExplosion();
+                        this._explosions[this._expCount].x = this._plane.x - this._plane.width / 3 + Math.random() * 2 / 3 * this._plane.width;
+                        this._explosions[this._expCount].y = this._plane.y - this._plane.height / 3 + Math.random() * 2 / 3 * this._plane.height;
                         managers.Game.currentSceneObject.addChild(this._explosions[this._expCount]);
                         createjs.Sound.play("explosion");
                         this._expCount++;
@@ -253,6 +290,7 @@ var scenes;
             this.addChild(this._boss2HealthBar);
             //add gem
             this.addChild(this._weapon);
+            this.addChild(this._health);
             // add dragons to this scene
             this._dragons.forEach(function (dragon) {
                 _this.addChild(dragon);

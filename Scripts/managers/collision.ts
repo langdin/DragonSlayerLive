@@ -39,6 +39,12 @@ module managers {
               managers.Game.scoreBoardManager.Score += 300;
               managers.Game.upgrade = true;
               break;
+            case "heart":
+            if (managers.Game.scoreBoardManager.Lives > 0 && managers.Game.scoreBoardManager.Lives < 5) {
+              managers.Game.scoreBoardManager.Score += 300;
+              managers.Game.scoreBoardManager.Lives += 1;
+            }
+            break;
             case "boss1":
             case "boss2":
               managers.Game.scoreBoardManager.Score += 200;

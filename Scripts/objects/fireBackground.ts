@@ -12,7 +12,7 @@ module objects {
         } else if(managers.Game.currentScene == config.Scene.PLAY2) {
           super(assetManager.getResult("lava"));
         } else if(managers.Game.currentScene == config.Scene.PLAY3) {
-          super(assetManager.getResult("lava"));
+          super(assetManager.getResult("fire3"));
         }
         
         this.Start();
@@ -39,7 +39,7 @@ module objects {
   
       // Initialization
       public Start():void {
-        this._dy = 4; // move 5 pixels down every frame
+        this._dy = 5; // move 5 pixels down every frame
         this._Reset();
       }
   

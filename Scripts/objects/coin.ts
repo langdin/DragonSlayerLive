@@ -43,7 +43,7 @@ module objects {
     }
 
     public Move(): void {
-      this.y += 2;
+      this.y += 1;
     }
 
     public Reset(): void {
