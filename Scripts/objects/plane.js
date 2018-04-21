@@ -86,7 +86,7 @@ var objects;
                 managers.Game.bulletManger.CurrentBullet = 0;
             }
             var planeShotSound = createjs.Sound.play("planeShot");
-            //planeShotSound.volume = 0.1;
+            planeShotSound.volume = 0.2;
         };
         Plane.prototype.BulletCombo = function () {
             this.BulletFire(true);

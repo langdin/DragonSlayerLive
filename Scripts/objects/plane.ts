@@ -91,7 +91,7 @@ module objects {
         managers.Game.bulletManger.CurrentBullet = 0;
       }
       let planeShotSound = createjs.Sound.play("planeShot");
-      //planeShotSound.volume = 0.1;
+      planeShotSound.volume = 0.2;
     }
 
     public BulletCombo(): void {

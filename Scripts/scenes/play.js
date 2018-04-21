@@ -106,7 +106,7 @@ var scenes;
             this._health.Update();
             if (managers.Collision.Check(this._plane, this._health)) {
                 var healthSound = createjs.Sound.play("gemSound");
-                if (this._scoreBoard.Lives < 5) {
+                if (this._scoreBoard.Lives <= 5) {
                     this._healthUp.alpha = 1;
                 }
                 this._health.Reset();

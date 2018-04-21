@@ -21,7 +21,6 @@ var scenes;
         }
         // Private Mathods
         OverScene.prototype._backButtonClick = function () {
-            this._BGMusic.stop();
             managers.Game.currentScene = config.Scene.PLAY;
         };
         // Public Methods
@@ -56,7 +55,9 @@ var scenes;
             // add the baclButton to the scene
             this.addChild(this._restartButton);
             this.addChild(this._scoreBoard.HighScoreLabel);
-            this._restartButton.on("click", this._backButtonClick);
+            this._restartButton.on("click", function () {
+                managers.Game.currentScene = config.Scene.PLAY;
+            });
         };
         return OverScene;
     }(objects.Scene));

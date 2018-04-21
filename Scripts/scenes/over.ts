@@ -20,7 +20,6 @@ module scenes {
     // Private Mathods
 
     private _backButtonClick():void {
-      this._BGMusic.stop();
       managers.Game.currentScene = config.Scene.PLAY;
     }
 
@@ -63,7 +62,9 @@ module scenes {
 
       this.addChild(this._scoreBoard.HighScoreLabel);
 
-      this._restartButton.on("click", this._backButtonClick);
+      this._restartButton.on("click", function() {
+        managers.Game.currentScene = config.Scene.PLAY;
+      });
     }
   }
 }
