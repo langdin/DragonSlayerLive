@@ -2,6 +2,12 @@
 ## Link
 https://langdin.github.io/DragonSlayerLive/
 
+## Screenshots
+
+![screenshot1](https://github.com/langdin/DragonSlayerLive/blob/master/Assets/ds1.PNG)
+
+![screenshot2](https://github.com/langdin/DragonSlayerLive/blob/master/Assets/Screenshot%20(3).png)
+
 ## Game Overview 
 * The player controls a spaceship and shoots while avoiding enemy fire.
 * A single hit from enemy will result in the loss of lives of the player’s character. 
@@ -10,7 +16,7 @@ https://langdin.github.io/DragonSlayerLive/
 * The basic gameplay tends to be straightforward and many games offset this with boss battles and a variety of weapons.
 
 ## Game Play Mechanics
-	Move by mouse and shoot on right click 
+Move by mouse and shoot on right click 
   
 ## Levels: 
 * Level 1: Player will start with the origin weapon. The small dragons will stand in lines and keep shooting at the player. Try to kill the small dragons and the boss. After the player beats the boss, he will go to the next level.
